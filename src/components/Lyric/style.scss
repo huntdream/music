@@ -1,0 +1,25 @@
+.lyric {
+  height: calc(100vh - 128px);
+  overflow: hidden;
+
+  &-name {
+    text-align: center;
+  }
+
+  &-content {
+    text-align: center;
+    font-size: 20px;
+    color: #665f5f;
+    overflow: auto;
+    height: calc(100% - 29px);
+  }
+
+  &-sentence {
+    margin: 16px 0;
+
+    &--hl {
+      font-weight: 500;
+      color: #333;
+    }
+  }
+}

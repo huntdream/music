@@ -1,0 +1,159 @@
+.playlist {
+  margin: 24px 56px;
+
+  &-info {
+    display: flex;
+  }
+
+  &-cover {
+    width: 240px;
+    height: 240px;
+    border-radius: 6px;
+    margin-right: 24px;
+  }
+
+  &-detail {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-stats {
+    color: #666;
+    font-size: 14px;
+  }
+
+  &-desc {
+    margin-top: auto;
+    margin-bottom: 32px;
+  }
+
+  &-action {
+    margin-left: auto;
+    align-self: flex-end;
+    margin-bottom: 20px;
+  }
+
+  &-tracks {
+    margin-top: 25px;
+  }
+
+  &-track {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    height: 48px;
+    border-bottom: 1px solid #eee;
+
+    &-cover {
+      margin-right: 24px;
+      width: 32px;
+      height: 32px;
+
+      &-img {
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+      }
+    }
+
+    &-info {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      flex-wrap: wrap;
+    }
+
+    &-name {
+      flex: 6 1 0;
+      display: flex;
+      overflow: hidden;
+    }
+
+    &-aral {
+      flex: 9 1 0;
+      display: flex;
+      color: #666;
+      align-items: center;
+      min-width: 0;
+    }
+
+    &-artists {
+      flex: 1;
+      margin-left: 18px;
+    }
+
+    &-artist {
+      text-decoration: none;
+      color: #666;
+      position: relative;
+
+      &:not(:last-child) {
+        margin-right: 8px;
+
+        &::after {
+          content: '/';
+          margin: 0 2px;
+          position: absolute;
+        }
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &-album {
+      flex: 1;
+      margin-left: 18px;
+    }
+
+    &-duration {
+      width: 54px;
+      text-align: end;
+      margin-left: 18px;
+      color: #666;
+    }
+  }
+}
+
+@media (max-width: 936px) {
+  .playlist {
+    &-track {
+      height: 56px;
+
+      &-name {
+        flex-basis: 100%;
+      }
+
+      &-aral {
+        display: inline-flex;
+        font-size: 14px;
+        margin-top: 3px;
+        flex-basis: 1px;
+      }
+
+      &-artists {
+        margin-left: 0;
+        flex: 1;
+        max-width: max-content;
+      }
+
+      &-album {
+        margin-left: 0;
+        flex: 1;
+        max-width: max-content;
+
+        &::before {
+          content: '•';
+          margin: 0 4px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 626px) {
+  .playlist {
+    margin: 24px 16px;
+  }
+}

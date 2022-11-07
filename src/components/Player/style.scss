@@ -1,0 +1,241 @@
+.player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transform: translateY(100%);
+  transition: transform 0.2s ease-in-out;
+
+  &-visible {
+    transform: translateY(0);
+  }
+
+  &-inner {
+    display: grid;
+    grid-template-columns: 0fr 1fr 0fr;
+    grid-template-areas: 'start middle end';
+    height: 64px;
+  }
+
+  &-song {
+    grid-area: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+
+    &-cover {
+      margin-right: 14px;
+      width: 40px;
+      height: 40px;
+
+      &-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+      }
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-name {
+      flex: 6 1 0;
+      display: flex;
+      overflow: hidden;
+    }
+
+    &-aral {
+      flex: 9 1 0;
+      display: flex;
+      color: #666;
+      align-items: center;
+      min-width: 0;
+    }
+
+    &-artists {
+      font-size: 14px;
+    }
+
+    &-artist {
+      text-decoration: none;
+      color: #666;
+      position: relative;
+
+      &:not(:last-child) {
+        margin-right: 8px;
+
+        &::after {
+          content: '/';
+          margin: 0 2px;
+          position: absolute;
+        }
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &-album {
+      font-size: 14px;
+
+      &::before {
+        content: '•';
+        margin: 0 4px;
+      }
+    }
+  }
+
+  &-largeicon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+
+    g {
+      fill: #000;
+    }
+  }
+
+  &-normalicon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+
+    g {
+      fill: #000;
+    }
+  }
+
+  &-left-controls {
+    width: 160px;
+    grid-area: start;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  &-right-controls {
+    width: 241px;
+    grid-area: end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 16px;
+  }
+
+  &-playlist {
+    position: absolute;
+    right: 0;
+    bottom: 64px;
+    width: 400px;
+    height: 600px;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.12);
+    overflow: auto;
+    background-color: #fff;
+    z-index: 1000;
+    border-radius: 6px;
+
+    &-track {
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      height: 48px;
+      border-bottom: 1px solid #eee;
+
+      &-cover {
+        margin-right: 24px;
+        width: 32px;
+        height: 32px;
+
+        &-img {
+          width: 32px;
+          height: 32px;
+          border-radius: 4px;
+        }
+      }
+
+      &-info {
+        display: flex;
+        flex: 1;
+        min-width: 0;
+        flex-wrap: wrap;
+      }
+
+      &-name {
+        flex: 6 1 0;
+        display: flex;
+        overflow: hidden;
+        flex-basis: 100%;
+      }
+
+      &-aral {
+        flex: 9 1 0;
+        color: #666;
+        align-items: center;
+        min-width: 0;
+        display: inline-flex;
+        font-size: 14px;
+        margin-top: 3px;
+        flex-basis: 1px;
+      }
+
+      &-artists {
+        margin-left: 0;
+        flex: 1;
+        max-width: max-content;
+      }
+
+      &-artist {
+        text-decoration: none;
+        color: #666;
+        position: relative;
+
+        &:not(:last-child) {
+          margin-right: 8px;
+
+          &::after {
+            content: '/';
+            margin: 0 2px;
+            position: absolute;
+          }
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &-album {
+        margin-left: 0;
+        flex: 1;
+        max-width: max-content;
+
+        &::before {
+          content: '•';
+          margin: 0 4px;
+        }
+      }
+
+      &-duration {
+        width: 54px;
+        text-align: end;
+        margin-left: 18px;
+        color: #666;
+        display: none;
+      }
+
+      &:hover & {
+        &-duration {
+          display: block;
+        }
+      }
+    }
+  }
+}
