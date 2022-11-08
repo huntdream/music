@@ -52,14 +52,14 @@ const Playlist: React.FC<Props> = () => {
             {playlist.trackCount}首歌曲，时长{totalTime}
           </div>
           <div className='playlist-desc'>{playlist.description}</div>
-        </div>
-        <div className='playlist-action'>
-          <Space>
-            <Button type='primary' onClick={handlePlayList}>
-              播放
-            </Button>
-            <Button onClick={handleAppendQueue}>加入播放列表</Button>
-          </Space>
+          <div className='playlist-action'>
+            <Space>
+              <Button type='primary' onClick={handlePlayList}>
+                播放
+              </Button>
+              <Button onClick={handleAppendQueue}>加入播放列表</Button>
+            </Space>
+          </div>
         </div>
       </div>
       <div className='playlist-tracks'>

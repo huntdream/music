@@ -3,6 +3,7 @@
 
   &-info {
     display: flex;
+    flex-wrap: wrap;
   }
 
   &-cover {
@@ -28,9 +29,7 @@
   }
 
   &-action {
-    margin-left: auto;
     align-self: flex-end;
-    margin-bottom: 20px;
   }
 
   &-tracks {
