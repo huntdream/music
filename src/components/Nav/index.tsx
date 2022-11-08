@@ -1,4 +1,4 @@
-import { Avatar, Modal } from 'antd';
+import { Avatar, Button, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import cls from 'classnames';
@@ -14,7 +14,7 @@ interface Props {}
 
 const Nav: React.FC<Props> = () => {
   const [showQr, setShowQr] = useState(false);
-  const [, setUser] = useUser();
+  const [user, setUser] = useUser();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Nav: React.FC<Props> = () => {
     }, 500);
   };
 
-  const handleUserClick = () => {
+  const handleLogin = () => {
     if (data) {
     } else {
       setShowQr(true);
@@ -68,10 +68,16 @@ const Nav: React.FC<Props> = () => {
       <NavLink to='/moments' className='nav-link'>
         Moments
       </NavLink>
-      <div className='nav-user' onClick={handleUserClick}>
-        <Avatar src={data?.avatarUrl} />
-        <span className='nav-user-name'>{data?.nickname}</span>
-      </div>
+      {user?.userId ? (
+        <div className='nav-user'>
+          <Avatar src={data?.avatarUrl} />
+          <span className='nav-user-name'>{data?.nickname}</span>
+        </div>
+      ) : (
+        <Button onClick={handleLogin} className='nav-login'>
+          Log in
+        </Button>
+      )}
       <Modal
         title='二维码登录'
         open={showQr}

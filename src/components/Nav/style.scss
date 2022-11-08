@@ -28,6 +28,11 @@
     }
   }
 
+  &-login {
+    position: absolute;
+    right: 12px;
+  }
+
   &-link {
     margin: 0 16px;
     text-decoration: none;
@@ -42,6 +47,14 @@
     &.active,
     &:hover {
       color: #333;
+    }
+  }
+}
+
+@media (max-width: 626px) {
+  .nav {
+    &-user-name {
+      display: none;
     }
   }
 }
