@@ -1,4 +1,4 @@
-import { Avatar } from 'antd';
+import { Avatar, Spin } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 import fetcher from '../../utils/fetcher';
@@ -98,8 +98,10 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
           <Avatar src={status.avatarUrl} size={64} />
           <div className='login-nickname'>{status.nickname}</div>
         </>
-      ) : (
+      ) : qrImg ? (
         <img src={qrImg} className='login-qr-img' alt='QR' />
+      ) : (
+        <Spin />
       )}
       <div className='login-qr-status'>{status?.message}</div>
     </div>
