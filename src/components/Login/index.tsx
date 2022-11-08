@@ -66,6 +66,9 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
   const getQrCode = () => {
     fetcher('/login/qr/key', {
       withCredentials: false,
+      params: {
+        timestamp: Date.now(),
+      },
     }).then((res) => {
       if (res.data.code === 200) {
         setQrKey(res.data.unikey);
