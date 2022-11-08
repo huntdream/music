@@ -26,7 +26,6 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
       params: {
         timestamp: new Date().getTime(),
       },
-      withCredentials: false,
     }).then((res) => {
       if (res.code === 803) {
         if (onSuccess) {
