@@ -37,17 +37,16 @@ const Nav: React.FC<Props> = () => {
       return res.profile;
     });
 
-  const { data } = useSWR<IUser>(`/user/account`, getAccount);
+  useSWR<IUser>(`/user/account`, getAccount);
 
   const handleLoginSuccess = () => {
     setTimeout(() => {
       setShowQr(false);
-      getAccount('/user/account');
     }, 500);
   };
 
   const handleLogin = () => {
-    if (data) {
+    if (user?.userId) {
     } else {
       setShowQr(true);
     }
@@ -70,8 +69,8 @@ const Nav: React.FC<Props> = () => {
       </NavLink>
       {user?.userId ? (
         <div className='nav-user'>
-          <Avatar src={data?.avatarUrl} />
-          <span className='nav-user-name'>{data?.nickname}</span>
+          <Avatar src={user?.avatarUrl} />
+          <span className='nav-user-name'>{user?.nickname}</span>
         </div>
       ) : (
         <Button onClick={handleLogin} className='nav-login'>

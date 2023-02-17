@@ -1,6 +1,8 @@
 import { Avatar, Spin } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
+import { useUser } from '../../context/App';
+import { IUser } from '../../types/user';
 import fetcher from '../../utils/fetcher';
 import './style.scss';
 
@@ -19,6 +21,8 @@ interface Props {
 const Login: React.FC<Props> = ({ onSuccess }) => {
   const [qrKey, setQrKey] = useState('');
   const [qrImg, setQrImg] = useState('');
+  const [, setUser] = useUser();
+
   const prevStatus = useRef<any>();
 
   const checkLoginStatus = (url: string) => {
@@ -31,6 +35,15 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
         if (onSuccess) {
           onSuccess();
         }
+
+        fetcher<any, { profile: IUser }>('/user/account', {
+          params: {
+            timestamp: new Date().getTime(),
+          },
+        }).then((res) => {
+          setUser(res.profile);
+          return res.profile;
+        });
 
         if (prevStatus.current?.code === 802) {
           const { nickname, avatarUrl } = prevStatus.current;
