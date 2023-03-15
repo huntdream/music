@@ -1,0 +1,65 @@
+.song {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  height: 48px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+
+  &-cover {
+    margin-right: 16px;
+    width: 36px;
+    height: 36px;
+
+    &-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 4px;
+    }
+  }
+
+  &-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    font-size: 14px;
+  }
+
+  &-name {
+    flex: 6 1 0;
+    display: flex;
+    overflow: hidden;
+  }
+
+  &-aral {
+    flex: 9 1 0;
+    display: flex;
+    color: #666;
+    align-items: center;
+    min-width: 0;
+  }
+
+  &-artists {
+    flex: 1;
+    margin-top: 2px;
+  }
+
+  &-artist {
+    text-decoration: none;
+    color: #666;
+    position: relative;
+
+    &:not(:last-child) {
+      margin-right: 8px;
+
+      &::after {
+        content: '/';
+        margin: 0 2px;
+        position: absolute;
+      }
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

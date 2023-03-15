@@ -4,7 +4,7 @@ const fetcher = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
       ? 'https://ncmusic.vercel.app'
-      : 'http://localhost:3000',
+      : 'https://ncmusic.vercel.app',
   withCredentials: true,
 });
 

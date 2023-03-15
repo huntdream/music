@@ -82,7 +82,7 @@ const Player: React.FC<Props> = () => {
           <div className='player-song-cover'>
             <img
               className='player-song-cover-img'
-              src={`${playingSong?.al.picUrl}?param=50y50`}
+              src={`${playingSong?.al?.picUrl}?param=50y50`}
               alt=''
             />
           </div>
@@ -94,7 +94,7 @@ const Player: React.FC<Props> = () => {
             </div>
             <div className='player-song-aral'>
               <div className='player-song-artists ellipsis'>
-                {playingSong?.ar.map((ar) => (
+                {playingSong?.ar?.map((ar) => (
                   <Link
                     to={`/artist/${ar.id}`}
                     className='player-song-artist'
@@ -107,9 +107,9 @@ const Player: React.FC<Props> = () => {
               </div>
               <div
                 className='player-song-album ellipsis'
-                title={playingSong?.al.name}
+                title={playingSong?.al?.name}
               >
-                {playingSong?.al.name}
+                {playingSong?.al?.name}
               </div>
             </div>
           </div>
@@ -132,7 +132,7 @@ const Player: React.FC<Props> = () => {
               <div className='player-playlist-track-cover'>
                 <img
                   className='player-playlist-track-cover-img'
-                  src={`${track.al.picUrl}?param=50y50`}
+                  src={`${track?.al?.picUrl}?param=50y50`}
                   alt=''
                 />
               </div>
@@ -144,7 +144,7 @@ const Player: React.FC<Props> = () => {
                 </div>
                 <div className='player-playlist-track-aral'>
                   <div className='player-playlist-track-artists ellipsis'>
-                    {track.ar.map((ar) => (
+                    {track?.ar?.map((ar) => (
                       <Link
                         to={`/artist/${ar.id}`}
                         className='player-playlist-track-artist'

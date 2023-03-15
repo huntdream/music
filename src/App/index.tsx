@@ -5,6 +5,7 @@ import Config from '../Config';
 import Library from '../components/Library';
 import Playlist from '../Playlist';
 import Lyric from '../components/Lyric';
+import Moment from '../components/Moments';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'lyric/:id',
         element: <Lyric />,
+      },
+      {
+        path: 'moments',
+        element: <Moment />,
       },
     ],
   },

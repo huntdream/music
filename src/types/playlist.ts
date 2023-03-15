@@ -41,6 +41,7 @@ export interface IPlaylist extends IPlaylistsItem {
 }
 
 export interface ITrack {
+  bMusic: any;
   id: number;
   name: string;
   publishTime: number;
