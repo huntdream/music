@@ -10,6 +10,7 @@ import Login from '../Login';
 import './style.scss';
 import User from '../User';
 import Modal from '../Modal';
+import Button from '../Button';
 
 interface Props {}
 
@@ -73,9 +74,9 @@ const Nav: React.FC<Props> = () => {
           <User user={user} />
         </div>
       ) : (
-        <button onClick={handleLogin} className='nav-login'>
+        <Button onClick={handleLogin} className='nav-login'>
           Log in
-        </button>
+        </Button>
       )}
       <Modal
         title='二维码登录'

@@ -7,6 +7,7 @@ import React from 'react';
 import useSWRInfinite from 'swr/infinite';
 import User from '../User';
 import { IComments } from '../../types/comment';
+import Button from '../Button';
 
 interface Props {}
 
@@ -53,13 +54,13 @@ const Comment: React.FC<Props> = () => {
           ))
         )}
       </div>
-      <button
+      <Button
         onClick={() => {
           setSize(size + 1);
         }}
       >
         Load More
-      </button>
+      </Button>
     </div>
   );
 };

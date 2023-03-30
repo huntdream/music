@@ -6,6 +6,7 @@ import { msToHours, msToMinutes } from '../utils/msConvert';
 import './style.scss';
 import usePlayer from '../context/App/usePlayer';
 import { ITrack } from '../types/playlist';
+import Button from '../components/Button';
 
 interface Props {}
 
@@ -52,9 +53,11 @@ const Playlist: React.FC<Props> = () => {
           </div>
           <div className='playlist-desc'>{playlist.description}</div>
           <div className='playlist-action'>
-            <div>
-              <button onClick={handlePlayList}>播放</button>
-              <button onClick={handleAppendQueue}>加入播放列表</button>
+            <div className='space-x-4'>
+              <Button onClick={handlePlayList} pirmary>
+                播放
+              </Button>
+              <Button onClick={handleAppendQueue}>加入播放列表</Button>
             </div>
           </div>
         </div>
