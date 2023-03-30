@@ -21,6 +21,10 @@ const usePlayer = () => {
   const play = (song?: ITrack) => {
     if (song && song.id !== playingSong?.id) {
       setPlayingSong(song);
+
+      if (queue.findIndex((s) => s.id === song?.id)) {
+        appendQueue(song);
+      }
     }
 
     if (!song && !playingSong && queue.length) {
