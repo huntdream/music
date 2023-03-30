@@ -101,6 +101,10 @@ const usePlayer = () => {
       newQueue.push(song);
     }
 
+    if (!queue.length && newQueue.length) {
+      setPlayingSong(newQueue[0]);
+    }
+
     setQueue(uniqBy(newQueue, 'id'));
   };
 

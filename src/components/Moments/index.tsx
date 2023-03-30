@@ -1,5 +1,5 @@
 import React from 'react';
-import Events from '../Events';
+import Events from '../../Events';
 import './style.scss';
 
 interface Props {}

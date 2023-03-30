@@ -4,6 +4,7 @@ import { useUser } from '../../context/App';
 import { IUser } from '../../types/user';
 import fetcher from '../../utils/fetcher';
 import Image from '../Image';
+import Loading from '../Loading';
 import User from '../User';
 import './style.scss';
 
@@ -118,7 +119,7 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
       ) : qrImg ? (
         <Image src={qrImg} className='login-qr-img' alt='QR' />
       ) : (
-        <div>Loading...</div>
+        <Loading />
       )}
       <div className='login-qr-status'>{status?.message}</div>
     </div>

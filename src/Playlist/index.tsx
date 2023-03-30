@@ -8,6 +8,7 @@ import usePlayer from '../context/App/usePlayer';
 import { ITrack } from '../types/playlist';
 import Button from '../components/Button';
 import Image from '../components/Image';
+import Loading from '../components/Loading';
 
 interface Props {}
 
@@ -16,7 +17,7 @@ const Playlist: React.FC<Props> = () => {
   const { play, pause, isPlaying, playingSong, replaceQueue, appendQueue } =
     usePlayer();
 
-  const [playlist] = usePlaylist(id);
+  const { data: playlist, error } = usePlaylist(id);
 
   const totalTime = useMemo(() => {
     const totalMs = sumBy(playlist?.tracks || [], 'dt');
@@ -39,8 +40,12 @@ const Playlist: React.FC<Props> = () => {
     appendQueue(playlist.tracks);
   };
 
+  if (error) {
+    return <div>Something went wrong</div>;
+  }
+
   if (!playlist) {
-    return <div>loading...</div>;
+    return <Loading />;
   }
 
   return (

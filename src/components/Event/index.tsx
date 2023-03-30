@@ -8,6 +8,7 @@ import Song from '../Song';
 import cls from 'classnames';
 import Comment from './Comment';
 import User from '../User';
+import Image from '../Image';
 
 interface Props {
   event: IEvent;
@@ -25,13 +26,18 @@ const Event: React.FC<Props> = ({ event }) => {
         <div className='whitespace-pre my-4'>{event.json.msg}</div>
       )}
       {event.json.mv && (
-        <img className='w-40 max-w-xs' src={event.json.mv.imgurl} alt='' />
+        <Image className='w-40 max-w-xs' src={event.json.mv.imgurl} alt='' />
       )}
       {event.json.song && <Song className='my-4' song={event.json.song} />}
       {event.pics?.length > 0 && (
         <div className='flex flex-wrap max-w-xs'>
           {event.pics.map((pic) => (
-            <img src={pic.originUrl} className='w-1/3 basis-1/3' alt='' />
+            <Image
+              src={pic.originUrl}
+              key={pic.originUrl}
+              className='w-1/3 basis-1/3'
+              alt=''
+            />
           ))}
         </div>
       )}

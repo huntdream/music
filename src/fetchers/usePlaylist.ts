@@ -1,10 +1,10 @@
 import useSWR from 'swr';
 import { IPlaylist } from '../types/playlist';
 
-const usePlaylist = (id?: number | string): [IPlaylist] => {
-  const { data } = useSWR(id ? `/playlist/detail?id=${id}` : null);
+const usePlaylist = (id?: number | string) => {
+  const { data, error } = useSWR(id ? `/playlist/detail?id=${id}` : null);
 
-  return [data?.playlist];
+  return { data: data?.playlist, error };
 };
 
 export default usePlaylist;

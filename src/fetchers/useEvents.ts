@@ -10,7 +10,7 @@ interface Params {
 }
 
 const useEvents = ({ id, ...params }: Params) => {
-  const { data } = useSWR(
+  const { data, error } = useSWR(
     id ? `/user/event?uid=${id}` : '/event',
     (url: string) =>
       fetcher<any, any>(url, {
@@ -40,7 +40,7 @@ const useEvents = ({ id, ...params }: Params) => {
     }
   );
 
-  return { data };
+  return { data, error };
 };
 
 export default useEvents;

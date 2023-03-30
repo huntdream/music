@@ -1,6 +1,7 @@
 import React from 'react';
-import useEvents from '../../fetchers/useEvents';
-import Event from '../Event';
+import useEvents from '../fetchers/useEvents';
+import Event from '../components/Event';
+import Loading from '../components/Loading';
 import './style.scss';
 
 interface Props {
@@ -8,10 +9,14 @@ interface Props {
 }
 
 const Events: React.FC<Props> = ({ id }) => {
-  const { data } = useEvents({ id, limit: 10 });
+  const { data, error } = useEvents({ id, limit: 10 });
+
+  if (error) {
+    return <div>Someting went wrong</div>;
+  }
 
   if (!data) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (

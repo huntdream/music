@@ -8,6 +8,7 @@ import useSWRInfinite from 'swr/infinite';
 import User from '../User';
 import { IComments } from '../../types/comment';
 import Button from '../Button';
+import Loading from '../Loading';
 
 interface Props {}
 
@@ -28,7 +29,7 @@ const Comment: React.FC<Props> = () => {
   console.log(data, size);
 
   if (!data?.[0]) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
