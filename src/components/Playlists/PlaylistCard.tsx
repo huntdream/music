@@ -74,7 +74,7 @@ const Playlist: React.FC<Props> = ({ data }) => {
         </div>
         <div className='playlist-card-info-footer'>
           <div className='playlist-card-trackcount'>{trackCount}首</div>
-          <User user={creator} />
+          <User user={creator} size='small' avatar />
         </div>
       </div>
     </div>

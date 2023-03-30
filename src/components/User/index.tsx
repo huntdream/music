@@ -4,11 +4,17 @@ import { IUser } from '../../types/user';
 
 interface Props {
   user: IUser;
+  avatar?: boolean;
   size?: 'small' | 'normal';
   signature?: boolean;
 }
 
-const User: React.FC<Props> = ({ user, signature, size = 'normal' }) => {
+const User: React.FC<Props> = ({
+  user,
+  signature,
+  size = 'normal',
+  avatar,
+}) => {
   const sizes = {
     small: 'w-6 h-6',
     normal: 'w-10 h-10',
@@ -18,18 +24,20 @@ const User: React.FC<Props> = ({ user, signature, size = 'normal' }) => {
     <div>
       <div className='flex items-center mb-2'>
         <img
-          className={cls('mr-2 rounded', sizes[size])}
+          className={cls('rounded', sizes[size])}
           src={user.avatarUrl}
           alt=''
         />
-        <div className='flex-1 overflow-hidden'>
-          <div>{user.nickname}</div>
-          {signature && (
-            <div className='text-gray-600 text-sm truncate'>
-              {user.signature}
-            </div>
-          )}
-        </div>
+        {!avatar && (
+          <div className='flex-1 overflow-hidden ml-2'>
+            <div>{user.nickname}</div>
+            {signature && (
+              <div className='text-gray-600 text-sm truncate'>
+                {user.signature}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
