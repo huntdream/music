@@ -5,7 +5,7 @@ import { IUser } from '../../types/user';
 interface Props {
   user: IUser;
   avatar?: boolean;
-  size?: 'small' | 'normal';
+  size?: 'small' | 'normal' | 'large';
   signature?: boolean;
 }
 
@@ -17,7 +17,8 @@ const User: React.FC<Props> = ({
 }) => {
   const sizes = {
     small: 'w-6 h-6',
-    normal: 'w-10 h-10',
+    normal: 'w-8 h-8',
+    large: 'w-10 h-10',
   };
 
   return (
