@@ -16,6 +16,7 @@ const Button: React.FC<Props> = ({
       {...props}
       className={cls(
         'h-9 px-4 font-medium rounded-md',
+        className,
         pirmary
           ? 'bg-black text-white hover:bg-slate-700 '
           : 'border border-slate-200 text-slate-900 hover:bg-slate-50'
