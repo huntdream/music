@@ -1,7 +1,7 @@
 import React from 'react';
 import { useUser } from '../../context/App';
 import usePlaylists from '../../fetchers/usePlaylists';
-import Playlists from '../Playlists';
+import Playlists from '../../components/Playlists';
 import './style.scss';
 
 interface Props {}

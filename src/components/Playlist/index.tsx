@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
-import usePlaylist from '../fetchers/usePlaylist';
-import { msToHours, msToMinutes } from '../utils/msConvert';
+import usePlaylist from '../../fetchers/usePlaylist';
+import { msToHours, msToMinutes } from '../../utils/msConvert';
 import './style.scss';
-import usePlayer from '../context/App/usePlayer';
-import { ITrack } from '../types/playlist';
-import Button from '../components/Button';
-import Image from '../components/Image';
-import Loading from '../components/Loading';
+import usePlayer from '../../context/App/usePlayer';
+import { ITrack } from '../../types/playlist';
+import Button from '../Button';
+import Image from '../Image';
+import Loading from '../Loading';
 
 interface Props {}
 

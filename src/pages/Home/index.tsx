@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Nav from '../components/Nav';
-import Player from '../components/Player';
+import Nav from '../../components/Nav';
+import Player from '../../components/Player';
 import './style.scss';
 
 interface Props {}
