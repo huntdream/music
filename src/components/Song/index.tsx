@@ -4,13 +4,16 @@ import cls from 'classnames';
 import { ISong } from '../../types/song';
 import usePlayer from '../../context/App/usePlayer';
 import Image from '../Image';
+import { msToMinutes } from '../../utils/msConvert';
 
 interface Props {
   song: ISong;
   className?: string;
+  duration?: boolean;
+  border?: boolean;
 }
 
-const Song: React.FC<Props> = ({ song, className }) => {
+const Song: React.FC<Props> = ({ song, className, duration, border }) => {
   const { play } = usePlayer();
 
   const handleNavigate = (e: MouseEvent) => {
@@ -20,40 +23,52 @@ const Song: React.FC<Props> = ({ song, className }) => {
   return (
     <div
       className={cls(
-        'flex p-1 border items-center cursor-pointer hover:bg-slate-50',
-        className
+        'flex px-2 py-1 items-center cursor-pointer hover:bg-slate-50 overflow-hidden',
+        className,
+        border
       )}
       onClick={() => play(song)}
     >
-      <div className='border w-10 h-10 rounded overflow-hidden'>
+      <div className='border w-10 h-10 rounded shrink-0'>
         <Image
-          className='w-10 h-10'
+          className='w-10 h-10 rounded'
           src={`${song.al?.picUrl}?param=50y50`}
           alt=''
         />
       </div>
-      <div className='ml-2'>
-        <div className=''>
-          <span className='ellipsis' title={song.name}>
+      <div className='ml-2 flex-1 min-w-0'>
+        <div className='flex'>
+          <span className='truncate' title={song.name}>
             {song.name}
           </span>
         </div>
-        <div className='text-sm text-gray-500'>
-          <div className='ellipsis'>
+        <div className='flex text-sm text-gray-500'>
+          <div
+            className='truncate'
+            title={song.ar?.map((ar) => ar.name).join('/')}
+          >
             {song.ar?.map((ar) => (
               <Link
                 to={`/artist/${ar.id}`}
-                className='after:content-["/"] after:px-px last:after:content-[""] hover:underline'
+                className='after:content-["/"] after:px-px last:after:content-[""] hover:underline truncate'
                 key={ar.id}
-                title={ar.name}
                 onClick={handleNavigate}
               >
                 {ar.name}
               </Link>
             ))}
           </div>
+          <div
+            className='before:content-["•"] before:mx-1 truncate'
+            title={song.al?.name}
+          >
+            {song.al?.name}
+          </div>
         </div>
       </div>
+      {duration && (
+        <div className='ml-auto text-gray-500'>{msToMinutes(song.dt)}</div>
+      )}
     </div>
   );
 };

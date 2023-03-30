@@ -9,6 +9,7 @@ import { ITrack } from '../../types/playlist';
 import Button from '../Button';
 import Image from '../Image';
 import Loading from '../Loading';
+import Song from '../Song';
 
 interface Props {}
 
@@ -68,51 +69,9 @@ const Playlist: React.FC<Props> = () => {
           </div>
         </div>
       </div>
-      <div className='playlist-tracks'>
+      <div className='divide-y mt-6'>
         {playlist.tracks.map((track) => (
-          <div
-            key={track.id}
-            className='playlist-track cursor-pointer hover:bg-slate-50'
-            onClick={() => handlePlay(track)}
-          >
-            <div className='playlist-track-cover'>
-              <Image
-                className='playlist-track-cover-img'
-                src={`${track.al.picUrl}?param=50y50`}
-                alt=''
-              />
-            </div>
-            <div className='playlist-track-info'>
-              <div className='playlist-track-name'>
-                <span className='ellipsis' title={track.name}>
-                  {track.name}
-                </span>
-              </div>
-              <div className='playlist-track-aral'>
-                <div className='playlist-track-artists ellipsis'>
-                  {track.ar.map((ar) => (
-                    <Link
-                      to={`/artist/${ar.id}`}
-                      className='playlist-track-artist'
-                      key={ar.id}
-                      title={ar.name}
-                    >
-                      {ar.name}
-                    </Link>
-                  ))}
-                </div>
-                <div
-                  className='playlist-track-album ellipsis'
-                  title={track.al.name}
-                >
-                  {track.al.name}
-                </div>
-              </div>
-            </div>
-            <div className='playlist-track-duration'>
-              {msToMinutes(track.dt)}
-            </div>
-          </div>
+          <Song song={track} key={track.id} duration />
         ))}
       </div>
     </div>
