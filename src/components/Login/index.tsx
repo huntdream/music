@@ -1,9 +1,9 @@
-import { Avatar, Spin } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 import { useUser } from '../../context/App';
 import { IUser } from '../../types/user';
 import fetcher from '../../utils/fetcher';
+import User from '../User';
 import './style.scss';
 
 interface LoginStatus {
@@ -111,13 +111,13 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
     <div className='login'>
       {showAvatar ? (
         <>
-          <Avatar src={status.avatarUrl} size={64} />
+          <User user={status as unknown as IUser} />
           <div className='login-nickname'>{status.nickname}</div>
         </>
       ) : qrImg ? (
         <img src={qrImg} className='login-qr-img' alt='QR' />
       ) : (
-        <Spin />
+        <div>Loading...</div>
       )}
       <div className='login-qr-status'>{status?.message}</div>
     </div>

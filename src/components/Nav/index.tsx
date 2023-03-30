@@ -1,4 +1,3 @@
-import { Avatar, Button, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import cls from 'classnames';
@@ -9,6 +8,8 @@ import fetcher from '../../utils/fetcher';
 
 import Login from '../Login';
 import './style.scss';
+import User from '../User';
+import Modal from '../Modal';
 
 interface Props {}
 
@@ -69,20 +70,17 @@ const Nav: React.FC<Props> = () => {
       </NavLink>
       {user?.userId ? (
         <div className='nav-user'>
-          <Avatar src={user?.avatarUrl} />
-          <span className='nav-user-name'>{user?.nickname}</span>
+          <User user={user} />
         </div>
       ) : (
-        <Button onClick={handleLogin} className='nav-login'>
+        <button onClick={handleLogin} className='nav-login'>
           Log in
-        </Button>
+        </button>
       )}
       <Modal
         title='二维码登录'
-        open={showQr}
-        onCancel={() => setShowQr(false)}
-        footer={null}
-        destroyOnClose
+        visible={showQr}
+        onClose={() => setShowQr(false)}
       >
         <Login onSuccess={handleLoginSuccess} />
       </Modal>
