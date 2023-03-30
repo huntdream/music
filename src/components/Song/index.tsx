@@ -4,6 +4,7 @@ import cls from 'classnames';
 import { ISong } from '../../types/song';
 import './style.scss';
 import usePlayer from '../../context/App/usePlayer';
+import Image from '../Image';
 
 interface Props {
   song: ISong;
@@ -16,7 +17,7 @@ const Song: React.FC<Props> = ({ song, className }) => {
   return (
     <div className={cls('song', className)} onClick={() => play(song)}>
       <div className='song-cover'>
-        <img
+        <Image
           className='song-cover-img'
           src={`${song.al?.picUrl}?param=50y50`}
           alt=''

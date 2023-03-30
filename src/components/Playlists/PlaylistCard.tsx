@@ -6,6 +6,7 @@ import { IPlaylistsItem } from '../../types/playlist';
 import { PauseIcon, VolumeIcon, PlayIcon } from '../../icons/Audio';
 import usePlayer from '../../context/App/usePlayer';
 import User from '../User';
+import Image from '../Image';
 
 interface Props {
   data: IPlaylistsItem;
@@ -42,7 +43,7 @@ const Playlist: React.FC<Props> = ({ data }) => {
   return (
     <div className='playlist-card' onClick={handlePlaylistClick}>
       <div className='playlist-card-cover'>
-        <img
+        <Image
           src={`${coverImgUrl}?param=240y240`}
           alt=''
           className='playlist-card-cover-img'

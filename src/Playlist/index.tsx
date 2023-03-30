@@ -7,6 +7,7 @@ import './style.scss';
 import usePlayer from '../context/App/usePlayer';
 import { ITrack } from '../types/playlist';
 import Button from '../components/Button';
+import Image from '../components/Image';
 
 interface Props {}
 
@@ -45,7 +46,7 @@ const Playlist: React.FC<Props> = () => {
   return (
     <div className='playlist'>
       <div className='playlist-info'>
-        <img className='playlist-cover' src={playlist.coverImgUrl} alt='' />
+        <Image className='playlist-cover' src={playlist.coverImgUrl} alt='' />
         <div className='playlist-detail'>
           <h2>{playlist.name}</h2>
           <div className='playlist-stats'>
@@ -66,11 +67,11 @@ const Playlist: React.FC<Props> = () => {
         {playlist.tracks.map((track) => (
           <div
             key={track.id}
-            className='playlist-track'
+            className='playlist-track cursor-pointer hover:bg-slate-50'
             onClick={() => handlePlay(track)}
           >
             <div className='playlist-track-cover'>
-              <img
+              <Image
                 className='playlist-track-cover-img'
                 src={`${track.al.picUrl}?param=50y50`}
                 alt=''

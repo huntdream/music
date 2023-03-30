@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import { useUser } from '../../context/App';
 import { IUser } from '../../types/user';
 import fetcher from '../../utils/fetcher';
+import Image from '../Image';
 import User from '../User';
 import './style.scss';
 
@@ -115,7 +116,7 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
           <div className='login-nickname'>{status.nickname}</div>
         </>
       ) : qrImg ? (
-        <img src={qrImg} className='login-qr-img' alt='QR' />
+        <Image src={qrImg} className='login-qr-img' alt='QR' />
       ) : (
         <div>Loading...</div>
       )}

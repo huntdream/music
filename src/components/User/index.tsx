@@ -1,6 +1,7 @@
 import React from 'react';
 import cls from 'classnames';
 import { IUser } from '../../types/user';
+import Image from '../Image';
 
 interface Props {
   user: IUser;
@@ -24,7 +25,7 @@ const User: React.FC<Props> = ({
   return (
     <div>
       <div className='flex items-center mb-2'>
-        <img
+        <Image
           className={cls('rounded', sizes[size])}
           src={user.avatarUrl}
           alt=''

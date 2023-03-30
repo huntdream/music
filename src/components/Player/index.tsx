@@ -12,6 +12,7 @@ import {
   PlaylistIcon,
 } from '../../icons/Audio';
 import { msToMinutes } from '../../utils/msConvert';
+import Image from '../Image';
 
 interface Props {}
 
@@ -81,7 +82,7 @@ const Player: React.FC<Props> = () => {
         </div>
         <div className='player-song'>
           <div className='player-song-cover'>
-            <img
+            <Image
               className='player-song-cover-img'
               src={`${playingSong?.al?.picUrl}?param=50y50`}
               alt=''
@@ -131,7 +132,7 @@ const Player: React.FC<Props> = () => {
               onClick={() => play(track)}
             >
               <div className='player-playlist-track-cover'>
-                <img
+                <Image
                   className='player-playlist-track-cover-img'
                   src={`${track?.al?.picUrl}?param=50y50`}
                   alt=''
