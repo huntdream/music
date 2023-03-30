@@ -57,7 +57,8 @@ const Player: React.FC<Props> = () => {
     play();
   };
 
-  const handlePlaylist = () => {
+  const handlePlaylist = (e: MouseEvent) => {
+    e.stopPropagation();
     setShowPlaylist(!showPlaylist);
   };
 
