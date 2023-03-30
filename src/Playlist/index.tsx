@@ -4,7 +4,6 @@ import { sumBy } from 'lodash-es';
 import usePlaylist from '../fetchers/usePlaylist';
 import { msToHours, msToMinutes } from '../utils/msConvert';
 import './style.scss';
-import { Button, Space } from 'antd';
 import usePlayer from '../context/App/usePlayer';
 import { ITrack } from '../types/playlist';
 
@@ -53,12 +52,10 @@ const Playlist: React.FC<Props> = () => {
           </div>
           <div className='playlist-desc'>{playlist.description}</div>
           <div className='playlist-action'>
-            <Space>
-              <Button type='primary' onClick={handlePlayList}>
-                播放
-              </Button>
-              <Button onClick={handleAppendQueue}>加入播放列表</Button>
-            </Space>
+            <div>
+              <button onClick={handlePlayList}>播放</button>
+              <button onClick={handleAppendQueue}>加入播放列表</button>
+            </div>
           </div>
         </div>
       </div>

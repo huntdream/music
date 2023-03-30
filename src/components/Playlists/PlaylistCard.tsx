@@ -1,11 +1,11 @@
 import React, { MouseEvent, useState } from 'react';
 import cls from 'classnames';
 import './style.scss';
-import { Avatar } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { IPlaylistsItem } from '../../types/playlist';
 import { PauseIcon, VolumeIcon, PlayIcon } from '../../icons/Audio';
 import usePlayer from '../../context/App/usePlayer';
+import User from '../User';
 
 interface Props {
   data: IPlaylistsItem;
@@ -74,7 +74,7 @@ const Playlist: React.FC<Props> = ({ data }) => {
         </div>
         <div className='playlist-card-info-footer'>
           <div className='playlist-card-trackcount'>{trackCount}首</div>
-          <Avatar src={creator?.avatarUrl} size={18} />
+          <User user={creator} />
         </div>
       </div>
     </div>

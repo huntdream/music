@@ -23,7 +23,7 @@ const User: React.FC<Props> = ({ user, signature, size = 'normal' }) => {
           alt=''
         />
         <div className='flex-1 overflow-hidden'>
-          <div>{user.userId}</div>
+          <div>{user.nickname}</div>
           {signature && (
             <div className='text-gray-600 text-sm truncate'>
               {user.signature}

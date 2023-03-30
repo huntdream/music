@@ -1,6 +1,5 @@
 import React, { ReactNode, MouseEvent } from 'react';
 import cls from 'classnames';
-import './style.scss';
 import { createPortal } from 'react-dom';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -25,24 +24,27 @@ const Modal: React.FC<ModalProps> = ({
 
   return visible
     ? createPortal(
-        <div className='lanting-modal'>
-          <div className='lanting-modal-mask'></div>
-          <div className='lanting-modal-wrapper' onClick={onClose}>
-            <div className='lanting-modal-inner'>
-              <div className='lanting-modal-main'>
+        <div>
+          <div className='fixed inset-0 z-40 select-none bg-slate-50/75'></div>
+          <div className='fixed inset-0 z-50 overflow-auto' onClick={onClose}>
+            <div className='flex flex-col items-stretch min-h-screen py-20 px-2'>
+              <div className='flex justify-center items-start'>
                 <div
-                  className={cls('lanting-modal-body', className)}
+                  className={cls(
+                    'relative flex flex-col max-w-full bg-white rounded-lg w-96 pointer-events-auto shadow-sm',
+                    className
+                  )}
                   onClick={stopPropagation}
                 >
-                  <div className='lanting-modal-header'>
-                    <h2 className='lanting-modal-title'>{title}</h2>
+                  <div className='h-14 flex items-center justify-center relative border-b border-b-slate-100 '>
+                    <h2 className='text-lg capitalize'>{title}</h2>
 
                     <XMarkIcon
-                      className='lanting-modal-close-icon'
+                      className='absolute right-4 h-7 w-7 flex p-1 items-center justify-center rounded-full cursor-pointer transition duration-500 hover:bg-slate-300/80 '
                       onClick={onClose}
                     />
                   </div>
-                  <div className='lanting-modal-content'>{children}</div>
+                  <div className='flex-1'>{children}</div>
                 </div>
               </div>
             </div>

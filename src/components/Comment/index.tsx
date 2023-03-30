@@ -3,7 +3,6 @@ import {
   ChatBubbleOvalLeftEllipsisIcon,
 } from '@heroicons/react/24/outline';
 import cls from 'classnames';
-import { Button, Skeleton } from 'antd';
 import React from 'react';
 import useSWRInfinite from 'swr/infinite';
 import User from '../User';
@@ -28,7 +27,7 @@ const Comment: React.FC<Props> = () => {
   console.log(data, size);
 
   if (!data?.[0]) {
-    return <Skeleton />;
+    return <div>Loading...</div>;
   }
 
   return (
@@ -54,13 +53,13 @@ const Comment: React.FC<Props> = () => {
           ))
         )}
       </div>
-      <Button
+      <button
         onClick={() => {
           setSize(size + 1);
         }}
       >
         Load More
-      </Button>
+      </button>
     </div>
   );
 };
