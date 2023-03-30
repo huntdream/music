@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({
   return visible
     ? createPortal(
         <div>
-          <div className='fixed inset-0 z-40 select-none bg-slate-50/75'></div>
+          <div className='fixed inset-0 z-40 select-none bg-gray-500 bg-opacity-75'></div>
           <div className='fixed inset-0 z-50 overflow-auto' onClick={onClose}>
             <div className='flex flex-col items-stretch min-h-screen py-20 px-2'>
               <div className='flex justify-center items-start'>
