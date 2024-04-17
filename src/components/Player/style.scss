@@ -24,7 +24,6 @@
     grid-area: middle;
     display: flex;
     align-items: center;
-    justify-content: center;
     padding: 0 8px;
 
     &-cover {
@@ -122,7 +121,6 @@
   }
 
   &-right-controls {
-    width: 241px;
     grid-area: end;
     display: flex;
     align-items: center;
