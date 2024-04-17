@@ -20,11 +20,14 @@ const usePlayer = () => {
 
   const play = (song?: ITrack) => {
     if (song && song.id !== playingSong?.id) {
+      audio?.pause();
       setPlayingSong(song);
 
       if (queue.findIndex((s) => s.id === song?.id)) {
         appendQueue(song);
       }
+
+      return;
     }
 
     if (!song && !playingSong && queue.length) {
