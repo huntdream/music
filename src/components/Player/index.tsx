@@ -71,15 +71,6 @@ const Player: React.FC<Props> = () => {
     >
       <audio src={url} ref={audioRef} onEnded={handleEnded}></audio>
       <div className='player-inner' onClick={handleClick}>
-        <div className='player-left-controls'>
-          <PrevIcon onClick={handlePrev} className='player-normalicon' />
-          {isPlaying ? (
-            <PauseIcon onClick={handlePause} className='player-largeicon' />
-          ) : (
-            <PlayIcon onClick={handlePlay} className='player-largeicon' />
-          )}
-          <NextIcon onClick={handleNext} className='player-normalicon' />
-        </div>
         <div className='player-song'>
           <div className='player-song-cover'>
             <Image
@@ -107,20 +98,19 @@ const Player: React.FC<Props> = () => {
                   </Link>
                 ))}
               </div>
-              <div
-                className='player-song-album ellipsis'
-                title={playingSong?.al?.name}
-              >
-                {playingSong?.al?.name}
-              </div>
             </div>
           </div>
         </div>
-        <div className='player-right-controls'>
+        <div className='player-controls'>
           <PlaylistIcon
             className='player-normalicon'
             onClick={handlePlaylist}
           />
+          {isPlaying ? (
+            <PauseIcon onClick={handlePause} className='player-largeicon' />
+          ) : (
+            <PlayIcon onClick={handlePlay} className='player-largeicon' />
+          )}
         </div>
       </div>
       {showPlaylist && (
