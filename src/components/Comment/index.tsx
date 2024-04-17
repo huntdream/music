@@ -39,7 +39,7 @@ const Comment: React.FC<Props> = () => {
           block.comments.map((comment) => (
             <div className='p-3'>
               <User user={comment.user} size='small' />
-              <div className='whitespace-pre'>{comment.content}</div>
+              <div className='whitespace-pre-line'>{comment.content}</div>
               <div className='flex justify-between items-center mt-1'>
                 <div className='text-gray-600 text-sm'>{comment.timeStr}</div>
                 <div className='flex items-center'>

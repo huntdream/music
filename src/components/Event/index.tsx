@@ -23,7 +23,7 @@ const Event: React.FC<Props> = ({ event }) => {
         <User user={event.user} signature />
       </div>
       {event.json.msg && (
-        <div className='whitespace-pre my-4'>{event.json.msg}</div>
+        <div className='whitespace-pre-line my-4'>{event.json.msg}</div>
       )}
       {event.json.mv && (
         <Image className='w-40 max-w-xs' src={event.json.mv.imgurl} alt='' />
