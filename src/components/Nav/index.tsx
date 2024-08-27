@@ -39,11 +39,12 @@ const Nav: React.FC<Props> = () => {
       return res.profile;
     });
 
-  useSWR<IUser>(`/user/account`, getAccount);
+  const { mutate } = useSWR<IUser>(`/user/account`, getAccount);
 
   const handleLoginSuccess = () => {
     setTimeout(() => {
       setShowQr(false);
+      mutate();
     }, 500);
   };
 
@@ -78,11 +79,7 @@ const Nav: React.FC<Props> = () => {
           Log in
         </Button>
       )}
-      <Modal
-        title='二维码登录'
-        visible={showQr}
-        onClose={() => setShowQr(false)}
-      >
+      <Modal title='登录' visible={showQr} onClose={() => setShowQr(false)}>
         <Login onSuccess={handleLoginSuccess} />
       </Modal>
     </div>
