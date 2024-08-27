@@ -3,7 +3,7 @@ const timestampRegex = /\[\d{2}.*(\.\d+)?\]/;
 export const parseLyric = (raw: string = '') => {
   const lyricList = raw.split('\n');
 
-  return lyricList.map((item, index) => {
+  return lyricList.filter(Boolean).map((item, index) => {
     const matched = item.match(timestampRegex);
 
     if (matched) {
