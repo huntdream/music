@@ -20,7 +20,7 @@ interface Props {
   onSuccess?: () => void;
 }
 
-const Login: React.FC<Props> = ({ onSuccess }) => {
+const QR: React.FC<Props> = ({ onSuccess }) => {
   const [qrKey, setQrKey] = useState('');
   const [qrImg, setQrImg] = useState('');
   const [, setUser] = useUser();
@@ -126,4 +126,4 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
   );
 };
 
-export default Login;
+export default QR;
