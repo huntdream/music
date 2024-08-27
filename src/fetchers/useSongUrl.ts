@@ -15,7 +15,7 @@ const useSongUrl = (id?: number | string): [string] => {
     }
   );
 
-  return [data];
+  return [data?.replace(/http:/, 'https:')];
 };
 
 export default useSongUrl;
