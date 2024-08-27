@@ -3,8 +3,8 @@ import axios from 'axios';
 const fetcher = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
-      ? 'https://ncmusic.vercel.app'
-      : 'https://ncmusic.vercel.app',
+      ? 'https://netease.maoyu.dev'
+      : 'https://netease.maoyu.dev',
   withCredentials: true,
 });
 
