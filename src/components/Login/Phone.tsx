@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './style.scss';
-import { Input } from 'postcss';
 import toast from 'react-hot-toast';
 import fetcher from '../../utils/fetcher';
 import Button from '../Button';
+import Input from '../Input';
 
 interface Props {
   onSuccess: () => void;
