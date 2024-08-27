@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import cls from 'classnames';
 import usePlayer from '../../context/App/usePlayer';
 import useLyric from '../../fetchers/useLyric';
 import { parseLyric } from '../../utils/parseLyric';
 import './style.scss';
 import { useNavigate } from 'react-router-dom';
+import Line from './Line';
 
 interface Props {}
 
@@ -13,6 +14,7 @@ const Lyric: React.FC<Props> = () => {
   const navigate = useNavigate();
   const [hlKey, setHlKey] = useState<number>(0);
   const audio = audioRef.current;
+  const lyricRef = useRef<HTMLDivElement>(null);
 
   const [lyricData] = useLyric(playingSong?.id);
 
@@ -30,11 +32,11 @@ const Lyric: React.FC<Props> = () => {
     const updateLyric = () => {
       const ct = audio?.currentTime || 0;
 
-      const key =
-        lyric.find(
-          ({ timestamp }, index) =>
-            ct >= timestamp && ct < lyric[index + 1]?.timestamp
-        )?.key || 0;
+      const line = lyric.findLast(({ timestamp }, index) => {
+        return ct >= timestamp;
+      });
+
+      const key = line?.key || 0;
 
       setHlKey(key);
     };
@@ -42,7 +44,7 @@ const Lyric: React.FC<Props> = () => {
     audio?.addEventListener('timeupdate', updateLyric);
 
     return () => audio?.removeEventListener('timeupdate', updateLyric);
-  }, [audio, lyric]);
+  }, [audio, lyric, hlKey]);
 
   const seekTime = (time: number, key: number) => {
     if (audio) {
@@ -54,17 +56,15 @@ const Lyric: React.FC<Props> = () => {
   return (
     <div className='lyric'>
       <h2 className='lyric-name'>{playingSong?.name}</h2>
-      <div className='lyric-content'>
+      <div className='lyric-content' ref={lyricRef}>
         {lyric.map(({ text, key, timestamp }) => (
-          <div
-            className={cls('lyric-sentence', {
-              'lyric-sentence--hl': hlKey === key,
-            })}
-            key={key}
+          <Line
             onClick={() => seekTime(timestamp, key)}
+            isHighlighted={hlKey === key}
+            key={key}
           >
             {text}
-          </div>
+          </Line>
         ))}
       </div>
     </div>
