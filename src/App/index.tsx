@@ -6,6 +6,7 @@ import Library from '../pages/Library';
 import Playlist from '../components/Playlist';
 import Lyric from '../components/Lyric';
 import Moment from '../pages/Moments';
+import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ function App() {
   return (
     <Config>
       <RouterProvider router={router} />
+      <Toaster />
     </Config>
   );
 }
