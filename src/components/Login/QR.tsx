@@ -110,18 +110,18 @@ const QR: React.FC<Props> = ({ onSuccess }) => {
   const showAvatar = status?.code === 802 || status?.code === 803;
 
   return (
-    <div className='login'>
+    <div className='qrcode'>
       {showAvatar ? (
         <>
           <User user={status as unknown as IUser} />
-          <div className='login-nickname'>{status.nickname}</div>
+          <div className='qrcode-nickname'>{status.nickname}</div>
         </>
       ) : qrImg ? (
-        <Image src={qrImg} className='login-qr-img' alt='QR' />
+        <Image src={qrImg} className='qrcode-qr-img' alt='QR' />
       ) : (
         <Loading />
       )}
-      <div className='login-qr-status'>{status?.message}</div>
+      <div className='qrcode-qr-status'>{status?.message}</div>
     </div>
   );
 };

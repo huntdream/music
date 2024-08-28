@@ -50,7 +50,7 @@ const Phone: React.FC<Props> = ({ onSuccess }) => {
 
   return (
     <div>
-      <div className='px-12 py-4'>
+      <div className='px-10 py-4'>
         <Input
           label='Phone'
           value={phone}
