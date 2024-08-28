@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import './style.scss';
 import toast from 'react-hot-toast';
 import fetcher from '../../utils/fetcher';
@@ -17,7 +17,11 @@ const Phone: React.FC<Props> = ({ onSuccess }) => {
   const onSubmit = (e: MouseEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    fetcher(`/login/cellphone?phone=${phone}&captcha=${code}`)
+    fetcher(`/login/cellphone?phone=${phone}&captcha=${code}`, {
+      params: {
+        timestamp: new Date().getTime(),
+      },
+    })
       .then((res: any) => {
         if (res.code === 200) {
           toast(`${res.profile.nickname}，欢迎回来👏`);
