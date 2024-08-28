@@ -4,23 +4,32 @@ import usePlayer from '../../context/App/usePlayer';
 import useLyric from '../../fetchers/useLyric';
 import { parseLyric } from '../../utils/parseLyric';
 import './style.scss';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Line from './Line';
+import useSongDetail from '../../fetchers/useSongDetail';
 
 interface Props {}
 
 const Lyric: React.FC<Props> = () => {
-  const { playingSong, audioRef } = usePlayer();
+  const { playingSong, audioRef, play } = usePlayer();
   const navigate = useNavigate();
   const [hlKey, setHlKey] = useState<number>(0);
   const audio = audioRef.current;
   const lyricRef = useRef<HTMLDivElement>(null);
+  const { id } = useParams();
+  const [songDetail] = useSongDetail(id);
 
-  const [lyricData] = useLyric(playingSong?.id);
+  const [lyricData] = useLyric(playingSong?.id || id);
 
   const lyricRawText = lyricData?.lrc.lyric;
 
   const lyric = useMemo(() => parseLyric(lyricRawText), [lyricRawText]);
+
+  useEffect(() => {
+    if (!playingSong?.id && id && songDetail) {
+      play(songDetail);
+    }
+  }, [id, songDetail]);
 
   useEffect(() => {
     if (playingSong?.id) {
@@ -55,7 +64,6 @@ const Lyric: React.FC<Props> = () => {
 
   return (
     <div className='lyric'>
-      <h2 className='lyric-name'>{playingSong?.name}</h2>
       <div className='lyric-content' ref={lyricRef}>
         {lyric.map(({ text, key, timestamp }) => (
           <Line
