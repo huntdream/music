@@ -28,9 +28,6 @@ const Phone: React.FC<Props> = ({ onSuccess }) => {
           onSuccess();
         }
       })
-      .catch((res: any) => {
-        toast.error(res.message);
-      })
       .finally(() => {
         setSubmitting(false);
       });

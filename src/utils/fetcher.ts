@@ -1,4 +1,5 @@
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const fetcher = axios.create({
   baseURL:
@@ -13,7 +14,12 @@ fetcher.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    return Promise.reject(error?.response?.data);
+    const data = error?.response?.data;
+    if (data?.message) {
+      toast.error(data.message);
+    }
+
+    return Promise.reject(data);
   }
 );
 
