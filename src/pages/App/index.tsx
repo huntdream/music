@@ -1,11 +1,11 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from '../pages/Home';
+import Home from '../Home';
 import Config from '../Config';
-import Library from '../pages/Library';
-import Playlist from '../components/Playlist';
-import Lyric from '../components/Lyric';
-import Moment from '../pages/Moments';
+import Library from '../Library';
+import Playlist from '../../components/Playlist';
+import Lyric from '../../components/Lyric';
+import Moment from '../Moments';
 import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([

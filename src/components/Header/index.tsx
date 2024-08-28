@@ -14,7 +14,7 @@ import Button from '../Button';
 
 interface Props {}
 
-const Nav: React.FC<Props> = () => {
+const Header: React.FC<Props> = () => {
   const [showQr, setShowQr] = useState(false);
   const [user, setUser] = useUser();
   const [scrolled, setScrolled] = useState(false);
@@ -61,15 +61,6 @@ const Nav: React.FC<Props> = () => {
         'nav-scrolled': scrolled,
       })}
     >
-      <NavLink to='/' className='nav-link' end>
-        Home
-      </NavLink>
-      <NavLink to='/me' className='nav-link'>
-        Library
-      </NavLink>
-      <NavLink to='/moments' className='nav-link'>
-        Moments
-      </NavLink>
       {user?.userId ? (
         <div className='nav-user'>
           <User user={user} />
@@ -86,4 +77,4 @@ const Nav: React.FC<Props> = () => {
   );
 };
 
-export default Nav;
+export default Header;
