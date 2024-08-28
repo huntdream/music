@@ -4,13 +4,8 @@ import cls from 'classnames';
 import usePlayer from '../../context/App/usePlayer';
 import useSongUrl from '../../fetchers/useSongUrl';
 import './style.scss';
-import {
-  NextIcon,
-  PrevIcon,
-  PlayIcon,
-  PauseIcon,
-  PlaylistIcon,
-} from '../../icons/Audio';
+import { NextIcon, PrevIcon, PlaylistIcon } from '../../icons/Audio';
+import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
 import { msToMinutes } from '../../utils/msConvert';
 import Image from '../Image';
 
@@ -102,15 +97,17 @@ const Player: React.FC<Props> = () => {
           </div>
         </div>
         <div className='player-controls'>
-          <PlaylistIcon
-            className='player-normalicon'
-            onClick={handlePlaylist}
-          />
-          {isPlaying ? (
-            <PauseIcon onClick={handlePause} className='player-largeicon' />
-          ) : (
-            <PlayIcon onClick={handlePlay} className='player-largeicon' />
-          )}
+          <div className='player-controls-icon'>
+            <PlaylistIcon onClick={handlePlaylist} />
+          </div>
+
+          <div className='player-controls-icon'>
+            {isPlaying ? (
+              <PauseIcon onClick={handlePause} />
+            ) : (
+              <PlayIcon onClick={handlePlay} />
+            )}
+          </div>
         </div>
       </div>
       {showPlaylist && (

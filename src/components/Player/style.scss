@@ -1,6 +1,6 @@
 .player {
   position: fixed;
-  bottom: 0;
+  bottom: 64px;
   left: 0;
   right: 0;
   height: 64px;
@@ -8,9 +8,11 @@
   background-color: #fff;
   transform: translateY(100%);
   transition: transform 0.2s ease-in-out;
+  opacity: 0;
 
   &-visible {
     transform: translateY(0);
+    opacity: 1;
   }
 
   &-inner {
@@ -25,6 +27,7 @@
     display: flex;
     align-items: center;
     padding: 0 8px;
+    min-width: 0px;
 
     &-cover {
       margin-right: 14px;
@@ -41,6 +44,8 @@
     &-info {
       display: flex;
       flex-direction: column;
+      flex: 1 1 0;
+      min-width: 0;
     }
 
     &-name {
@@ -90,32 +95,18 @@
     }
   }
 
-  &-largeicon {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-
-    g {
-      fill: #000;
-    }
-  }
-
-  &-normalicon {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-
-    g {
-      fill: #000;
-    }
-  }
-
   &-controls {
     grid-area: end;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 16px;
+
+    &-icon {
+      margin: 0 12px;
+      width: 32px;
+      height: 32px;
+    }
   }
 
   &-playlist {
