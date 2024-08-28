@@ -32,23 +32,6 @@
     position: absolute;
     right: 12px;
   }
-
-  &-link {
-    margin: 0 16px;
-    text-decoration: none;
-    font-weight: 500;
-    display: inline-flex;
-    height: 48px;
-    font-size: 20px;
-    align-items: center;
-    justify-content: center;
-    color: rgba(0, 0, 0, 0.5);
-
-    &.active,
-    &:hover {
-      color: #333;
-    }
-  }
 }
 
 @media (max-width: 626px) {
