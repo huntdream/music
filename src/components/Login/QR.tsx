@@ -60,7 +60,7 @@ const QR: React.FC<Props> = ({ onSuccess }) => {
   };
 
   const { data: status } = useSWR(
-    qrImg ? `/login/qr/check?key=${qrKey}` : null,
+    qrImg ? `/login/qr/check?key=${qrKey}&noCookie=true` : null,
     checkLoginStatus,
     {
       revalidateOnFocus: false,
