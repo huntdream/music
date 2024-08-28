@@ -3,7 +3,7 @@ import axios from 'axios';
 const fetcher = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
-      ? 'https://netease.maoyu.dev'
+      ? 'https://netease.maoyu.space'
       : 'http://localhost:3000',
   withCredentials: true,
 });
