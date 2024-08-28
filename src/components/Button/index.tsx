@@ -17,7 +17,7 @@ const Button: React.FC<Props> = ({
     <button
       {...props}
       className={cls(
-        'h-8 px-4 font-medium rounded-md cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed',
+        'h-9 px-4 font-medium rounded-md cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed',
         className,
         pirmary
           ? 'bg-black text-white hover:bg-slate-700 '
