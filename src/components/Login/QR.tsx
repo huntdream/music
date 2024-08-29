@@ -34,18 +34,21 @@ const QR: React.FC<Props> = ({ onSuccess }) => {
       },
     }).then((res) => {
       if (res.code === 803) {
+        localStorage.setItem('cookie', res.cookie);
+
+        fetcher<any, any>('/login/status', {
+          method: 'post',
+          data: {
+            cookie: res.cookie,
+          },
+        }).then((res) => {
+          setUser(res.data.profile);
+          return res.data.profile;
+        });
+
         if (onSuccess) {
           onSuccess();
         }
-
-        fetcher<any, { profile: IUser }>('/user/account', {
-          params: {
-            timestamp: new Date().getTime(),
-          },
-        }).then((res) => {
-          setUser(res.profile);
-          return res.profile;
-        });
 
         if (prevStatus.current?.code === 802) {
           const { nickname, avatarUrl } = prevStatus.current;
@@ -60,7 +63,7 @@ const QR: React.FC<Props> = ({ onSuccess }) => {
   };
 
   const { data: status } = useSWR(
-    qrImg ? `/login/qr/check?key=${qrKey}&noCookie=true` : null,
+    qrImg ? `/login/qr/check?key=${qrKey}` : null,
     checkLoginStatus,
     {
       revalidateOnFocus: false,
@@ -112,10 +115,7 @@ const QR: React.FC<Props> = ({ onSuccess }) => {
   return (
     <div className='qrcode'>
       {showAvatar ? (
-        <>
-          <User user={status as unknown as IUser} />
-          <div className='qrcode-nickname'>{status.nickname}</div>
-        </>
+        <User user={status as unknown as IUser} />
       ) : qrImg ? (
         <Image src={qrImg} className='qrcode-qr-img' alt='QR' />
       ) : (
