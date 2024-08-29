@@ -1,6 +1,6 @@
 import React, { MouseEvent, useState } from 'react';
 import cls from 'classnames';
-import './style.scss';
+import './card.scss';
 import { useNavigate } from 'react-router-dom';
 import { IPlaylistsItem } from '../../types/playlist';
 import { PauseIcon, VolumeIcon, PlayIcon } from '../../icons/Audio';
