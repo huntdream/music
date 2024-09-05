@@ -36,6 +36,23 @@ const usePlayer = () => {
 
     audio?.play();
   };
+  useEffect(() => {
+    if ('mediaSession' in navigator) {
+      if (playingSong) {
+        const metadata = new MediaMetadata({
+          title: playingSong?.name,
+          artist: playingSong?.ar.map((it) => it.name).join('/'),
+          album: playingSong?.al.name,
+          artwork: [
+            {
+              src: playingSong?.al.picUrl || '',
+            },
+          ],
+        });
+        navigator.mediaSession.metadata = metadata;
+      }
+    }
+  }, [playingSong]);
 
   useEffect(() => {
     const handlePlay = () => {
