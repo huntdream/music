@@ -28,11 +28,10 @@ jobs:
         ls -al
         which rsync
     - name: Deploy
-      uses: easingthemes/ssh-deploy@main
+      uses: appleboy/scp-action@v0.1.7
       with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          ARGS: "-rlgoDzvc -i --delete"
-          SOURCE: "build/"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        source: "build/"
+        target:  ${{ secrets.REMOTE_TARGET }}
