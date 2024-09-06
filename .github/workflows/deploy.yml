@@ -22,6 +22,10 @@ jobs:
       run: |
         yarn install
         yarn build
+    - name: Check
+      run: |
+        ls -al
+        which rsync
     - name: Deploy
       uses: easingthemes/ssh-deploy@main
       with:
