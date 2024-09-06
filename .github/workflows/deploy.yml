@@ -26,12 +26,3 @@ jobs:
     - name: Check
       run: |
         ls -al
-        which rsync
-    - name: Deploy
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.REMOTE_HOST }}
-        username: ${{ secrets.REMOTE_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "build/"
-        target:  ${{ secrets.REMOTE_TARGET }}
