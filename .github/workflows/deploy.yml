@@ -20,8 +20,8 @@ jobs:
 
     - name: Build
       run: |
-        npm ci
-        npm build
+        yarn install
+        yarn build
     - name: Deploy
       uses: easingthemes/ssh-deploy@main
       with:
