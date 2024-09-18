@@ -29,7 +29,7 @@ const Playlist: React.FC<Props> = () => {
     if (playingSong?.id === track.id && isPlaying) {
       pause();
     } else {
-      play(track);
+      appendQueue(playlist.tracks);
     }
   };
 
@@ -71,7 +71,7 @@ const Playlist: React.FC<Props> = () => {
       </div>
       <div className='divide-y mt-6'>
         {playlist.tracks.map((track) => (
-          <Song song={track} key={track.id} duration />
+          <Song song={track} key={track.id} onPlay={handlePlay} duration />
         ))}
       </div>
     </div>

@@ -8,6 +8,7 @@ import { NextIcon, PrevIcon, PlaylistIcon } from '../../icons/Audio';
 import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
 import { msToMinutes } from '../../utils/msConvert';
 import Image from '../Image';
+import Queue from './Queue';
 
 interface Props {}
 
@@ -98,7 +99,9 @@ const Player: React.FC<Props> = () => {
         </div>
         <div className='player-controls'>
           <div className='player-controls-icon'>
-            <PlaylistIcon onClick={handlePlaylist} />
+            <Queue>
+              <PlaylistIcon />
+            </Queue>
           </div>
 
           <div className='player-controls-icon'>
@@ -110,55 +113,6 @@ const Player: React.FC<Props> = () => {
           </div>
         </div>
       </div>
-      {showPlaylist && (
-        <div className='player-playlist'>
-          {queue.map((track) => (
-            <div
-              key={track.id}
-              className='player-playlist-track'
-              onClick={() => play(track)}
-            >
-              <div className='player-playlist-track-cover'>
-                <Image
-                  className='player-playlist-track-cover-img'
-                  src={`${track?.al?.picUrl}?param=50y50`}
-                  alt=''
-                />
-              </div>
-              <div className='player-playlist-track-info'>
-                <div className='player-playlist-track-name'>
-                  <span className='ellipsis' title={track.name}>
-                    {track.name}
-                  </span>
-                </div>
-                <div className='player-playlist-track-aral'>
-                  <div className='player-playlist-track-artists ellipsis'>
-                    {track?.ar?.map((ar) => (
-                      <Link
-                        to={`/artist/${ar.id}`}
-                        className='player-playlist-track-artist'
-                        key={ar.id}
-                        title={ar.name}
-                      >
-                        {ar.name}
-                      </Link>
-                    ))}
-                  </div>
-                  <div
-                    className='player-playlist-track-album ellipsis'
-                    title={track.al.name}
-                  >
-                    {track.al.name}
-                  </div>
-                </div>
-              </div>
-              <div className='player-playlist-track-duration'>
-                {msToMinutes(track.dt)}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 };

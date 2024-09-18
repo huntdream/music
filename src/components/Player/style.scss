@@ -110,111 +110,14 @@
   }
 
   &-playlist {
-    position: absolute;
-    right: 0;
-    bottom: 64px;
-    width: 400px;
-    height: 600px;
-    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.12);
+    min-width: 300px;
+    max-width: calc(100vw - 20px);
+    min-height: 50vh;
+    max-height: 70vh;
     overflow: auto;
-    background-color: #fff;
-    z-index: 1000;
-    border-radius: 6px;
-
-    &-track {
-      display: flex;
-      align-items: center;
-      padding: 0 8px;
-      height: 48px;
-      border-bottom: 1px solid #eee;
-
-      &-cover {
-        margin-right: 24px;
-        width: 32px;
-        height: 32px;
-
-        &-img {
-          width: 32px;
-          height: 32px;
-          border-radius: 4px;
-        }
-      }
-
-      &-info {
-        display: flex;
-        flex: 1;
-        min-width: 0;
-        flex-wrap: wrap;
-      }
-
-      &-name {
-        flex: 6 1 0;
-        display: flex;
-        overflow: hidden;
-        flex-basis: 100%;
-      }
-
-      &-aral {
-        flex: 9 1 0;
-        color: #666;
-        align-items: center;
-        min-width: 0;
-        display: inline-flex;
-        font-size: 14px;
-        margin-top: 3px;
-        flex-basis: 1px;
-      }
-
-      &-artists {
-        margin-left: 0;
-        flex: 1;
-        max-width: max-content;
-      }
-
-      &-artist {
-        text-decoration: none;
-        color: #666;
-        position: relative;
-
-        &:not(:last-child) {
-          margin-right: 8px;
-
-          &::after {
-            content: '/';
-            margin: 0 2px;
-            position: absolute;
-          }
-        }
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-
-      &-album {
-        margin-left: 0;
-        flex: 1;
-        max-width: max-content;
-
-        &::before {
-          content: '•';
-          margin: 0 4px;
-        }
-      }
-
-      &-duration {
-        width: 54px;
-        text-align: end;
-        margin-left: 18px;
-        color: #666;
-        display: none;
-      }
-
-      &:hover & {
-        &-duration {
-          display: block;
-        }
-      }
-    }
   }
+}
+
+.player-popover {
+  padding: 16px 0 !important;
 }

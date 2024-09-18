@@ -1,5 +1,6 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Theme } from '@radix-ui/themes';
 import Home from '../Home';
 import Config from '../Config';
 import Library from '../Library';
@@ -37,8 +38,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Config>
-      <RouterProvider router={router} />
-      <Toaster />
+      <Theme>
+        <RouterProvider router={router} />
+        <Toaster />
+      </Theme>
     </Config>
   );
 }
