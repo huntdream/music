@@ -17,17 +17,6 @@ interface Props {}
 const Header: React.FC<Props> = () => {
   const [showQr, setShowQr] = useState(false);
   const [user, setUser] = useUser();
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const checkScroll = () => {
-      setScrolled(window.scrollY > 0);
-    };
-
-    document.addEventListener('scroll', checkScroll);
-
-    return () => document.removeEventListener('scroll', checkScroll);
-  }, []);
 
   const getAccount = (url: string) =>
     fetcher<any, { profile: IUser }>(url, {
@@ -56,11 +45,7 @@ const Header: React.FC<Props> = () => {
   };
 
   return (
-    <div
-      className={cls('nav', {
-        'nav-scrolled': scrolled,
-      })}
-    >
+    <div className='nav'>
       {user?.userId ? (
         <div className='nav-user'>
           <User user={user} />

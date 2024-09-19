@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../../components/Header';
 import Player from '../../components/Player';
 import NavBar from '../../components/NavBar';
 import { AppContext } from '../../context/App/App';
@@ -13,7 +12,6 @@ const Home: React.FC<Props> = () => {
 
   return (
     <div>
-      {/* <Header /> */}
       <div className='h-dvh overflow-hidden flex'>
         {isDesktop && <Sider />}
         <main className='p-4 pb-36 overflow-auto flex-1'>
