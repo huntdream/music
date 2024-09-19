@@ -5,19 +5,35 @@ import { ISong } from '../../types/song';
 import usePlayer from '../../context/App/usePlayer';
 import Image from '../Image';
 import { msToMinutes } from '../../utils/msConvert';
+import { ITrack } from '../../types/playlist';
 
 interface Props {
   song: ISong;
   className?: string;
   duration?: boolean;
   border?: boolean;
+  onPlay?: (song: ITrack) => void;
 }
 
-const Song: React.FC<Props> = ({ song, className, duration, border }) => {
+const Song: React.FC<Props> = ({
+  song,
+  className,
+  duration,
+  border,
+  onPlay,
+}) => {
   const { play } = usePlayer();
 
   const handleNavigate = (e: MouseEvent) => {
     e.stopPropagation();
+  };
+
+  const handlePlay = (song: ITrack) => {
+    play(song);
+
+    if (onPlay) {
+      onPlay(song);
+    }
   };
 
   return (
@@ -27,7 +43,7 @@ const Song: React.FC<Props> = ({ song, className, duration, border }) => {
         className,
         border
       )}
-      onClick={() => play(song)}
+      onClick={() => handlePlay(song)}
     >
       <div className='border w-10 h-10 rounded shrink-0'>
         <Image

@@ -36,6 +36,16 @@ const usePlayer = () => {
 
     audio?.play();
   };
+
+  useEffect(() => {
+    navigator.mediaSession.setActionHandler('previoustrack', () => {
+      prev();
+    });
+    navigator.mediaSession.setActionHandler('nexttrack', () => {
+      next();
+    });
+  }, [queue]);
+
   useEffect(() => {
     if ('mediaSession' in navigator) {
       if (playingSong) {

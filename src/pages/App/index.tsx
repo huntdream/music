@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { Theme } from '@radix-ui/themes';
 import Home from '../Home';
 import Config from '../Config';
@@ -9,38 +9,37 @@ import Moment from '../Moments';
 import { Toaster } from 'react-hot-toast';
 import './App.css';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />,
-    children: [
-      {
-        index: true,
-        path: 'me',
-        element: <Library />,
-      },
-      {
-        path: 'playlist/:id',
-        element: <Playlist />,
-      },
-      {
-        path: 'lyric/:id',
-        element: <Lyric />,
-      },
-      {
-        path: 'moments',
-        element: <Moment />,
-      },
-    ],
-  },
-]);
-
 function App() {
+  let location = useLocation();
+  let state = location.state as { backgroundLocation?: Location };
+
   return (
     <Config>
       <Theme>
-        <RouterProvider router={router} />
+        <Routes location={state?.backgroundLocation || location}>
+          <Route path='' element={<Home />}>
+            <Route index path='me' element={<Library />} />
+            <Route path='playlist/:id' element={<Playlist />} />
+            <Route path='moments' element={<Moment />} />
+            <Route path='lyric/:id' element={<Lyric />} />
+          </Route>
+        </Routes>
+
         <Toaster />
+        {state?.backgroundLocation && (
+          <Routes>
+            <Route
+              path='lyric/:id'
+              element={
+                <div className='fixed inset-0 bg-white'>
+                  <div className='h-full overflow-auto'>
+                    <Lyric />
+                  </div>
+                </div>
+              }
+            />
+          </Routes>
+        )}
       </Theme>
     </Config>
   );

@@ -9,6 +9,7 @@
   transform: translateY(100%);
   transition: transform 0.2s ease-in-out;
   opacity: 0;
+  z-index: 999;
 
   &.is-desktop {
     bottom: 0;

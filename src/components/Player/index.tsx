@@ -1,25 +1,26 @@
 import React, { MouseEvent, useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import cls from 'classnames';
 import usePlayer from '../../context/App/usePlayer';
 import useSongUrl from '../../fetchers/useSongUrl';
 import './style.scss';
-import { NextIcon, PrevIcon, PlaylistIcon } from '../../icons/Audio';
+import { PlaylistIcon } from '../../icons/Audio';
 import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
-import { msToMinutes } from '../../utils/msConvert';
 import Image from '../Image';
 import Queue from './Queue';
 import { AppContext } from '../../context/App/App';
+import useNavigateLyric from '../Lyric/useNavigateLyric';
 
 interface Props {}
 
 const Player: React.FC<Props> = () => {
-  const { playingSong, queue, next, prev, play, pause, audioRef, isPlaying } =
+  const { playingSong, next, prev, play, pause, audioRef, isPlaying } =
     usePlayer();
   const [url] = useSongUrl(playingSong?.id);
   const [showPlaylist, setShowPlaylist] = useState(false);
   const { isDesktop } = useContext(AppContext);
-
+  const navigateLyric = useNavigateLyric();
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,17 +34,12 @@ const Player: React.FC<Props> = () => {
   };
 
   const handleClick = () => {
-    navigate(`/lyric/${playingSong?.id}`);
-  };
-
-  const handlePrev = (e: MouseEvent) => {
-    e.stopPropagation();
-    prev();
-  };
-
-  const handleNext = (e: MouseEvent) => {
-    e.stopPropagation();
-    next();
+    console.log(location);
+    if (window.location.pathname.startsWith('/lyric')) {
+      navigate(-1);
+    } else {
+      navigateLyric(playingSong!.id);
+    }
   };
 
   const handlePause = (e: MouseEvent) => {
@@ -54,11 +50,6 @@ const Player: React.FC<Props> = () => {
   const handlePlay = (e: MouseEvent) => {
     e.stopPropagation();
     play();
-  };
-
-  const handlePlaylist = (e: MouseEvent) => {
-    e.stopPropagation();
-    setShowPlaylist(!showPlaylist);
   };
 
   return (

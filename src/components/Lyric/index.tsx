@@ -7,6 +7,7 @@ import './style.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import Line from './Line';
 import useSongDetail from '../../fetchers/useSongDetail';
+import useNavigateLyric from './useNavigateLyric';
 
 interface Props {}
 
@@ -18,7 +19,7 @@ const Lyric: React.FC<Props> = () => {
   const lyricRef = useRef<HTMLDivElement>(null);
   const { id } = useParams();
   const [songDetail] = useSongDetail(id);
-
+  const navigateLyric = useNavigateLyric();
   const [lyricData] = useLyric(playingSong?.id || id);
 
   const lyricRawText = lyricData?.lrc.lyric;
@@ -33,7 +34,7 @@ const Lyric: React.FC<Props> = () => {
 
   useEffect(() => {
     if (playingSong?.id) {
-      navigate(`/lyric/${playingSong?.id}`, { replace: true });
+      // navigateLyric(playingSong.id);
     }
   }, [navigate, playingSong?.id]);
 
