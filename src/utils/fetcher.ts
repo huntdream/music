@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 const fetcher = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
-      ? 'https://netease.maoyu.space/api'
+      ? 'https://music.maoyu.space/api'
       : 'http://localhost:3000',
   withCredentials: true,
 });
