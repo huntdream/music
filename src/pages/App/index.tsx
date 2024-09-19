@@ -1,4 +1,3 @@
-import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Theme } from '@radix-ui/themes';
 import Home from '../Home';
@@ -8,6 +7,7 @@ import Playlist from '../../components/Playlist';
 import Lyric from '../../components/Lyric';
 import Moment from '../Moments';
 import { Toaster } from 'react-hot-toast';
+import './App.css';
 
 const router = createBrowserRouter([
   {

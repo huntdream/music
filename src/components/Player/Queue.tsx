@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import usePlayer from '../../context/App/usePlayer';
-import { Popover } from '@radix-ui/themes';
+import * as Popover from '@radix-ui/react-popover';
 import Song from '../Song';
 import './style.scss';
 
@@ -9,14 +9,14 @@ interface Props {
 }
 
 const Queue: React.FC<Props> = ({ children }) => {
-  const { queue, play } = usePlayer();
+  const { queue } = usePlayer();
 
   return (
     <Popover.Root>
-      <Popover.Trigger>
+      <Popover.Trigger asChild>
         <div>{children}</div>
       </Popover.Trigger>
-      <Popover.Content className='player-popover'>
+      <Popover.Content className='player-popover mx-4 bg-white z-50 rounded-md shadow-md outline-none'>
         <div className='player-playlist'>
           {queue.map((track) => (
             <Song song={track} />

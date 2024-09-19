@@ -10,6 +10,10 @@
   transition: transform 0.2s ease-in-out;
   opacity: 0;
 
+  &.is-desktop {
+    bottom: 0;
+  }
+
   &-visible {
     transform: translateY(0);
     opacity: 1;

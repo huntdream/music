@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 import { ISong } from '../../types/song';
 import { IUser } from '../../types/user';
+import useMediaQuery from '../../hooks/useMatchMedia';
 
 interface IAppContext {
   user?: IUser;
@@ -20,6 +21,7 @@ interface IAppContext {
   isPlaying: boolean;
   setIsPlaying: (isPlaying: boolean) => void;
   audioRef: RefObject<HTMLAudioElement>;
+  isDesktop: boolean;
 }
 
 export const AppContext = createContext({
@@ -35,6 +37,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   const [queue, setQueue] = useState<ISong[]>([]);
   const [playingSong, setPlayingSong] = useState<ISong>();
   const [isPlaying, setIsPlaying] = useState(false);
+  const isDesktop = useMediaQuery('(min-width:768px)');
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useLayoutEffect(() => {
@@ -62,6 +65,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     isPlaying,
     setIsPlaying,
     audioRef,
+    isDesktop,
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

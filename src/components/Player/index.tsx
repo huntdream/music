@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import cls from 'classnames';
 import usePlayer from '../../context/App/usePlayer';
@@ -9,6 +9,7 @@ import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
 import { msToMinutes } from '../../utils/msConvert';
 import Image from '../Image';
 import Queue from './Queue';
+import { AppContext } from '../../context/App/App';
 
 interface Props {}
 
@@ -17,6 +18,7 @@ const Player: React.FC<Props> = () => {
     usePlayer();
   const [url] = useSongUrl(playingSong?.id);
   const [showPlaylist, setShowPlaylist] = useState(false);
+  const { isDesktop } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -63,6 +65,7 @@ const Player: React.FC<Props> = () => {
     <div
       className={cls('player', {
         'player-visible': !!playingSong,
+        'is-desktop': isDesktop,
       })}
     >
       <audio src={url} ref={audioRef} onEnded={handleEnded}></audio>
