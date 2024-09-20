@@ -1,26 +1,25 @@
 .player {
   position: fixed;
-  bottom: 64px;
+  bottom: 0;
   left: 0;
   right: 0;
   height: 64px;
   box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  transform: translateY(200%);
+  transform: translateY(100%);
   transition: transform 0.2s ease-in-out;
   opacity: 0;
   z-index: 999;
-
-  &.is-desktop {
-    bottom: 0;
-    transform: translateY(100%);
-  }
-
+  
   &-visible {
-    transform: translateY(0);
+    transform: translateY(-100%);
     opacity: 1;
   }
 
+  &.is-desktop {
+    transform: translateY(0);
+  }
+  
   &-inner {
     display: grid;
     grid-template-columns: 0fr 1fr 0fr;
