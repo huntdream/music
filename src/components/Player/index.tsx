@@ -94,7 +94,7 @@ const Player: React.FC<Props> = () => {
         <div className='player-controls'>
           <div className='player-controls-icon'>
             <Queue>
-              <PlaylistIcon />
+              <PlaylistIcon className='w-8 h-8' />
             </Queue>
           </div>
 
