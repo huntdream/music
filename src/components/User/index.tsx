@@ -8,6 +8,7 @@ interface Props {
   avatar?: boolean;
   size?: 'small' | 'normal' | 'large';
   signature?: boolean;
+  className?: string;
 }
 
 const User: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const User: React.FC<Props> = ({
   signature,
   size = 'normal',
   avatar,
+  className,
 }) => {
   const sizes = {
     small: 'w-6 h-6',
@@ -24,7 +26,7 @@ const User: React.FC<Props> = ({
 
   return (
     <div>
-      <div className='flex items-center'>
+      <div className={cls('flex items-center', className)}>
         <Image
           className={cls('rounded', sizes[size])}
           src={user.avatarUrl}

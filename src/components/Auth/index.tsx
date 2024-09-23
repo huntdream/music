@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import cls from 'classnames';
+import React, { useState } from 'react';
 import useSWR from 'swr';
 import { useUser } from '../../context/App';
 import { IUser } from '../../types/user';
 import fetcher from '../../utils/fetcher';
-
 import Login from '../Login';
-import './style.scss';
 import User from '../User';
 import Modal from '../Modal';
 import Button from '../Button';
 
-interface Props {}
+interface Props {
+  className?: string;
+}
 
-const Header: React.FC<Props> = () => {
+const Auth: React.FC<Props> = ({ className }) => {
   const [showQr, setShowQr] = useState(false);
   const [user, setUser] = useUser();
 
@@ -45,15 +43,11 @@ const Header: React.FC<Props> = () => {
   };
 
   return (
-    <div className='nav'>
+    <div className={className}>
       {user?.userId ? (
-        <div className='nav-user'>
-          <User user={user} />
-        </div>
+        <User user={user} />
       ) : (
-        <Button onClick={handleLogin} className='nav-login'>
-          Log in
-        </Button>
+        <Button onClick={handleLogin}>登录</Button>
       )}
       <Modal title='登录' visible={showQr} onClose={() => setShowQr(false)}>
         <Login onSuccess={handleLoginSuccess} />
@@ -62,4 +56,4 @@ const Header: React.FC<Props> = () => {
   );
 };
 
-export default Header;
+export default Auth;

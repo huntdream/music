@@ -6,7 +6,6 @@ import fetcher from '../../utils/fetcher';
 import Image from '../Image';
 import Loading from '../Loading';
 import User from '../User';
-import './style.scss';
 
 interface LoginStatus {
   code: number;
@@ -113,15 +112,15 @@ const QR: React.FC<Props> = ({ onSuccess }) => {
   const showAvatar = status?.code === 802 || status?.code === 803;
 
   return (
-    <div className='qrcode'>
+    <div className='flex flex-col justify-center items-center h-72'>
       {showAvatar ? (
-        <User user={status as unknown as IUser} />
+        <User className='my-1' user={status as unknown as IUser} />
       ) : qrImg ? (
-        <Image src={qrImg} className='qrcode-qr-img' alt='QR' />
+        <Image src={qrImg} className='w-44 h-44' alt='QR' />
       ) : (
         <Loading />
       )}
-      <div className='qrcode-qr-status'>{status?.message}</div>
+      <div className='leading-4 h-4 mt-4 text-gray-600'>{status?.message}</div>
     </div>
   );
 };

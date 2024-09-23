@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
+import cls from 'classnames';
 import QR from './QR';
 import Phone from './Phone';
-import cls from 'classnames';
-
-interface LoginForm {
-  phone: string;
-  captcha: string;
-}
 
 interface Props {
   onSuccess: () => void;

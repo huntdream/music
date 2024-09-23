@@ -1,7 +1,7 @@
 import React from 'react';
 import Item from './Item';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Header from '../Header';
+import Auth from '../Auth';
 
 interface Props {}
 
@@ -31,9 +31,10 @@ const Sider: React.FC<Props> = () => {
   ];
 
   return (
-    <div className='pb-36 pt-4 border-r w-56 '>
-      <Header />
-      <div className='py-4 px-2'>
+    <div className='pb-36 pt-4 px-2 border-r w-56'>
+      <Auth />
+
+      <div className='py-4'>
         <div>
           {menu.map(({ path, name }) => (
             <Item
