@@ -17,7 +17,6 @@ const Player: React.FC<Props> = () => {
   const { playingSong, next, prev, play, pause, audioRef, isPlaying } =
     usePlayer();
   const [url] = useSongUrl(playingSong?.id);
-  const [showPlaylist, setShowPlaylist] = useState(false);
   const { isDesktop } = useContext(AppContext);
   const navigateLyric = useNavigateLyric();
   const location = useLocation();
@@ -33,8 +32,9 @@ const Player: React.FC<Props> = () => {
     next();
   };
 
-  const handleClick = () => {
-    console.log(location);
+  const handleClick = (e: MouseEvent) => {
+    e.stopPropagation();
+
     if (window.location.pathname.startsWith('/lyric')) {
       navigate(-1);
     } else {

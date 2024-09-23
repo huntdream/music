@@ -13,7 +13,7 @@ const Queue: React.FC<Props> = ({ children }) => {
 
   return (
     <Popover.Root>
-      <Popover.Trigger>
+      <Popover.Trigger onClick={(e) => e.stopPropagation()}>
         <div>{children}</div>
       </Popover.Trigger>
       <Popover.Content className='player-popover mx-4 bg-white z-50 rounded-md shadow-md outline-none'>
