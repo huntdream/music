@@ -51,7 +51,7 @@ const Sider: React.FC<Props> = () => {
         ))}
       </div>
 
-      <h2 className='my-2 ml-4 font-bold text-lg sticky'>我的歌单</h2>
+      <h2 className='my-2 ml-4 font-bold text-lg border-b'>我的歌单</h2>
       <div className='overflow-auto flex-1 pb-20 px-2'>
         <Playlists list={mylist} cover={false} divide={false} />
       </div>
