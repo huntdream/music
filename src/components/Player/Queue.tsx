@@ -19,7 +19,7 @@ const Queue: React.FC<Props> = ({ children }) => {
       <Popover.Content className='player-popover mx-4 bg-white z-50 rounded-md shadow-md outline-none'>
         <div className='player-playlist'>
           {queue.map((track) => (
-            <Song song={track} />
+            <Song song={track} key={track.id} />
           ))}
         </div>
       </Popover.Content>
