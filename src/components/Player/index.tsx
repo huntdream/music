@@ -55,8 +55,8 @@ const Player: React.FC<Props> = () => {
   return (
     <div
       className={cls('player', {
-        'player-visible': !!playingSong,
-        'is-desktop': isDesktop,
+        visible: !!playingSong,
+        mobile: !isDesktop,
       })}
     >
       <audio src={url} ref={audioRef} onEnded={handleEnded}></audio>

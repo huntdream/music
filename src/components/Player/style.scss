@@ -10,16 +10,16 @@
   transition: transform 0.2s ease-in-out;
   opacity: 0;
   z-index: 999;
-  
-  &-visible {
-    transform: translateY(-100%);
+
+  &.visible {
+    transform: translateY(0);
     opacity: 1;
+
+    &.mobile {
+      transform: translateY(-100%);
+    }
   }
 
-  &.is-desktop {
-    transform: translateY(0);
-  }
-  
   &-inner {
     display: grid;
     grid-template-columns: 0fr 1fr 0fr;
