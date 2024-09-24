@@ -14,7 +14,7 @@ const Moment: React.FC<Props> = () => {
     return <Auth className='h-full w-full flex justify-center items-center' />;
   }
   return (
-    <div className='moment'>
+    <div className='w-[720px] max-w-full px-4 mx-auto'>
       <Events />
     </div>
   );
