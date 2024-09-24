@@ -1,42 +1,32 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import cls from 'classnames';
 import usePlayer from '../../context/App/usePlayer';
 import useLyric from '../../fetchers/useLyric';
 import { parseLyric } from '../../utils/parseLyric';
-import './style.scss';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Line from './Line';
 import useSongDetail from '../../fetchers/useSongDetail';
-import useNavigateLyric from './useNavigateLyric';
 
 interface Props {}
 
 const Lyric: React.FC<Props> = () => {
-  const { playingSong, audioRef, play } = usePlayer();
-  const navigate = useNavigate();
+  const { audioRef, play, queue, appendQueue } = usePlayer();
   const [hlKey, setHlKey] = useState<number>(0);
   const audio = audioRef.current;
   const lyricRef = useRef<HTMLDivElement>(null);
   const { id } = useParams();
   const [songDetail] = useSongDetail(id);
-  const navigateLyric = useNavigateLyric();
-  const [lyricData] = useLyric(playingSong?.id || id);
+  const [lyricData] = useLyric(id);
 
   const lyricRawText = lyricData?.lrc.lyric;
 
   const lyric = useMemo(() => parseLyric(lyricRawText), [lyricRawText]);
 
   useEffect(() => {
-    if (!playingSong?.id && id && songDetail) {
+    if (id && songDetail && !queue.length) {
+      appendQueue(songDetail);
       play(songDetail);
     }
-  }, [id, songDetail]);
-
-  useEffect(() => {
-    if (playingSong?.id) {
-      // navigateLyric(playingSong.id);
-    }
-  }, [navigate, playingSong?.id]);
+  }, [id, songDetail, queue]);
 
   useEffect(() => {
     const updateLyric = () => {
@@ -64,17 +54,22 @@ const Lyric: React.FC<Props> = () => {
   };
 
   return (
-    <div className='lyric'>
-      <div className='lyric-content' ref={lyricRef}>
-        {lyric.map(({ text, key, timestamp }) => (
-          <Line
-            onClick={() => seekTime(timestamp, key)}
-            isHighlighted={hlKey === key}
-            key={key}
-          >
-            {text}
-          </Line>
-        ))}
+    <div className='fixed inset-0 bg-white/80 backdrop-blur-md'>
+      <div className='h-full overflow-auto'>
+        <div
+          className='text-center text-xl overflow-auto mb-[50vh]'
+          ref={lyricRef}
+        >
+          {lyric.map(({ text, key, timestamp }) => (
+            <Line
+              onClick={() => seekTime(timestamp, key)}
+              isHighlighted={hlKey === key}
+              key={key}
+            >
+              {text}
+            </Line>
+          ))}
+        </div>
       </div>
     </div>
   );

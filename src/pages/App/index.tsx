@@ -28,16 +28,7 @@ function App() {
         <Toaster />
         {state?.backgroundLocation && (
           <Routes>
-            <Route
-              path='lyric/:id'
-              element={
-                <div className='fixed inset-0 bg-white'>
-                  <div className='h-full overflow-auto'>
-                    <Lyric />
-                  </div>
-                </div>
-              }
-            />
+            <Route path='lyric/:id' element={<Lyric />} />
           </Routes>
         )}
       </Theme>

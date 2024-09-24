@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import cls from 'classnames';
-import './style.scss';
 
 interface Props {
   isHighlighted: boolean;
@@ -19,8 +18,8 @@ const Line: React.FC<Props> = ({ isHighlighted, children, onClick }) => {
   return (
     <div
       ref={ref}
-      className={cls('lyric-sentence', {
-        'lyric-sentence--hl': isHighlighted,
+      className={cls('my-4 text-slate-600', {
+        'font-bold text-slate-800': isHighlighted,
       })}
       onClick={onClick}
     >
