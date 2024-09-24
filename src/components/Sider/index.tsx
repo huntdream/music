@@ -12,9 +12,8 @@ const Sider: React.FC<Props> = () => {
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [mylist, subscribed] = usePlaylists(user?.userId);
+  const [mylist] = usePlaylists(user?.userId);
 
-  console.log(mylist, '??');
   const navigateTo = (path: string) => {
     navigate(path);
   };
