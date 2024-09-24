@@ -48,6 +48,7 @@ export interface ITrack {
   dt: number;
   al: IAlbum;
   ar: IArtist[];
+  copyright: 1 | 2;
 }
 
 export interface IAlbum {

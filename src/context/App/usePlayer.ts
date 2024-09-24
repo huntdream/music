@@ -106,9 +106,12 @@ const usePlayer = () => {
     play(queue[prevIndex]);
   };
 
+  const filterQueue = (newQueue: ISong[]) =>
+    newQueue.filter((s) => s.copyright === 1);
+
   const replaceQueue = (newQueue: ISong[] | string | number) => {
     if (Array.isArray(newQueue)) {
-      setQueue(newQueue);
+      setQueue(filterQueue(newQueue));
       play(newQueue[0]);
     } else if (newQueue) {
       fetcher<any, { playlist: IPlaylist }>(
@@ -120,8 +123,7 @@ const usePlayer = () => {
   };
 
   const appendQueue = (song: ISong | ISong[]) => {
-    let newQueue = [];
-    newQueue = queue.concat(song);
+    let newQueue = queue.concat(filterQueue(Array.prototype.concat(song)));
 
     setQueue(uniqBy(newQueue, 'id'));
   };
