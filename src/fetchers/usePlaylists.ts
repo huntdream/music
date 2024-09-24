@@ -2,10 +2,12 @@ import useSWR from 'swr';
 import { IPlaylistsItem } from '../types/playlist';
 import fetcher from '../utils/fetcher';
 
+type Playlists = [IPlaylistsItem[], IPlaylistsItem[]];
+
 const usePlaylists = (uid?: number) => {
-  const { data = [] } = useSWR<[IPlaylistsItem[], IPlaylistsItem[]]>(
+  const { data = [] } = useSWR<Playlists>(
     uid ? `/user/playlist?uid=${uid}` : null,
-    (url) =>
+    (url: string): Promise<Playlists> =>
       fetcher(url).then((res: any) => {
         const created: IPlaylistsItem[] = [];
         const subscribed: IPlaylistsItem[] = [];

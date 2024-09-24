@@ -5,9 +5,10 @@ import { IPlaylistsItem } from '../../types/playlist';
 
 interface Props {
   data: IPlaylistsItem;
+  cover?: boolean;
 }
 
-const PlaylistRow: React.FC<Props> = ({ data }) => {
+const PlaylistRow: React.FC<Props> = ({ data, cover = true }) => {
   const { id, name, coverImgUrl, trackCount, creator } = data;
   const navigate = useNavigate();
 
@@ -17,14 +18,16 @@ const PlaylistRow: React.FC<Props> = ({ data }) => {
 
   return (
     <div
-      className='flex items-center px-3 py-2 border-t cursor-pointer hover:bg-slate-400'
+      className='flex items-center px-3 py-2 cursor-pointer rounded-md hover:bg-slate-200'
       onClick={handleClick}
     >
-      <Image
-        src={`${coverImgUrl}?param=240y240`}
-        alt=''
-        className='h-12 w-12 rounded-md mr-3'
-      />
+      {cover && (
+        <Image
+          src={`${coverImgUrl}?param=240y240`}
+          alt=''
+          className='h-12 w-12 rounded-md mr-3'
+        />
+      )}
       <div className='flex flex-1 justify-between'>
         <div className='text-base text-ellipsis' title={name}>
           {name}

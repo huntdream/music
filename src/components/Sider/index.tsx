@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Item from './Item';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Auth from '../Auth';
+import Playlists from '../Playlists';
+import usePlaylists from '../../fetchers/usePlaylists';
+import { AppContext } from '../../context/App/App';
 
 interface Props {}
 
 const Sider: React.FC<Props> = () => {
+  const { user } = useContext(AppContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [mylist, subscribed] = usePlaylists(user?.userId);
 
+  console.log(mylist, '??');
   const navigateTo = (path: string) => {
     navigate(path);
   };
@@ -31,21 +37,24 @@ const Sider: React.FC<Props> = () => {
   ];
 
   return (
-    <div className='pb-36 pt-4 px-2 border-r w-56'>
-      <Auth />
+    <div className='pt-4 border-r w-56 overflow-hidden h-full flex flex-col'>
+      <Auth className='pl-4' />
 
-      <div className='py-4'>
-        <div>
-          {menu.map(({ path, name }) => (
-            <Item
-              key={path}
-              active={isActive(path)}
-              onClick={() => navigateTo(path)}
-            >
-              {name}
-            </Item>
-          ))}
-        </div>
+      <div className='py-4 px-2'>
+        {menu.map(({ path, name }) => (
+          <Item
+            key={path}
+            active={isActive(path)}
+            onClick={() => navigateTo(path)}
+          >
+            {name}
+          </Item>
+        ))}
+      </div>
+
+      <h2 className='my-2 ml-4 font-bold text-lg sticky'>我的歌单</h2>
+      <div className='overflow-auto flex-1 pb-20 px-2'>
+        <Playlists list={mylist} cover={false} divide={false} />
       </div>
     </div>
   );
