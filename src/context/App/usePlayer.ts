@@ -23,10 +23,6 @@ const usePlayer = () => {
       audio?.pause();
       setPlayingSong(song);
 
-      if (queue.findIndex((s) => s.id === song?.id) == -1) {
-        appendQueue(song);
-      }
-
       return;
     }
 
@@ -126,10 +122,6 @@ const usePlayer = () => {
   const appendQueue = (song: ISong | ISong[]) => {
     let newQueue = [];
     newQueue = queue.concat(song);
-
-    if (!queue.length && newQueue.length) {
-      setPlayingSong(newQueue[0]);
-    }
 
     setQueue(uniqBy(newQueue, 'id'));
   };
