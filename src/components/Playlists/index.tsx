@@ -1,6 +1,5 @@
 import React from 'react';
 import { IPlaylistsItem } from '../../types/playlist';
-import './style.scss';
 import PlaylistRow from './PlaylistRow';
 
 interface Props {
