@@ -24,7 +24,7 @@ const Button: React.FC<Props> = ({
       {...props}
       disabled={isDisabled}
       className={cls(
-        'h-9 px-4 flex items-center whitespace-nowrap font-medium rounded-md cursor-pointer disabled:opacity-75',
+        'h-9 px-4 inline-flex items-center justify-center whitespace-nowrap font-medium rounded-md cursor-pointer disabled:opacity-75',
         className,
         pirmary
           ? 'bg-black text-white hover:enabled:bg-slate-700'
