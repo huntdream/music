@@ -7,6 +7,9 @@ module.exports = {
         primary: '#050505',
         secondary: '#65676b',
       },
+      animation: {
+        'slide-in': 'slideIn 500ms ease-in-out',
+      },
     },
   },
   plugins: [],
