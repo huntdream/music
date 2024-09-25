@@ -44,8 +44,6 @@ const Comment: React.FC<Props> = ({ type, id }) => {
   const isLoadingMore =
     isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined');
 
-  console.log(isLoading, 'isLoading');
-
   return (
     <div>
       {data?.map((block, index) => (
