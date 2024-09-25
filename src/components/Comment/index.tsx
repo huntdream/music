@@ -6,42 +6,56 @@ import cls from 'classnames';
 import React from 'react';
 import useSWRInfinite from 'swr/infinite';
 import User from '../User';
-import { IComments } from '../../types/comment';
+import { CommentType, IComments } from '../../types/comment';
 import Button from '../Button';
 import Loading from '../Loading';
+import fetcher from '../../utils/fetcher';
 
-interface Props {}
+interface Props {
+  id: number | string;
+  type?: CommentType;
+}
 
-const Comment: React.FC<Props> = () => {
-  const { data, error, isValidating, mutate, size, setSize } =
-    useSWRInfinite<IComments>((pageIndex, previousPageData) => {
-      const url = `comment/new?type=0&id=28815381&sortType=3&pageSize=20&pageNo=${
-        pageIndex + 1
-      }`;
+const Comment: React.FC<Props> = ({ type, id }) => {
+  const { data, error, isValidating, mutate, isLoading, size, setSize } =
+    useSWRInfinite<IComments>(
+      (pageIndex, previousPageData: IComments) => {
+        const url = `comment/new?type=${type}&id=${id}&sortType=3&pageSize=20&pageNo=${
+          pageIndex + 1
+        }`;
 
-      if (pageIndex === 0) return url;
+        if (previousPageData && !previousPageData?.hasMore) return null;
 
-      const cursor = previousPageData?.comments?.pop()?.time;
+        if (pageIndex === 0) return url;
 
-      return `${url}&cursor=${cursor}`;
-    });
+        const cursor = previousPageData?.comments?.pop()?.time;
 
-  console.log(data, size);
+        return `${url}&cursor=${cursor}`;
+      },
+      (url) => {
+        return fetcher(url).then((res) => res.data);
+      }
+    );
 
   if (!data?.[0]) {
     return <Loading />;
   }
 
+  const isLoadingMore =
+    isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined');
+
+  console.log(isLoading, 'isLoading');
+
   return (
     <div>
-      <div className='divide-y'>
-        {data?.map((block) =>
-          block.comments.map((comment) => (
-            <div className='p-3'>
+      {data?.map((block, index) => (
+        <div key={block.cursor}>
+          {block.comments.map((comment) => (
+            <div className='p-3' key={comment.commentId}>
               <User user={comment.user} size='small' />
-              <div className='whitespace-pre-line'>{comment.content}</div>
+              <div className='whitespace-pre-line mt-2'>{comment.content}</div>
               <div className='flex justify-between items-center mt-1'>
-                <div className='text-gray-600 text-sm'>{comment.timeStr}</div>
+                <div className='text-secondary text-sm'>{comment.timeStr}</div>
                 <div className='flex items-center'>
                   <HeartIcon
                     className={cls('h-4 w-4 cursor-pointer hover:scale-110', {
@@ -52,16 +66,21 @@ const Comment: React.FC<Props> = () => {
                 </div>
               </div>
             </div>
-          ))
-        )}
-      </div>
-      <Button
-        onClick={() => {
-          setSize(size + 1);
-        }}
-      >
-        Load More
-      </Button>
+          ))}
+          {block.hasMore && index === data.length - 1 && (
+            <div className='flex justify-center'>
+              <Button
+                loading={isLoadingMore}
+                onClick={() => {
+                  setSize(size + 1);
+                }}
+              >
+                加载更多
+              </Button>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 };

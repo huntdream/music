@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { IEvent } from '../../types/event';
 import Song from '../Song';
 import cls from 'classnames';
-import Comment from './Comment';
+import Comment from '../Comment';
 import User from '../User';
 import Image from '../Image';
 
