@@ -91,7 +91,7 @@ const usePlayer = () => {
       nextIndex = 0;
     }
 
-    setPlayingSong(queue[nextIndex]);
+    play(queue[nextIndex]);
   };
 
   const prev = () => {
