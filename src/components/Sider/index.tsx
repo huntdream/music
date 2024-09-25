@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import Item from './Item';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Auth from '../Auth';
-import Playlists from '../Playlists';
 import usePlaylists from '../../fetchers/usePlaylists';
 import { AppContext } from '../../context/App/App';
 
@@ -12,11 +11,15 @@ const Sider: React.FC<Props> = () => {
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { id = '' } = useParams();
   const [mylist] = usePlaylists(user?.userId);
+  const playlistId = pathname.startsWith('/playlist') ? parseInt(id, 10) : 0;
 
   const navigateTo = (path: string) => {
     navigate(path);
   };
+
+  console.log(id, pathname, 'id');
 
   const isActive = (path: string) => pathname === path;
 
@@ -53,7 +56,14 @@ const Sider: React.FC<Props> = () => {
 
       <h2 className='my-2 ml-4 font-bold text-lg border-b'>我的歌单</h2>
       <div className='overflow-auto flex-1 pb-20 px-2'>
-        <Playlists list={mylist} cover={false} divide={false} />
+        {mylist?.map((item) => (
+          <Item
+            onClick={() => navigateTo(`/playlist/${item.id}`)}
+            active={item.id === playlistId}
+          >
+            {item.name}
+          </Item>
+        ))}
       </div>
     </div>
   );
