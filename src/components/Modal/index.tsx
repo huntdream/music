@@ -40,7 +40,7 @@ const Modal: React.FC<ModalProps> = ({
                     <h2 className='text-lg capitalize'>{title}</h2>
 
                     <XMarkIcon
-                      className='absolute right-4 h-7 w-7 flex p-1 items-center justify-center rounded-full cursor-pointer transition duration-500 hover:bg-slate-300/80 '
+                      className='absolute right-4 h-7 w-7 flex p-1 items-center justify-center rounded-full cursor-pointer transition duration-500 hover:bg-active'
                       onClick={onClose}
                     />
                   </div>

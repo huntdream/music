@@ -1,4 +1,5 @@
 import { FC, MouseEvent, ReactNode } from 'react';
+import cls from 'classnames';
 
 interface Props {
   children: ReactNode;
@@ -9,9 +10,12 @@ interface Props {
 const Item: FC<Props> = ({ children, active, onClick }) => {
   return (
     <div
-      className={`px-3 h-9 rounded-md flex items-center cursor-pointer mb-2 hover:bg-slate-200 ${
-        active && 'bg-slate-200'
-      }`}
+      className={cls(
+        'px-3 h-9 rounded-md flex items-center cursor-pointer mb-2 hover:bg-active',
+        {
+          'bg-active': active,
+        }
+      )}
       onClick={onClick}
     >
       {children}

@@ -46,7 +46,7 @@ const Song: React.FC<Props> = ({
   return (
     <div
       className={cls(
-        'flex px-2 py-1 items-center cursor-pointer hover:bg-slate-50 overflow-hidden',
+        'flex px-2 py-1 items-center cursor-pointer hover:bg-active overflow-hidden',
         className,
         border
       )}

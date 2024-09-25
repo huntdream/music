@@ -18,7 +18,7 @@ const PlaylistRow: React.FC<Props> = ({ data, cover = true }) => {
 
   return (
     <div
-      className='flex items-center px-3 py-2 cursor-pointer rounded-md hover:bg-slate-200'
+      className='flex items-center px-3 py-2 cursor-pointer rounded-md hover:bg-active'
       onClick={handleClick}
     >
       {cover && (

@@ -52,7 +52,7 @@ const Event: React.FC<Props> = ({ event }) => {
         </div>
         <div className='border-l my-1' />
         <div
-          className='flex flex-1 justify-center items-center cursor-pointer h-8 hover:bg-gray-50'
+          className='flex flex-1 justify-center items-center cursor-pointer h-8 hover:bg-active'
           onClick={() => {
             setShowComment(!showComment);
           }}
