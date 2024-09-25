@@ -61,7 +61,6 @@
     &-aral {
       flex: 9 1 0;
       display: flex;
-      color: #666;
       align-items: center;
       min-width: 0;
     }
@@ -72,7 +71,6 @@
 
     &-artist {
       text-decoration: none;
-      color: #666;
       position: relative;
 
       &:not(:last-child) {

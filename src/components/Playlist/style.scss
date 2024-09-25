@@ -19,7 +19,6 @@
   }
 
   &-stats {
-    color: #666;
     font-size: 14px;
   }
 
@@ -34,84 +33,6 @@
 
   &-tracks {
     margin-top: 25px;
-  }
-
-  &-track {
-    display: flex;
-    align-items: center;
-    padding: 0 8px;
-    height: 48px;
-    border-bottom: 1px solid #eee;
-
-    &-cover {
-      margin-right: 24px;
-      width: 32px;
-      height: 32px;
-
-      &-img {
-        width: 32px;
-        height: 32px;
-        border-radius: 4px;
-      }
-    }
-
-    &-info {
-      display: flex;
-      flex: 1;
-      min-width: 0;
-      flex-wrap: wrap;
-    }
-
-    &-name {
-      flex: 6 1 0;
-      display: flex;
-      overflow: hidden;
-    }
-
-    &-aral {
-      flex: 9 1 0;
-      display: flex;
-      color: #666;
-      align-items: center;
-      min-width: 0;
-    }
-
-    &-artists {
-      flex: 1;
-      margin-left: 18px;
-    }
-
-    &-artist {
-      text-decoration: none;
-      color: #666;
-      position: relative;
-
-      &:not(:last-child) {
-        margin-right: 8px;
-
-        &::after {
-          content: '/';
-          margin: 0 2px;
-          position: absolute;
-        }
-      }
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    &-album {
-      flex: 1;
-      margin-left: 18px;
-    }
-
-    &-duration {
-      width: 54px;
-      text-align: end;
-      margin-left: 18px;
-      color: #666;
-    }
   }
 }
 

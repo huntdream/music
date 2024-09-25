@@ -75,12 +75,12 @@ const Player: React.FC<Props> = () => {
                 {playingSong?.name}
               </span>
             </div>
-            <div className='player-song-aral'>
+            <div className='player-song-aral text-secondary'>
               <div className='player-song-artists ellipsis'>
                 {playingSong?.ar?.map((ar) => (
                   <Link
                     to={`/artist/${ar.id}`}
-                    className='player-song-artist'
+                    className='player-song-artist text-secondary'
                     key={ar.id}
                     title={ar.name}
                   >

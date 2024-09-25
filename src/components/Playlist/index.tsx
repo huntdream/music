@@ -55,7 +55,7 @@ const Playlist: React.FC<Props> = () => {
         <Image className='playlist-cover' src={playlist.coverImgUrl} alt='' />
         <div className='playlist-detail'>
           <h2>{playlist.name}</h2>
-          <div className='playlist-stats'>
+          <div className='playlist-stats text-secondary'>
             {playlist.trackCount}首歌曲，时长{totalTime}
           </div>
           <div className='playlist-desc'>{playlist.description}</div>
