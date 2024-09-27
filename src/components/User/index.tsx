@@ -36,7 +36,7 @@ const User: React.FC<Props> = ({
           <div className='flex-1 overflow-hidden ml-2'>
             <div>{user.nickname}</div>
             {signature && (
-              <div className='text-gray-600 text-sm truncate'>
+              <div className='text-secondary text-sm truncate'>
                 {user.signature}
               </div>
             )}
