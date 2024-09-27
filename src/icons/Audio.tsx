@@ -47,10 +47,34 @@ export const PrevIcon: FC<IconProps> = (props) => (
 );
 
 export const PlaylistIcon: FC<IconProps> = (props) => (
-  <svg viewBox='0 0 24 24' preserveAspectRatio='xMidYMid meet' {...props}>
+  <svg
+    viewBox='0 0 24 24'
+    fill='currentColor'
+    preserveAspectRatio='xMidYMid meet'
+    {...props}
+  >
     <g>
       <path d='M0 0h24v24H0z' fill='none'></path>
       <path d='M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z'></path>
     </g>
   </svg>
 );
+
+export const AlbumIcon: React.FC<IconProps> = (props) => {
+  return (
+    <svg {...props} viewBox='0 0 1024 1024' fill='currentColor'>
+      <path
+        d='M511.701333 511.701333m-85.632 0a85.632 85.632 0 1 0 171.264 0 85.632 85.632 0 1 0-171.264 0Z'
+        p-id='11189'
+      ></path>
+      <path
+        d='M512 85.333333C276.736 85.333333 85.333333 276.736 85.333333 512s191.402667 426.666667 426.666667 426.666667 426.666667-191.402667 426.666667-426.666667S747.264 85.333333 512 85.333333z m0 768c-188.202667 0-341.333333-153.130667-341.333333-341.333333s153.130667-341.333333 341.333333-341.333333 341.333333 153.130667 341.333333 341.333333-153.130667 341.333333-341.333333 341.333333z'
+        p-id='11190'
+      ></path>
+      <path
+        d='M512 256c-141.184 0-256 114.816-256 256h85.333333c0-94.122667 76.544-170.666667 170.666667-170.666667V256z'
+        p-id='11191'
+      ></path>
+    </svg>
+  );
+};

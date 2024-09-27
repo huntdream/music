@@ -9,6 +9,8 @@ import Moment from '../Moments';
 import { Toaster } from 'react-hot-toast';
 import './App.css';
 import PlayerProvider from '../../components/Player/Provider';
+import Main from '../Main';
+import Search from '../Search';
 
 function App() {
   let location = useLocation();
@@ -20,9 +22,11 @@ function App() {
         <PlayerProvider>
           <Routes location={state?.backgroundLocation || location}>
             <Route path='' element={<Home />}>
-              <Route index path='me' element={<Library />} />
+              <Route index path='/' element={<Main />} />
+              <Route path='me' element={<Library />} />
               <Route path='playlist/:id' element={<Playlist />} />
               <Route path='moments' element={<Moment />} />
+              <Route path='search' element={<Search />} />
               <Route path='lyric/:id' element={<Lyric />} />
             </Route>
           </Routes>
