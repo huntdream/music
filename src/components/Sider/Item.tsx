@@ -11,7 +11,7 @@ const Item: FC<Props> = ({ children, active, onClick }) => {
   return (
     <div
       className={cls(
-        'px-3 h-9 rounded-md flex items-center cursor-pointer mb-2 hover:bg-active',
+        'px-3 h-9 rounded-md flex items-center cursor-pointer mb-1 hover:bg-active',
         {
           'bg-active': active,
         }

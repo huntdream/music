@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Auth from '../Auth';
 import usePlaylists from '../../fetchers/usePlaylists';
 import { AppContext } from '../../context/App/App';
+import { PlaylistIcon } from '../../icons/Audio';
 
 interface Props {}
 
@@ -60,7 +61,13 @@ const Sider: React.FC<Props> = () => {
             active={id === playlistId}
             key={id}
           >
-            {name}
+            <PlaylistIcon className='h-4 w-4 mr-1' />
+            <span
+              className='flex-1 whitespace-nowrap text-ellipsis overflow-hidden'
+              title={name}
+            >
+              {name}
+            </span>
           </Item>
         ))}
       </div>
