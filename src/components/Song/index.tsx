@@ -60,13 +60,13 @@ const Song: React.FC<Props> = ({
           alt=''
         />
       </div>
-      <div className='ml-2 flex-1 min-w-0'>
+      <div className='ml-2 flex-1 min-w-0 flex flex-col justify-between h-10'>
         <div className='flex'>
-          <span className='truncate' title={name}>
+          <span className='truncate leading-5' title={name}>
             {name}
           </span>
         </div>
-        <div className='flex text-sm text-gray-500'>
+        <div className='flex text-sm leading-4 text-gray-500'>
           <div className='truncate' title={ar?.map((ar) => ar.name).join('/')}>
             {ar?.map((ar) => (
               <Link
