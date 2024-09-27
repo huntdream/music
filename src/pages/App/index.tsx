@@ -8,6 +8,7 @@ import Lyric from '../../components/Lyric';
 import Moment from '../Moments';
 import { Toaster } from 'react-hot-toast';
 import './App.css';
+import PlayerProvider from '../../components/Player/Provider';
 
 function App() {
   let location = useLocation();
@@ -16,21 +17,23 @@ function App() {
   return (
     <Config>
       <Theme>
-        <Routes location={state?.backgroundLocation || location}>
-          <Route path='' element={<Home />}>
-            <Route index path='me' element={<Library />} />
-            <Route path='playlist/:id' element={<Playlist />} />
-            <Route path='moments' element={<Moment />} />
-            <Route path='lyric/:id' element={<Lyric />} />
-          </Route>
-        </Routes>
-
-        <Toaster />
-        {state?.backgroundLocation && (
-          <Routes>
-            <Route path='lyric/:id' element={<Lyric />} />
+        <PlayerProvider>
+          <Routes location={state?.backgroundLocation || location}>
+            <Route path='' element={<Home />}>
+              <Route index path='me' element={<Library />} />
+              <Route path='playlist/:id' element={<Playlist />} />
+              <Route path='moments' element={<Moment />} />
+              <Route path='lyric/:id' element={<Lyric />} />
+            </Route>
           </Routes>
-        )}
+
+          <Toaster />
+          {state?.backgroundLocation && (
+            <Routes>
+              <Route path='lyric/:id' element={<Lyric />} />
+            </Routes>
+          )}
+        </PlayerProvider>
       </Theme>
     </Config>
   );

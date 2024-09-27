@@ -1,22 +1,51 @@
-import { uniqBy } from 'lodash-es';
-import { useContext, useEffect } from 'react';
-import { IPlaylist, ITrack } from '../../types/playlist';
+import React, {
+  createContext,
+  createRef,
+  ReactNode,
+  RefObject,
+  useRef,
+  useState,
+} from 'react';
 import { ISong } from '../../types/song';
 import fetcher from '../../utils/fetcher';
-import { AppContext } from './App';
+import { uniqBy } from 'lodash-es';
+import { ITrack, IPlaylist } from '../../types/playlist';
 
-const usePlayer = () => {
-  const {
-    audioRef,
-    queue,
-    setQueue,
-    isPlaying,
-    setIsPlaying,
-    playingSong,
-    setPlayingSong,
-  } = useContext(AppContext);
+interface IPlayerContext {
+  queue: ISong[];
+  setQueue: (queue: ISong[]) => void;
+  playingSong?: ISong;
+  setPlayingSong: (song: ISong) => void;
+  isPlaying: boolean;
+  setIsPlaying: (isPlaying: boolean) => void;
+  audioRef: RefObject<HTMLAudioElement>;
+  next: () => void;
+  prev: () => void;
+  play: () => void;
+  pause: () => void;
+  replaceQueue: (newQueue: ISong[] | string | number) => void;
+  appendQueue: (song: ISong | ISong[]) => void;
+}
+
+export const PlayerContext = createContext({
+  audioRef: createRef(),
+} as IPlayerContext);
+
+interface Props {
+  children?: ReactNode;
+}
+
+const PlayerProvider: React.FC<Props> = ({ children }) => {
+  const [queue, setQueue] = useState<ISong[]>([]);
+  const [playingSong, setPlayingSong] = useState<ISong>();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const audio = audioRef.current;
+
+  const pause = () => {
+    audio?.pause();
+  };
 
   const play = (song?: ITrack) => {
     if (song && song.id !== playingSong?.id) {
@@ -31,55 +60,6 @@ const usePlayer = () => {
     }
 
     audio?.play();
-  };
-
-  useEffect(() => {
-    navigator.mediaSession.setActionHandler('previoustrack', () => {
-      prev();
-    });
-    navigator.mediaSession.setActionHandler('nexttrack', () => {
-      next();
-    });
-  }, [queue]);
-
-  useEffect(() => {
-    if ('mediaSession' in navigator) {
-      if (playingSong) {
-        const metadata = new MediaMetadata({
-          title: playingSong?.name,
-          artist: playingSong?.ar.map((it) => it.name).join('/'),
-          album: playingSong?.al.name,
-          artwork: [
-            {
-              src: playingSong?.al.picUrl || '',
-            },
-          ],
-        });
-        navigator.mediaSession.metadata = metadata;
-      }
-    }
-  }, [playingSong]);
-
-  useEffect(() => {
-    const handlePlay = () => {
-      setIsPlaying(true);
-    };
-
-    const handlePause = () => {
-      setIsPlaying(false);
-    };
-
-    audio?.addEventListener('play', handlePlay);
-    audio?.addEventListener('pause', handlePause);
-
-    return () => {
-      audio?.removeEventListener('play', handlePlay);
-      audio?.removeEventListener('pause', handlePause);
-    };
-  }, [audio, setIsPlaying]);
-
-  const pause = () => {
-    audio?.pause();
   };
 
   const next = () => {
@@ -128,18 +108,25 @@ const usePlayer = () => {
     setQueue(uniqBy(newQueue, 'id'));
   };
 
-  return {
-    audioRef,
+  const context: IPlayerContext = {
     queue,
+    setQueue,
     playingSong,
+    setPlayingSong,
     isPlaying,
-    play,
-    pause,
+    setIsPlaying,
+    audioRef,
     next,
     prev,
+    play,
+    pause,
     replaceQueue,
     appendQueue,
   };
+
+  return (
+    <PlayerContext.Provider value={context}>{children}</PlayerContext.Provider>
+  );
 };
 
-export default usePlayer;
+export default PlayerProvider;

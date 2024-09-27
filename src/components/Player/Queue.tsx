@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
-import usePlayer from '../../context/App/usePlayer';
 import * as Popover from '@radix-ui/react-popover';
 import Song from '../Song';
 import './style.scss';
+import usePlayer from './usePlayer';
 
 interface Props {
   children: ReactNode;

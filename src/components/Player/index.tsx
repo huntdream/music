@@ -1,7 +1,12 @@
-import React, { MouseEvent, useContext, useEffect, useState } from 'react';
+import React, {
+  MouseEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import cls from 'classnames';
-import usePlayer from '../../context/App/usePlayer';
 import useSongUrl from '../../fetchers/useSongUrl';
 import './style.scss';
 import { PlaylistIcon } from '../../icons/Audio';
@@ -10,17 +15,32 @@ import Image from '../Image';
 import Queue from './Queue';
 import { AppContext } from '../../context/App/App';
 import useNavigateLyric from '../Lyric/useNavigateLyric';
+import fetcher from '../../utils/fetcher';
+import { uniqBy } from 'lodash-es';
+import { ITrack, IPlaylist } from '../../types/playlist';
+import { ISong } from '../../types/song';
+import { PlayerContext } from './Provider';
 
 interface Props {}
 
 const Player: React.FC<Props> = () => {
-  const { playingSong, next, prev, play, pause, audioRef, isPlaying } =
-    usePlayer();
+  const {
+    queue,
+    setIsPlaying,
+    isPlaying,
+    playingSong,
+    audioRef,
+    next,
+    prev,
+    pause,
+    play,
+  } = useContext(PlayerContext);
   const [url] = useSongUrl(playingSong?.id);
   const { isDesktop } = useContext(AppContext);
   const navigateLyric = useNavigateLyric();
-  const location = useLocation();
   const navigate = useNavigate();
+
+  const audio = audioRef.current;
 
   useEffect(() => {
     if (url) {
@@ -51,6 +71,52 @@ const Player: React.FC<Props> = () => {
     e.stopPropagation();
     play();
   };
+
+  useEffect(() => {
+    navigator.mediaSession.setActionHandler('previoustrack', () => {
+      prev();
+    });
+    navigator.mediaSession.setActionHandler('nexttrack', () => {
+      next();
+    });
+  }, [queue, playingSong]);
+
+  useEffect(() => {
+    if ('mediaSession' in navigator) {
+      if (playingSong) {
+        console.log('media');
+        const metadata = new MediaMetadata({
+          title: playingSong?.name,
+          artist: playingSong?.ar.map((it) => it.name).join('/'),
+          album: playingSong?.al.name,
+          artwork: [
+            {
+              src: playingSong?.al.picUrl || '',
+            },
+          ],
+        });
+        navigator.mediaSession.metadata = metadata;
+      }
+    }
+  }, [playingSong]);
+
+  useEffect(() => {
+    const handlePlay = () => {
+      setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+      setIsPlaying(false);
+    };
+
+    audio?.addEventListener('play', handlePlay);
+    audio?.addEventListener('pause', handlePause);
+
+    return () => {
+      audio?.removeEventListener('play', handlePlay);
+      audio?.removeEventListener('pause', handlePause);
+    };
+  }, [audio, setIsPlaying]);
 
   return (
     <div

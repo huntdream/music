@@ -2,11 +2,11 @@ import React, { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import cls from 'classnames';
 import { ISong } from '../../types/song';
-import usePlayer from '../../context/App/usePlayer';
 import Image from '../Image';
 import { msToMinutes } from '../../utils/msConvert';
 import { ITrack } from '../../types/playlist';
 import toast from 'react-hot-toast';
+import usePlayer from '../Player/usePlayer';
 
 interface Props {
   song: ISong;

@@ -4,18 +4,18 @@ import { sumBy } from 'lodash-es';
 import usePlaylist from '../../fetchers/usePlaylist';
 import { msToHours, msToMinutes } from '../../utils/msConvert';
 import './style.scss';
-import usePlayer from '../../context/App/usePlayer';
 import { ITrack } from '../../types/playlist';
 import Button from '../Button';
 import Image from '../Image';
 import Loading from '../Loading';
 import Song from '../Song';
+import usePlayer from '../Player/usePlayer';
 
 interface Props {}
 
 const Playlist: React.FC<Props> = () => {
   const { id } = useParams();
-  const { play, pause, isPlaying, playingSong, replaceQueue, appendQueue } =
+  const { pause, isPlaying, playingSong, replaceQueue, appendQueue } =
     usePlayer();
 
   const { data: playlist, error } = usePlaylist(id);

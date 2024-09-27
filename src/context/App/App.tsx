@@ -14,19 +14,10 @@ import useMediaQuery from '../../hooks/useMatchMedia';
 interface IAppContext {
   user?: IUser;
   setUser: (user: IUser) => void;
-  queue: ISong[];
-  setQueue: (queue: ISong[]) => void;
-  playingSong?: ISong;
-  setPlayingSong: (song: ISong) => void;
-  isPlaying: boolean;
-  setIsPlaying: (isPlaying: boolean) => void;
-  audioRef: RefObject<HTMLAudioElement>;
   isDesktop: boolean;
 }
 
-export const AppContext = createContext({
-  audioRef: createRef(),
-} as IAppContext);
+export const AppContext = createContext({} as IAppContext);
 
 interface Props {
   children?: ReactNode;
@@ -34,11 +25,7 @@ interface Props {
 
 const AppProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<IUser>();
-  const [queue, setQueue] = useState<ISong[]>([]);
-  const [playingSong, setPlayingSong] = useState<ISong>();
-  const [isPlaying, setIsPlaying] = useState(false);
   const isDesktop = useMediaQuery('(min-width:768px)');
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   useLayoutEffect(() => {
     const userString = localStorage.getItem('user');
@@ -58,13 +45,6 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   const context: IAppContext = {
     user,
     setUser: handleSetUser,
-    queue,
-    setQueue,
-    playingSong,
-    setPlayingSong,
-    isPlaying,
-    setIsPlaying,
-    audioRef,
     isDesktop,
   };
 
