@@ -18,14 +18,14 @@ const PlaylistRow: React.FC<Props> = ({ data, cover = true }) => {
 
   return (
     <div
-      className='flex items-center px-3 py-2 cursor-pointer rounded-md hover:bg-active'
+      className='flex items-center px-2 py-1 cursor-pointer rounded-md hover:bg-active'
       onClick={handleClick}
     >
       {cover && (
         <Image
           src={`${coverImgUrl}?param=240y240`}
           alt=''
-          className='h-12 w-12 rounded-md mr-3'
+          className='h-10 w-10 rounded-md mr-3'
         />
       )}
       <div className='flex flex-1 justify-between'>
