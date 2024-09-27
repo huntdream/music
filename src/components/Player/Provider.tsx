@@ -21,7 +21,7 @@ interface IPlayerContext {
   audioRef: RefObject<HTMLAudioElement>;
   next: () => void;
   prev: () => void;
-  play: () => void;
+  play: (song?: ISong) => void;
   pause: () => void;
   replaceQueue: (newQueue: ISong[] | string | number) => void;
   appendQueue: (song: ISong | ISong[]) => void;

@@ -17,6 +17,8 @@
 
     &.mobile {
       transform: translateY(-100%);
+      margin: 0 8px;
+      border-radius: 6px;
     }
   }
 
@@ -118,6 +120,7 @@
     min-height: 50vh;
     max-height: 70vh;
     overflow: auto;
+    padding: 0 8px;
   }
 }
 
