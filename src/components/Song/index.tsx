@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { CSSProperties, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import cls from 'classnames';
 import { ISong } from '../../types/song';
@@ -14,13 +14,14 @@ interface Props {
   duration?: boolean;
   border?: boolean;
   onPlay?: (song: ITrack) => void;
+  style?: CSSProperties;
 }
 
 const Song: React.FC<Props> = ({
   song,
   className,
   duration,
-  border,
+  style,
   onPlay,
 }) => {
   const { play } = usePlayer();
@@ -50,6 +51,7 @@ const Song: React.FC<Props> = ({
         className
       )}
       onClick={() => handlePlay(song)}
+      style={style}
     >
       <div className='border w-10 h-10 rounded shrink-0'>
         <Image

@@ -54,6 +54,7 @@ const Player: React.FC<Props> = () => {
 
   const handleClick = (e: MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
 
     if (window.location.pathname.startsWith('/lyric')) {
       navigate(-1);
