@@ -86,8 +86,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     play(queue[prevIndex]);
   };
 
-  const filterQueue = (newQueue: ISong[]) =>
-    newQueue.filter((s) => s.copyright < 2);
+  const filterQueue = (newQueue: ISong[]) => newQueue;
 
   const replaceQueue = (newQueue: ISong[] | string | number) => {
     if (Array.isArray(newQueue)) {

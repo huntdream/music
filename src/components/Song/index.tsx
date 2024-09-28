@@ -32,11 +32,6 @@ const Song: React.FC<Props> = ({
   };
 
   const handlePlay = (song: ITrack) => {
-    if (copyright > 1) {
-      toast('没有版权呢，要不去其他地方看看吧👀');
-      return;
-    }
-
     play(song);
 
     if (onPlay) {
