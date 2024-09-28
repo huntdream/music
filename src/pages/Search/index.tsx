@@ -12,6 +12,8 @@ import {
 } from '../../types/search';
 import Empty from '../../components/Empty';
 import Result, { ResultDataType } from './Result';
+import Loading from '../../components/Loading';
+import { IUser } from '../../types/user';
 
 interface Props {}
 
@@ -23,12 +25,11 @@ const Search: React.FC<Props> = () => {
   );
   const [keywords, setKeywords] = useState(searchParams.get('keyword') || '');
 
-  const { data } = useSWR<SearchResult>(
+  const { data, isLoading } = useSWR<SearchResult>(
     keywords
       ? {
           url: `/cloudsearch`,
           params: {
-            //@ts-ignore
             type: SEARCH_TYPE_MAP[searchType]?.code as any,
             keywords,
           },
@@ -57,14 +58,6 @@ const Search: React.FC<Props> = () => {
     <div className=''>
       <div className='py-2 px-4 sticky top-0 bg-white/65 backdrop-blur-md'>
         <Input onChange={handleChange} value={keywords} />
-        {/* <h2 className='font-bold border-b my-2'>
-          搜索结果
-          <span className='text-secondary'>
-            {data?.result.songCount
-              ? `（${data?.result.songCount}条结果）`
-              : ''}
-          </span>
-        </h2> */}
         <div className='flex mt-3 overflow-hidden'>
           {SEARCH_TYPE_LIST.map((key) => (
             <div
@@ -86,9 +79,15 @@ const Search: React.FC<Props> = () => {
         {renderData.length ? (
           <div>
             {renderData.map((row: ResultDataType) => (
-              <Result type={searchType} data={row} key={row.id} />
+              <Result
+                type={searchType}
+                data={row}
+                key={row.id || (row as IUser).userId}
+              />
             ))}
           </div>
+        ) : isLoading ? (
+          <Loading />
         ) : (
           <Empty />
         )}
