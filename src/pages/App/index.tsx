@@ -6,8 +6,7 @@ import Library from '../Library';
 import Playlist from '../../components/Playlist';
 import Lyric from '../../components/Lyric';
 import Moment from '../Moments';
-import { Toaster } from 'react-hot-toast';
-import './App.css';
+import { Toaster } from 'sonner';
 import PlayerProvider from '../../components/Player/Provider';
 import Main from '../Main';
 import Search from '../Search';
@@ -31,7 +30,7 @@ function App() {
             </Route>
           </Routes>
 
-          <Toaster />
+          <Toaster position='top-center' />
           {state?.backgroundLocation && (
             <Routes>
               <Route path='lyric/:id' element={<Lyric />} />

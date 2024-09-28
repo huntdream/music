@@ -1,5 +1,5 @@
 import React, { useState, MouseEvent } from 'react';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 import fetcher from '../../utils/fetcher';
 import Button from '../Button';
 import Input from '../Input';
