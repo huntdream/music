@@ -60,9 +60,16 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
     navigate(`/search?keyword=${value}`);
   };
 
-  const handleNavigate = (e: MouseEvent, name: string) => {
+  const handleNavigate = (e: MouseEvent, type: string, name: string) => {
     e.stopPropagation();
-    navigate(`/search?keyword=${name}`);
+    const searchParams = new URLSearchParams({
+      keyword,
+      type,
+    });
+    navigate({
+      pathname: 'search',
+      search: searchParams.toString(),
+    });
   };
 
   return (
@@ -91,7 +98,7 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
                         <div
                           key={id}
                           className='hover:bg-active px-2 h-6 flex items-center rounded-s cursor-pointer'
-                          onClick={(e) => handleNavigate(e, name)}
+                          onClick={(e) => handleNavigate(e, type, name)}
                         >
                           {name}
                         </div>
