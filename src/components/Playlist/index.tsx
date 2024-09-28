@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
 import usePlaylist from '../../fetchers/usePlaylist';
-import { msToHours, msToMinutes } from '../../utils/msConvert';
+import { msToHours } from '../../utils/msConvert';
 import './style.scss';
 import { ITrack } from '../../types/playlist';
 import Button from '../Button';
