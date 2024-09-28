@@ -17,12 +17,17 @@ const Queue: React.FC<Props> = ({ children }) => {
       <Popover.Trigger onClick={(e) => e.stopPropagation()}>
         <div>{children}</div>
       </Popover.Trigger>
-      <Popover.Content className='player-popover mx-4 bg-white z-50 rounded-md shadow-md outline-none'>
+      <Popover.Content
+        onClick={(e) => e.stopPropagation()}
+        className='player-popover mx-4 bg-white z-50 rounded-md shadow-md outline-none'
+      >
         <div className='player-playlist'>
           <List height={420} width={284} itemCount={queue.length} itemSize={52}>
-            {({ index, style }) => (
-              <Song song={queue[index]} key={queue[index].id} style={style} />
-            )}
+            {({ index, style }) => {
+              return (
+                <Song song={queue[index]} key={queue[index].id} style={style} />
+              );
+            }}
           </List>
         </div>
       </Popover.Content>
