@@ -27,7 +27,7 @@ const Controls: FC<Props> = () => {
       )}
       <div
         className={cls(
-          'w-8 h-8 rounded-2xl flex justify-center items-center shadow-lg',
+          'w-8 h-8 rounded-2xl flex justify-center items-center shadow-around',
           isDesktop ? 'mx-8' : 'mx-4'
         )}
       >
