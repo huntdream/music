@@ -17,7 +17,7 @@ function App() {
   let state = location.state as { backgroundLocation?: Location };
 
   useEffect(() => {
-    const setupThemeColor = (theme: 'dark' | 'light') => {
+    const setupThemeColor = (query: MediaQueryList | MediaQueryListEvent) => {
       const MetaThemeColor = {
         light: '#fff',
         dark: '#18191a',
@@ -25,18 +25,17 @@ function App() {
 
       const meta = document.querySelector('meta[name="theme-color"]');
 
-      meta?.setAttribute('content', MetaThemeColor[theme]);
+      meta?.setAttribute(
+        'content',
+        MetaThemeColor[query.matches ? 'dark' : 'light']
+      );
     };
 
     const query = window.matchMedia('(prefers-color-scheme: dark)');
 
-    setupThemeColor(query.matches ? 'light' : 'dark');
+    setupThemeColor(query);
 
-    query.addEventListener('change', (e) => {
-      const colorScheme = e.matches ? 'dark' : 'light';
-
-      setupThemeColor(colorScheme);
-    });
+    query.addEventListener('change', setupThemeColor);
   }, []);
 
   return (
