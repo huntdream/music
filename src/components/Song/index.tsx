@@ -5,7 +5,6 @@ import { ISong } from '../../types/song';
 import Image from '../Image';
 import { msToMinutes } from '../../utils/msConvert';
 import { ITrack } from '../../types/playlist';
-import toast from 'react-hot-toast';
 import usePlayer from '../Player/usePlayer';
 
 interface Props {
@@ -24,14 +23,15 @@ const Song: React.FC<Props> = ({
   style,
   onPlay,
 }) => {
-  const { play } = usePlayer();
-  const { name, ar, al, dt, copyright } = song;
+  const { play, appendQueue } = usePlayer();
+  const { name, ar, al, dt } = song;
 
   const handleNavigate = (e: MouseEvent) => {
     e.stopPropagation();
   };
 
   const handlePlay = (song: ITrack) => {
+    appendQueue(song);
     play(song);
 
     if (onPlay) {
