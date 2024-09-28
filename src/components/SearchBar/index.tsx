@@ -63,7 +63,7 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
   const handleNavigate = (e: MouseEvent, type: string, name: string) => {
     e.stopPropagation();
     const searchParams = new URLSearchParams({
-      keyword,
+      keyword: name,
       type,
     });
     navigate({
