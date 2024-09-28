@@ -6,6 +6,7 @@ import Image from '../Image';
 import { msToMinutes } from '../../utils/msConvert';
 import { ITrack } from '../../types/playlist';
 import usePlayer from '../Player/usePlayer';
+import Artists from '../Artist/Artists';
 
 interface Props {
   song: ISong;
@@ -63,16 +64,7 @@ const Song: React.FC<Props> = ({
         </div>
         <div className='flex text-sm leading-4 text-gray-500'>
           <div className='truncate' title={ar?.map((ar) => ar.name).join('/')}>
-            {ar?.map((ar) => (
-              <Link
-                to={`/artist/${ar.id}`}
-                className='after:content-["/"] after:px-px last:after:content-[""] hover:underline truncate'
-                key={ar.id}
-                onClick={handleNavigate}
-              >
-                {ar.name}
-              </Link>
-            ))}
+            <Artists artists={ar} />
           </div>
           <div
             className='before:content-["•"] before:mx-1 truncate'
