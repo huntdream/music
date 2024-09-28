@@ -60,4 +60,6 @@ export interface IAlbum {
 export interface IArtist {
   id: number;
   name: string;
+  picUrl: string;
+  followed: boolean;
 }

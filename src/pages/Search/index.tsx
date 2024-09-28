@@ -1,25 +1,25 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useMemo, useState } from 'react';
 import cls from 'classnames';
 import { useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
 import Input from '../../components/SearchBar/Input';
-import Song from '../../components/Song';
 import {
+  ResultDataKey,
+  ResultType,
   SEARCH_TYPE_LIST,
   SEARCH_TYPE_MAP,
   SearchResult,
 } from '../../types/search';
-import fetcher from '../../utils/fetcher';
-import User from '../../components/User';
-import PlaylistRow from '../../components/Playlists/PlaylistRow';
+import Empty from '../../components/Empty';
+import Result, { ResultDataType } from './Result';
 
 interface Props {}
 
 const Search: React.FC<Props> = () => {
   const [searchParams] = useSearchParams();
 
-  const [searchType, setSearchType] = useState<string>(
-    searchParams.get('type') || 'songs'
+  const [searchType, setSearchType] = useState<ResultType>(
+    (searchParams.get('type') || 'songs') as ResultType
   );
   const [keywords, setKeywords] = useState(searchParams.get('keyword') || '');
 
@@ -40,29 +40,36 @@ const Search: React.FC<Props> = () => {
     setKeywords(e.target.value);
   };
 
-  const handleTypeChange = (type: string) => {
+  const handleTypeChange = (type: ResultType) => {
     setSearchType(type);
   };
+
+  const renderData = useMemo(() => {
+    if (!data?.result) return [];
+
+    const key = SEARCH_TYPE_MAP[searchType].key as ResultDataKey;
+
+    const picked = data.result[key] || [];
+    return picked;
+  }, [data]);
 
   return (
     <div className=''>
       <div className='py-2 px-4 sticky top-0 bg-white/65 backdrop-blur-md'>
         <Input onChange={handleChange} value={keywords} />
-      </div>
-      <div className='mx-4'>
-        <h2 className='font-bold border-b my-2'>
+        {/* <h2 className='font-bold border-b my-2'>
           搜索结果
           <span className='text-secondary'>
             {data?.result.songCount
               ? `（${data?.result.songCount}条结果）`
               : ''}
           </span>
-        </h2>
-        <div className='flex'>
+        </h2> */}
+        <div className='flex mt-3 overflow-hidden'>
           {SEARCH_TYPE_LIST.map((key) => (
             <div
               className={cls(
-                'px-4 mr-2 mb-2 cursor-pointer text-secondary rounded-3xl hover:bg-active',
+                'px-4 mr-2 mb-2 cursor-pointer text-secondary whitespace-nowrap rounded-3xl hover:bg-active',
                 {
                   'text-primary bg-active ': key === searchType,
                 }
@@ -74,30 +81,17 @@ const Search: React.FC<Props> = () => {
             </div>
           ))}
         </div>
-        <div>
+      </div>
+      <div className='mx-4'>
+        {renderData.length ? (
           <div>
-            {data?.result?.songs?.map((song) => (
-              <Song song={song} key={song.id} />
+            {renderData.map((row: ResultDataType) => (
+              <Result type={searchType} data={row} key={row.id} />
             ))}
           </div>
-
-          <div className=''>
-            {data?.result?.userprofiles?.map((user) => (
-              <User
-                size='large'
-                signature
-                className=' hover:bg-active cursor-pointer px-2 rounded-md py-1'
-                user={user}
-                key={user.userId}
-              />
-            ))}
-          </div>
-          <div>
-            {data?.result?.playlists?.map((playlist) => (
-              <PlaylistRow data={playlist} key={playlist.id} />
-            ))}
-          </div>
-        </div>
+        ) : (
+          <Empty />
+        )}
       </div>
     </div>
   );

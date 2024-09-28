@@ -6,22 +6,27 @@ export const SEARCH_TYPE_MAP = {
   songs: {
     name: '歌曲',
     code: 1,
+    key: 'songs',
   },
   albums: {
     name: '专辑',
     code: 10,
+    key: 'albums',
   },
   artists: {
     name: '音乐人',
     code: 100,
+    key: 'artists',
   },
   playlists: {
     name: '歌单',
     code: 1000,
+    key: 'playlists',
   },
-  user: {
+  userprofiles: {
     name: '用户',
     code: 1002,
+    key: 'userprofiles',
   },
   lyric: {
     name: '歌词',
@@ -30,9 +35,14 @@ export const SEARCH_TYPE_MAP = {
   },
 };
 
-export const SEARCH_TYPE_LIST = Object.keys(SEARCH_TYPE_MAP) as Array<
-  keyof typeof SEARCH_TYPE_MAP
->;
+export const SEARCH_TYPE_LIST: ResultType[] = [
+  'songs',
+  'albums',
+  'artists',
+  'playlists',
+  'userprofiles',
+  'lyric',
+];
 
 export type ResultType =
   | 'songs'
@@ -41,6 +51,8 @@ export type ResultType =
   | 'playlists'
   | 'userprofiles'
   | 'lyric';
+
+export type ResultDataKey = Exclude<ResultType, 'lyric'>;
 
 export interface SearchSuggestResult {
   name: string;
@@ -65,5 +77,7 @@ export interface SearchResult {
     userprofileCount: number;
     playlists: IPlaylist[];
     playlistsCount: number;
+    artists: IArtist[];
+    artistCount: number;
   };
 }

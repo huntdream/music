@@ -3,4 +3,5 @@ export interface IUser {
   avatarUrl: string;
   userId: number;
   signature: string;
+  id: number;
 }
