@@ -10,10 +10,34 @@ import { Toaster } from 'sonner';
 import PlayerProvider from '../../components/Player/Provider';
 import Main from '../Main';
 import Search from '../Search';
+import { useEffect } from 'react';
 
 function App() {
   let location = useLocation();
   let state = location.state as { backgroundLocation?: Location };
+
+  useEffect(() => {
+    const setupThemeColor = (theme: 'dark' | 'light') => {
+      const MetaThemeColor = {
+        light: '#fff',
+        dark: '#18191a',
+      };
+
+      const meta = document.querySelector('meta[name="theme-color"]');
+
+      meta?.setAttribute('content', MetaThemeColor[theme]);
+    };
+
+    const query = window.matchMedia('(prefers-color-scheme: dark)');
+
+    setupThemeColor(query.matches ? 'light' : 'dark');
+
+    query.addEventListener('change', (e) => {
+      const colorScheme = e.matches ? 'dark' : 'light';
+
+      setupThemeColor(colorScheme);
+    });
+  }, []);
 
   return (
     <Config>
