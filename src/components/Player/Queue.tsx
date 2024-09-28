@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import { FixedSizeList as List } from 'react-window';
 import Song from '../Song';
-import './style.scss';
 import usePlayer from './usePlayer';
 
 interface Props {

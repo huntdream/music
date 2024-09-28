@@ -1,40 +1,22 @@
-import React, {
-  MouseEvent,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { MouseEvent, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import cls from 'classnames';
 import useSongUrl from '../../fetchers/useSongUrl';
-import './style.scss';
 import { PlaylistIcon } from '../../icons/Audio';
-import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
 import Image from '../Image';
 import Queue from './Queue';
 import { AppContext } from '../../context/App/App';
 import useNavigateLyric from '../Lyric/useNavigateLyric';
-import fetcher from '../../utils/fetcher';
-import { uniqBy } from 'lodash-es';
-import { ITrack, IPlaylist } from '../../types/playlist';
-import { ISong } from '../../types/song';
 import { PlayerContext } from './Provider';
+import Artists from '../Artist/Artists';
+import Progress from './Progress';
+import Controls from './Controls';
 
 interface Props {}
 
 const Player: React.FC<Props> = () => {
-  const {
-    queue,
-    setIsPlaying,
-    isPlaying,
-    playingSong,
-    audioRef,
-    next,
-    prev,
-    pause,
-    play,
-  } = useContext(PlayerContext);
+  const { queue, setIsPlaying, playingSong, audioRef, next, prev } =
+    useContext(PlayerContext);
   const [url] = useSongUrl(playingSong?.id);
   const { isDesktop } = useContext(AppContext);
   const navigateLyric = useNavigateLyric();
@@ -63,16 +45,6 @@ const Player: React.FC<Props> = () => {
     }
   };
 
-  const handlePause = (e: MouseEvent) => {
-    e.stopPropagation();
-    pause();
-  };
-
-  const handlePlay = (e: MouseEvent) => {
-    e.stopPropagation();
-    play();
-  };
-
   useEffect(() => {
     navigator.mediaSession.setActionHandler('previoustrack', () => {
       prev();
@@ -85,7 +57,6 @@ const Player: React.FC<Props> = () => {
   useEffect(() => {
     if ('mediaSession' in navigator) {
       if (playingSong) {
-        console.log('media');
         const metadata = new MediaMetadata({
           title: playingSong?.name,
           artist: playingSong?.ar.map((it) => it.name).join('/'),
@@ -121,57 +92,63 @@ const Player: React.FC<Props> = () => {
 
   return (
     <div
-      className={cls('player', {
-        visible: !!playingSong,
-        mobile: !isDesktop,
-      })}
+      className={cls(
+        'fixed bottom-0 left-0 right-0 z-50 h-16 shadow-around bg-white  transition-transform duration-200 ease-in-out ',
+        playingSong
+          ? 'translate-x-0 opacity-100'
+          : 'opacity-0 translate-y-full',
+        {
+          'mx-2 rounded-md -translate-y-full': !isDesktop,
+        }
+      )}
     >
       <audio src={url} ref={audioRef} onEnded={handleEnded}></audio>
-      <div className='player-inner' onClick={handleClick}>
-        <div className='player-song'>
-          <div className='player-song-cover'>
+      <div
+        className='flex items-center justify-between h-16 px-2'
+        onClick={handleClick}
+      >
+        <div
+          className={cls(
+            'flex items-center',
+            isDesktop ? 'w-[30%] min-w-44' : 'min-w-0 flex-1'
+          )}
+        >
+          <div className='mr-2'>
             <Image
-              className='player-song-cover-img'
+              className='w-12 h-12 rounded-md'
               src={`${playingSong?.al?.picUrl}?param=50y50`}
               alt=''
             />
           </div>
-          <div className='player-song-info'>
-            <div className='player-song-name'>
-              <span className='ellipsis' title={playingSong?.name}>
-                {playingSong?.name}
-              </span>
+          <div className='flex flex-col flex-1 min-w-0'>
+            <div className='truncate' title={playingSong?.name}>
+              {playingSong?.name}
             </div>
-            <div className='player-song-aral text-secondary'>
-              <div className='player-song-artists ellipsis'>
-                {playingSong?.ar?.map((ar) => (
-                  <Link
-                    to={`/artist/${ar.id}`}
-                    className='player-song-artist text-secondary'
-                    key={ar.id}
-                    title={ar.name}
-                  >
-                    {ar.name}
-                  </Link>
-                ))}
+            <div className='flex items-center min-w-0 text-secondary'>
+              <div className='text-sm flex items-center truncate'>
+                <Artists artists={playingSong?.ar} />
               </div>
             </div>
           </div>
         </div>
-        <div className='player-controls'>
-          <div className='player-controls-icon'>
-            <Queue>
-              <PlaylistIcon className='w-8 h-8' />
-            </Queue>
-          </div>
-
-          <div className='player-controls-icon'>
-            {isPlaying ? (
-              <PauseIcon onClick={handlePause} />
-            ) : (
-              <PlayIcon onClick={handlePlay} />
-            )}
-          </div>
+        <div
+          className={cls(
+            '',
+            isDesktop ? 'flex-1 max-w-[722px] w-2/5' : 'ml-auto'
+          )}
+        >
+          <Controls />
+          {isDesktop && <Progress duration={playingSong?.dt} />}
+        </div>
+        <div
+          className={cls(
+            'flex justify-end',
+            isDesktop ? 'w-[30%] min-w-44' : ''
+          )}
+        >
+          <Queue>
+            <PlaylistIcon className='w-8 h-8' />
+          </Queue>
         </div>
       </div>
     </div>
