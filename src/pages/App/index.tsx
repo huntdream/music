@@ -11,6 +11,7 @@ import PlayerProvider from '../../components/Player/Provider';
 import Main from '../Main';
 import Search from '../Search';
 import { useEffect } from 'react';
+import Artist from '../Artist';
 
 function App() {
   let location = useLocation();
@@ -50,6 +51,7 @@ function App() {
               <Route path='moments' element={<Moment />} />
               <Route path='search' element={<Search />} />
               <Route path='lyric/:id' element={<Lyric />} />
+              <Route path='artist/:id' element={<Artist />} />
             </Route>
           </Routes>
 
