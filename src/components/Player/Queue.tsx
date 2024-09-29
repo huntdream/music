@@ -1,8 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { ComponentType, ReactNode } from 'react';
 import * as Popover from '@radix-ui/react-popover';
-import { FixedSizeList as List } from 'react-window';
+import { FixedSizeList, FixedSizeListProps } from 'react-window';
 import Song from '../Song';
 import usePlayer from './usePlayer';
+
+const List = FixedSizeList as ComponentType<FixedSizeListProps>;
 
 interface Props {
   children: ReactNode;
@@ -31,17 +33,15 @@ const Queue: React.FC<Props> = ({ children }) => {
               itemCount={queue.length}
               itemSize={64}
             >
-              {({ index, style }) => {
-                return (
-                  <div style={style}>
-                    <Song
-                      song={queue[index]}
-                      key={queue[index].id}
-                      className='mx-2'
-                    />
-                  </div>
-                );
-              }}
+              {({ index, style }) => (
+                <div style={style}>
+                  <Song
+                    song={queue[index]}
+                    key={queue[index].id}
+                    className='mx-2'
+                  />
+                </div>
+              )}
             </List>
           </div>
         </div>
