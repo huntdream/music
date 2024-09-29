@@ -6,11 +6,15 @@ const useNavigateLyric = () => {
   const navigate = useNavigate();
 
   const navigateLyric = (id: string | number) => {
-    navigate(`/lyric/${id}`, {
-      state: {
-        backgroundLocation: location,
-      },
-    });
+    if (window.location.pathname.startsWith('/lyric')) {
+      navigate(-1);
+    } else {
+      navigate(`/lyric/${id}`, {
+        state: {
+          backgroundLocation: location,
+        },
+      });
+    }
   };
 
   return navigateLyric;

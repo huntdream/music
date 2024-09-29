@@ -4,7 +4,7 @@ import fetcher from '../utils/fetcher';
 
 const useLyric = (id?: number | string) => {
   const { data } = useSWR(
-    id ? `/lyric?id=${id}` : null,
+    id ? `/lyric/new?id=${id}` : null,
     (url) => fetcher<any, ILyric>(url),
     {
       revalidateOnFocus: false,

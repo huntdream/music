@@ -11,5 +11,7 @@ export interface ILyric {
   klyric: ILyricItem;
   lrc: ILyricItem;
   tlyric: ILyricItem;
+  ytlrc: ILyricItem;
+  yrc: ILyricItem;
   needDesc: boolean;
 }
