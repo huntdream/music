@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import cls from 'classnames';
-import './style.scss';
 
 interface Props {
   icon: (isActive: boolean) => ReactNode;
@@ -17,7 +16,7 @@ const NavIcon: React.FC<Props> = ({ path, icon }) => {
   return (
     <div
       onClick={() => navigate(path)}
-      className={cls('nav-link', isActive && 'active')}
+      className={cls('w-14 h-14 p-3 cursor-pointer rounded-md')}
     >
       {icon(isActive)}
     </div>
