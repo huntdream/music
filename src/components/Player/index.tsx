@@ -14,24 +14,9 @@ import Actions from './Actions';
 interface Props {}
 
 const Player: React.FC<Props> = () => {
-  const { queue, setIsPlaying, playingSong, audioRef, next, prev } =
-    useContext(PlayerContext);
-  const [url] = useSongUrl(playingSong?.id);
+  const { playingSong } = useContext(PlayerContext);
   const { isDesktop } = useContext(AppContext);
   const navigateLyric = useNavigateLyric();
-  const navigate = useNavigate();
-
-  const audio = audioRef.current;
-
-  useEffect(() => {
-    if (url) {
-      audioRef.current?.play();
-    }
-  }, [audioRef, url]);
-
-  const handleEnded = () => {
-    next();
-  };
 
   const handleClick = (e: MouseEvent) => {
     if (isDesktop) return;
@@ -41,51 +26,6 @@ const Player: React.FC<Props> = () => {
 
     navigateLyric(playingSong!.id);
   };
-
-  useEffect(() => {
-    navigator.mediaSession.setActionHandler('previoustrack', () => {
-      prev();
-    });
-    navigator.mediaSession.setActionHandler('nexttrack', () => {
-      next();
-    });
-  }, [queue, playingSong]);
-
-  useEffect(() => {
-    if ('mediaSession' in navigator) {
-      if (playingSong) {
-        const metadata = new MediaMetadata({
-          title: playingSong?.name,
-          artist: playingSong?.ar.map((it) => it.name).join('/'),
-          album: playingSong?.al.name,
-          artwork: [
-            {
-              src: playingSong?.al.picUrl || '',
-            },
-          ],
-        });
-        navigator.mediaSession.metadata = metadata;
-      }
-    }
-  }, [playingSong]);
-
-  useEffect(() => {
-    const handlePlay = () => {
-      setIsPlaying(true);
-    };
-
-    const handlePause = () => {
-      setIsPlaying(false);
-    };
-
-    audio?.addEventListener('play', handlePlay);
-    audio?.addEventListener('pause', handlePause);
-
-    return () => {
-      audio?.removeEventListener('play', handlePlay);
-      audio?.removeEventListener('pause', handlePause);
-    };
-  }, [audio, setIsPlaying]);
 
   return (
     <div
@@ -99,7 +39,7 @@ const Player: React.FC<Props> = () => {
         }
       )}
     >
-      <audio src={url} ref={audioRef} onEnded={handleEnded}></audio>
+      <audio src='' muted autoPlay></audio>
       <div
         className='flex items-center justify-between h-16 px-2'
         onClick={handleClick}

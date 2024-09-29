@@ -5,19 +5,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Line from './Line';
 import useSongDetail from '../../fetchers/useSongDetail';
 import usePlayer from '../Player/usePlayer';
+import useCurrentTime from '../Player/useCurrentTime';
 
 interface Props {}
 
 const Lyric: React.FC<Props> = () => {
-  const { audioRef, play, playingSong, queue, appendQueue, setPlayingSong } =
+  const { audioRef, playingSong, queue, appendQueue, setPlayingSong } =
     usePlayer();
   const [hlKey, setHlKey] = useState<number>(0);
   const navigate = useNavigate();
-  const audio = audioRef.current;
   const lyricRef = useRef<HTMLDivElement>(null);
   const { id } = useParams();
   const [songDetail] = useSongDetail(id);
   const [lyricData] = useLyric(id);
+  const currentTime = useCurrentTime();
 
   useEffect(() => {
     if (playingSong) {
@@ -57,26 +58,20 @@ const Lyric: React.FC<Props> = () => {
   }, [id, songDetail, queue]);
 
   useEffect(() => {
-    const updateLyric = () => {
-      const ct = audio?.currentTime || 0;
-
-      const line = lyric.findLast(({ timestamp }, index) => {
-        return ct >= timestamp;
+    if (audioRef.current) {
+      const line = lyric.findLast(({ timestamp }) => {
+        return currentTime >= timestamp;
       });
 
       const key = line?.key || 0;
 
       setHlKey(key);
-    };
-
-    audio?.addEventListener('timeupdate', updateLyric);
-
-    return () => audio?.removeEventListener('timeupdate', updateLyric);
-  }, [audio, lyric, hlKey]);
+    }
+  }, [audioRef.current, lyric, hlKey, currentTime]);
 
   const seekTime = (time: number, key: number) => {
-    if (audio) {
-      audio.currentTime = time;
+    if (audioRef.current) {
+      audioRef.current?.seek(time);
       setHlKey(key);
     }
   };

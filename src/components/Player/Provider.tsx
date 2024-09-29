@@ -3,13 +3,16 @@ import React, {
   createRef,
   ReactNode,
   RefObject,
+  useEffect,
   useRef,
   useState,
 } from 'react';
+import { Howl } from 'howler';
 import { ISong } from '../../types/song';
 import fetcher from '../../utils/fetcher';
 import { uniqBy } from 'lodash-es';
 import { ITrack, IPlaylist } from '../../types/playlist';
+import useSongUrl from '../../fetchers/useSongUrl';
 
 interface IPlayerContext {
   queue: ISong[];
@@ -18,7 +21,7 @@ interface IPlayerContext {
   setPlayingSong: (song: ISong) => void;
   isPlaying: boolean;
   setIsPlaying: (isPlaying: boolean) => void;
-  audioRef: RefObject<HTMLAudioElement>;
+  audioRef: RefObject<Howl | undefined>;
   next: () => void;
   prev: () => void;
   play: (song?: ISong) => void;
@@ -39,18 +42,85 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
   const [queue, setQueue] = useState<ISong[]>([]);
   const [playingSong, setPlayingSong] = useState<ISong>();
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [url] = useSongUrl(playingSong?.id);
+  const audioRef = useRef<Howl>();
 
-  const audio = audioRef.current;
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current?.unload();
+    }
+
+    if (url) {
+      audioRef.current = new Howl({
+        src: [url],
+        onpause: () => {
+          setIsPlaying(false);
+          navigator.mediaSession.playbackState = 'paused';
+        },
+        onplay: () => {
+          setIsPlaying(true);
+          navigator.mediaSession.playbackState = 'playing';
+        },
+        onend: () => {
+          next();
+        },
+      });
+
+      audioRef.current?.play();
+    }
+
+    return () => {
+      audioRef.current?.unload();
+    };
+  }, [url]);
+
+  useEffect(() => {
+    if ('mediaSession' in navigator) {
+      if (playingSong) {
+        const metadata = new MediaMetadata({
+          title: playingSong?.name,
+          artist: playingSong?.ar.map((it) => it.name).join('/'),
+          album: playingSong?.al.name,
+          artwork: [
+            {
+              src: playingSong?.al.picUrl || '',
+            },
+          ],
+        });
+
+        navigator.mediaSession.metadata = metadata;
+        console.log(metadata, '????');
+
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+          prev();
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+          next();
+        });
+        navigator.mediaSession.setActionHandler('play', () => {
+          audioRef.current?.play();
+        });
+
+        navigator.mediaSession.setActionHandler('pause', () => {
+          console.log('pause???');
+          audioRef.current?.pause();
+        });
+      }
+    }
+  }, [queue, playingSong]);
 
   const pause = () => {
-    audio?.pause();
+    audioRef.current?.pause();
   };
 
   const play = (song?: ITrack) => {
-    if (song && song.id !== playingSong?.id) {
-      audio?.pause();
-      setPlayingSong(song);
+    if (song) {
+      if (song.id === playingSong?.id) {
+        return;
+      } else {
+        audioRef.current?.pause();
+        setPlayingSong(song);
+      }
 
       return;
     }
@@ -59,7 +129,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
       setPlayingSong(queue[0]);
     }
 
-    audio?.play();
+    audioRef.current?.play();
   };
 
   const next = () => {

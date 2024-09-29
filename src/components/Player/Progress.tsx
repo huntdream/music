@@ -1,7 +1,8 @@
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import * as Slider from '@radix-ui/react-slider';
 import { msToMinutes } from '../../utils/msConvert';
 import usePlayer from './usePlayer';
+import useCurrentTime from './useCurrentTime';
 
 interface Props {
   duration?: number;
@@ -10,30 +11,15 @@ interface Props {
 const Progress: FC<Props> = ({ duration = 0 }) => {
   const { audioRef } = usePlayer();
   const totalTime = useMemo(() => msToMinutes(duration), [duration]);
-  const [currentTime, setCurrentTime] = useState(0);
+  const currentTime = useCurrentTime();
+  const currentTimeInMs = currentTime * 1000;
+  const playedTime = msToMinutes(currentTimeInMs);
 
-  const playedTime = msToMinutes(currentTime);
-
-  const percent = (currentTime / duration) * 100;
-
-  useEffect(() => {
-    const handleTimeUpdate = () => {
-      const current = audioRef.current?.currentTime || 0;
-
-      setCurrentTime(current * 1000);
-    };
-
-    audioRef.current?.addEventListener('timeupdate', handleTimeUpdate);
-
-    return () =>
-      audioRef.current?.removeEventListener('timeupdate', handleTimeUpdate);
-  }, [audioRef]);
+  const percent = (currentTimeInMs / duration) * 100;
 
   const handleSeekTime = (value: number[]) => {
-    console.log(value);
-
     if (audioRef.current) {
-      audioRef.current.currentTime = (duration * value[0]) / 100000;
+      audioRef.current?.seek((duration * value[0]) / 100000);
     }
   };
 
