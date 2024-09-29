@@ -21,7 +21,7 @@ const Lyric: React.FC<Props> = () => {
     const rawText = lyricData?.lrc?.lyric;
     if (!rawText) return [];
 
-    const tranText = lyricData?.ytlrc?.lyric;
+    const tranText = lyricData?.tlyric?.lyric;
 
     const rawLyric = parseLyric(rawText);
 

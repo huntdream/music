@@ -1,27 +1,30 @@
+import { LyricLine } from '../components/Lyric/Line';
+
 const timestampRegex = /\[\d{2}.*(\.\d+)?\]/;
 
 export const parseLyric = (raw: string = '') => {
   if (!raw) return [];
-  const lyricList = raw.split('\n').filter((line) => line.startsWith('['));
 
-  return lyricList
-    .map((item, index) => {
-      const matched = item.match(timestampRegex);
+  const lyrics: LyricLine[] = [];
 
-      if (matched) {
-        const time = matched[0].slice(1, -1);
-        const text = item.replace(matched[0], '');
-        const [seconds = 0, minutes = 0, hours = 0] = time
-          .split(':')
-          .reverse()
-          .map((i) => +i || 0);
+  raw.split('\n').forEach((line) => {
+    const matched = line.match(timestampRegex);
 
-        const timestamp = +(hours * 3600 + minutes * 60 + seconds).toFixed(3);
+    if (matched) {
+      const time = matched[0].slice(1, -1);
+      const text = line.replace(matched[0], '');
+      const [seconds = 0, minutes = 0, hours = 0] = time
+        .split(':')
+        .reverse()
+        .map((i) => +i || 0);
 
-        return { timestamp, text, key: index };
+      const timestamp = +(hours * 3600 + minutes * 60 + seconds).toFixed(3);
+
+      if (text) {
+        lyrics.push({ timestamp, text, key: lyrics.length });
       }
+    }
+  });
 
-      return { text: item, key: index, timestamp: 0 };
-    })
-    .filter((item) => item.text);
+  return lyrics;
 };
