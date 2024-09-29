@@ -18,7 +18,7 @@ const Library: React.FC<Props> = () => {
   }
 
   return (
-    <div className='library'>
+    <div className='px-2 py-4'>
       <Playlists list={myList} />
       <Playlists list={otherList} />
     </div>

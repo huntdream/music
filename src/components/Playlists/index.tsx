@@ -1,27 +1,16 @@
 import React from 'react';
-import cls from 'classnames';
 import { IPlaylistsItem } from '../../types/playlist';
 import PlaylistRow from './PlaylistRow';
 
 interface Props {
   list?: IPlaylistsItem[];
   cover?: boolean;
-  divide?: boolean;
   className?: string;
 }
 
-const Playlists: React.FC<Props> = ({
-  list = [],
-  cover,
-  className,
-  divide = true,
-}) => {
+const Playlists: React.FC<Props> = ({ list = [], cover, className }) => {
   return (
-    <div
-      className={cls(className, {
-        'divide-y': divide,
-      })}
-    >
+    <div className={className}>
       {list.map((item) => {
         return <PlaylistRow key={item.id} data={item} cover={cover} />;
       })}

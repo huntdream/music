@@ -43,26 +43,26 @@ const Song: React.FC<Props> = ({
   return (
     <div
       className={cls(
-        'flex px-2 py-1 items-center cursor-pointer rounded-md hover:bg-active overflow-hidden',
+        'flex p-2 items-center cursor-pointer rounded-md hover:bg-active overflow-hidden',
         className
       )}
       onClick={() => handlePlay(song)}
       style={style}
     >
-      <div className='border w-10 h-10 rounded shrink-0'>
+      <div className='border rounded shrink-0'>
         <Image
-          className='w-10 h-10 rounded'
+          className='w-12 h-12 rounded'
           src={`${al?.picUrl}?param=50y50`}
           alt=''
         />
       </div>
-      <div className='ml-2 flex-1 min-w-0 flex flex-col justify-between h-10'>
+      <div className='ml-2 flex-1 min-w-0 flex flex-col justify-between'>
         <div className='flex'>
-          <span className='truncate leading-5' title={name}>
+          <span className='truncate' title={name}>
             {name}
           </span>
         </div>
-        <div className='flex text-sm leading-4 text-gray-500'>
+        <div className='flex text-sm text-gray-500'>
           <div className='truncate' title={ar?.map((ar) => ar.name).join('/')}>
             <Artists artists={ar} />
           </div>
