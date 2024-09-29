@@ -12,6 +12,7 @@ import Main from '../Main';
 import Search from '../Search';
 import { useEffect } from 'react';
 import Artist from '../Artist';
+import Daily from '../Daily';
 
 function App() {
   let location = useLocation();
@@ -52,6 +53,7 @@ function App() {
               <Route path='search' element={<Search />} />
               <Route path='lyric/:id' element={<Lyric />} />
               <Route path='artist/:id' element={<Artist />} />
+              <Route path='daily' element={<Daily />} />
             </Route>
           </Routes>
 

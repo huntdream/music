@@ -1,3 +1,4 @@
+import { ISong } from './song';
 import { IUser } from './user';
 
 export interface IPlaylistsItem {
@@ -62,4 +63,17 @@ export interface IArtist {
   name: string;
   picUrl: string;
   followed: boolean;
+}
+
+export interface RecommendReason {
+  songId: number;
+  reason: string;
+  reasonId: string;
+}
+
+export interface IRecommendation {
+  data: {
+    dailySongs: ISong[];
+    recommendReasons: RecommendReason[];
+  };
 }
