@@ -3,6 +3,7 @@ import React, {
   createRef,
   ReactNode,
   RefObject,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -42,6 +43,60 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const audio = audioRef.current;
+
+  useEffect(() => {
+    if ('mediaSession' in navigator) {
+      if (playingSong) {
+        const metadata = new MediaMetadata({
+          title: playingSong?.name,
+          artist: playingSong?.ar.map((it) => it.name).join('/'),
+          album: playingSong?.al.name,
+          artwork: [
+            {
+              src: playingSong?.al.picUrl || '',
+            },
+          ],
+        });
+
+        navigator.mediaSession.metadata = metadata;
+
+        navigator.mediaSession.setActionHandler('play', () => {
+          play();
+        });
+
+        navigator.mediaSession.setActionHandler('pause', () => {
+          pause();
+        });
+
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+          prev();
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+          next();
+        });
+      }
+    }
+  }, [playingSong]);
+
+  useEffect(() => {
+    const handlePlay = () => {
+      setIsPlaying(true);
+      navigator.mediaSession.playbackState = 'playing';
+    };
+
+    const handlePause = () => {
+      setIsPlaying(false);
+      navigator.mediaSession.playbackState = 'paused';
+    };
+
+    audio?.addEventListener('play', handlePlay);
+    audio?.addEventListener('pause', handlePause);
+
+    return () => {
+      audio?.removeEventListener('play', handlePlay);
+      audio?.removeEventListener('pause', handlePause);
+    };
+  }, [audio, setIsPlaying]);
 
   const pause = () => {
     audio?.pause();

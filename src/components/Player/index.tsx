@@ -14,14 +14,10 @@ import Actions from './Actions';
 interface Props {}
 
 const Player: React.FC<Props> = () => {
-  const { queue, setIsPlaying, playingSong, audioRef, next, prev } =
-    useContext(PlayerContext);
+  const { playingSong, audioRef, next } = useContext(PlayerContext);
   const [url] = useSongUrl(playingSong?.id);
   const { isDesktop } = useContext(AppContext);
   const navigateLyric = useNavigateLyric();
-  const navigate = useNavigate();
-
-  const audio = audioRef.current;
 
   useEffect(() => {
     if (url) {
@@ -41,51 +37,6 @@ const Player: React.FC<Props> = () => {
 
     navigateLyric(playingSong!.id);
   };
-
-  useEffect(() => {
-    navigator.mediaSession.setActionHandler('previoustrack', () => {
-      prev();
-    });
-    navigator.mediaSession.setActionHandler('nexttrack', () => {
-      next();
-    });
-  }, [queue, playingSong]);
-
-  useEffect(() => {
-    if ('mediaSession' in navigator) {
-      if (playingSong) {
-        const metadata = new MediaMetadata({
-          title: playingSong?.name,
-          artist: playingSong?.ar.map((it) => it.name).join('/'),
-          album: playingSong?.al.name,
-          artwork: [
-            {
-              src: playingSong?.al.picUrl || '',
-            },
-          ],
-        });
-        navigator.mediaSession.metadata = metadata;
-      }
-    }
-  }, [playingSong]);
-
-  useEffect(() => {
-    const handlePlay = () => {
-      setIsPlaying(true);
-    };
-
-    const handlePause = () => {
-      setIsPlaying(false);
-    };
-
-    audio?.addEventListener('play', handlePlay);
-    audio?.addEventListener('pause', handlePause);
-
-    return () => {
-      audio?.removeEventListener('play', handlePlay);
-      audio?.removeEventListener('pause', handlePause);
-    };
-  }, [audio, setIsPlaying]);
 
   return (
     <div
