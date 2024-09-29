@@ -57,11 +57,14 @@ const Playlist: React.FC<Props> = () => {
           alt=''
         />
         <div className='flex flex-col'>
-          <h2>{playlist.name}</h2>
-          <div className='text-sm text-secondary'>
-            {playlist.trackCount}首歌曲，时长{totalTime}
+          <h2 className='text-lg mb-2'>{playlist.name}</h2>
+          <div className='text-sm text-secondary mb-2'>
+            {playlist.trackCount}首歌曲<span className='mx-1'>•</span>时长
+            {totalTime}
           </div>
-          <div className='mt-auto mb-8'>{playlist.description}</div>
+          <div className='mt-auto text-secondary mb-8'>
+            {playlist.description}
+          </div>
           <div className='self-end'>
             <div className='space-x-4'>
               <Button onClick={handlePlayList} pirmary>
