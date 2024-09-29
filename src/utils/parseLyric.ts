@@ -1,22 +1,8 @@
 const timestampRegex = /\[\d{2}.*(\.\d+)?\]/;
 
-const getLyricText = (text?: string) => {
-  if (!text) return '';
-
-  const lyricIndex = text?.indexOf('}\n[') || 0;
-  let startIndex = 0;
-
-  if (lyricIndex !== -1) {
-    startIndex = lyricIndex + 2;
-  }
-
-  return text?.substring(startIndex);
-};
-
 export const parseLyric = (raw: string = '') => {
   if (!raw) return [];
-  const lyricText = getLyricText(raw);
-  const lyricList = lyricText.split('\n').filter(Boolean);
+  const lyricList = raw.split('\n').filter((line) => line.startsWith('['));
 
   return lyricList
     .map((item, index) => {
