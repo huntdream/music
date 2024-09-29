@@ -11,6 +11,7 @@ import { PlayerContext } from './Provider';
 import Artists from '../Artist/Artists';
 import Progress from './Progress';
 import Controls from './Controls';
+import Actions from './Actions';
 
 interface Props {}
 
@@ -35,14 +36,12 @@ const Player: React.FC<Props> = () => {
   };
 
   const handleClick = (e: MouseEvent) => {
+    if (isDesktop) return;
+
     e.stopPropagation();
     e.preventDefault();
 
-    if (window.location.pathname.startsWith('/lyric')) {
-      navigate(-1);
-    } else {
-      navigateLyric(playingSong!.id);
-    }
+    navigateLyric(playingSong!.id);
   };
 
   useEffect(() => {
@@ -146,9 +145,7 @@ const Player: React.FC<Props> = () => {
             isDesktop ? 'w-[30%] min-w-44' : ''
           )}
         >
-          <Queue>
-            <PlaylistIcon className='w-8 h-8' />
-          </Queue>
+          <Actions />
         </div>
       </div>
     </div>

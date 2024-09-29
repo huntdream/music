@@ -1,22 +1,28 @@
-import React, { ComponentType, ReactNode } from 'react';
+import React, { ComponentType, ReactNode, useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
+import cls from 'classnames';
 import { FixedSizeList, FixedSizeListProps } from 'react-window';
 import Song from '../Song';
 import usePlayer from './usePlayer';
+import { PlaylistIcon } from '../../icons/Audio';
 
 const List = FixedSizeList as ComponentType<FixedSizeListProps>;
 
-interface Props {
-  children: ReactNode;
-}
+interface Props {}
 
-const Queue: React.FC<Props> = ({ children }) => {
+const Queue: React.FC<Props> = ({}) => {
   const { queue } = usePlayer();
+  const [open, setOpen] = useState(false);
 
   return (
-    <Popover.Root>
+    <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger onClick={(e) => e.stopPropagation()}>
-        <div>{children}</div>
+        <PlaylistIcon
+          className={cls(
+            'w-8 h-8 cursor-pointer hover:text-primary',
+            open ? 'text-primary' : 'text-secondary '
+          )}
+        />
       </Popover.Trigger>
       <Popover.Content
         onClick={(e) => e.stopPropagation()}

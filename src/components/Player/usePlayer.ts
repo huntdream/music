@@ -14,6 +14,7 @@ const usePlayer = () => {
     play,
     replaceQueue,
     appendQueue,
+    setPlayingSong,
   } = useContext(PlayerContext);
 
   return {
@@ -21,6 +22,7 @@ const usePlayer = () => {
     setIsPlaying,
     isPlaying,
     playingSong,
+    setPlayingSong,
     audioRef,
     next,
     prev,
