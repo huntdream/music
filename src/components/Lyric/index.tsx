@@ -55,9 +55,9 @@ const Lyric: React.FC<Props> = () => {
 
   return (
     <div className='fixed inset-0 bg-white/80 backdrop-blur-md animate-slide-in'>
-      <div className='h-full overflow-auto px-2'>
+      <div className='h-full overflow-auto p-2'>
         <div
-          className='text-center text-xl overflow-auto mb-[50vh]'
+          className='text-center text-xl overflow-auto mb-[50vh] flex items-center flex-col'
           ref={lyricRef}
         >
           {lyric.map(({ text, key, timestamp }) => (

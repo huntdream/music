@@ -19,7 +19,7 @@ const Line: React.FC<Props> = ({ isHighlighted, children, onClick }) => {
     <div
       ref={ref}
       className={cls(
-        'my-4',
+        'mt-2',
         isHighlighted ? 'font-bold text-primary' : 'text-secondary'
       )}
       onClick={onClick}
