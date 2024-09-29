@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
 import usePlaylist from '../../fetchers/usePlaylist';
 import { msToHours } from '../../utils/msConvert';
-import './style.scss';
 import { ITrack } from '../../types/playlist';
 import Button from '../Button';
 import Image from '../Image';
@@ -50,16 +49,20 @@ const Playlist: React.FC<Props> = () => {
   }
 
   return (
-    <div className='playlist'>
-      <div className='playlist-info'>
-        <Image className='playlist-cover' src={playlist.coverImgUrl} alt='' />
-        <div className='playlist-detail'>
+    <div className='my-4 mx-2'>
+      <div className='flex flex-wrap pb-4 border-b'>
+        <Image
+          className='w-60 h-60 rounded-md mr-6'
+          src={playlist.coverImgUrl}
+          alt=''
+        />
+        <div className='flex flex-col'>
           <h2>{playlist.name}</h2>
-          <div className='playlist-stats text-secondary'>
+          <div className='text-sm text-secondary'>
             {playlist.trackCount}首歌曲，时长{totalTime}
           </div>
-          <div className='playlist-desc'>{playlist.description}</div>
-          <div className='playlist-action'>
+          <div className='mt-auto mb-8'>{playlist.description}</div>
+          <div className='self-end'>
             <div className='space-x-4'>
               <Button onClick={handlePlayList} pirmary>
                 播放
@@ -69,7 +72,7 @@ const Playlist: React.FC<Props> = () => {
           </div>
         </div>
       </div>
-      <div className='divide-y mt-6'>
+      <div className='mt-4'>
         {playlist.tracks.map((track) => (
           <Song song={track} key={track.id} onPlay={handlePlay} duration />
         ))}
