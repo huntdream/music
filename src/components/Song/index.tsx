@@ -49,7 +49,7 @@ const Song: React.FC<Props> = ({
       onClick={() => handlePlay(song)}
       style={style}
     >
-      <div className='border rounded shrink-0'>
+      <div className='rounded shrink-0'>
         <Image
           className='w-12 h-12 rounded'
           src={`${al?.picUrl}?param=50y50`}
