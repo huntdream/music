@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import useLyric from '../../fetchers/useLyric';
 import { parseLyric } from '../../utils/parseLyric';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Line from './Line';
 import useSongDetail from '../../fetchers/useSongDetail';
 import usePlayer from '../Player/usePlayer';
@@ -9,13 +9,23 @@ import usePlayer from '../Player/usePlayer';
 interface Props {}
 
 const Lyric: React.FC<Props> = () => {
-  const { audioRef, play, queue, appendQueue, setPlayingSong } = usePlayer();
+  const { audioRef, play, playingSong, queue, appendQueue, setPlayingSong } =
+    usePlayer();
   const [hlKey, setHlKey] = useState<number>(0);
+  const navigate = useNavigate();
   const audio = audioRef.current;
   const lyricRef = useRef<HTMLDivElement>(null);
   const { id } = useParams();
   const [songDetail] = useSongDetail(id);
   const [lyricData] = useLyric(id);
+
+  useEffect(() => {
+    if (playingSong) {
+      navigate(`/lyric/${playingSong?.id}`, {
+        replace: true,
+      });
+    }
+  }, [playingSong]);
 
   const lyric = useMemo(() => {
     const rawText = lyricData?.lrc?.lyric;
