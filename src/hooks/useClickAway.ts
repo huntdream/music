@@ -6,7 +6,6 @@ const useClickAway = <T extends HTMLElement>(onClickAway: () => void) => {
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
-        console.log('away', e.target, ref.current);
         onClickAway();
       }
     };
