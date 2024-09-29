@@ -5,6 +5,7 @@ import { IRecommendation } from '../../types/playlist';
 import Song from '../../components/Song';
 import { PlayCircleIcon, PlusCircleIcon } from '@heroicons/react/24/solid';
 import usePlayer from '../../components/Player/usePlayer';
+import Auth from '../../components/Auth';
 
 interface Props {}
 
@@ -32,6 +33,10 @@ const Daily: React.FC<Props> = () => {
       appendQueue(data?.data.dailySongs);
     }
   };
+
+  if (!user?.userId) {
+    return <Auth page />;
+  }
 
   return (
     <div>

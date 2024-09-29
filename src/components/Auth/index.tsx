@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useSWR from 'swr';
+import cls from 'classnames';
 import { useUser } from '../../context/App';
 import { IUser } from '../../types/user';
 import fetcher from '../../utils/fetcher';
@@ -10,9 +11,10 @@ import Button from '../Button';
 
 interface Props {
   className?: string;
+  page?: boolean;
 }
 
-const Auth: React.FC<Props> = ({ className }) => {
+const Auth: React.FC<Props> = ({ className, page }) => {
   const [showQr, setShowQr] = useState(false);
   const [user, setUser] = useUser();
 
@@ -43,7 +45,12 @@ const Auth: React.FC<Props> = ({ className }) => {
   };
 
   return (
-    <div className={className}>
+    <div
+      className={cls(
+        page ? ' h-full w-full flex justify-center items-center' : '',
+        className
+      )}
+    >
       {user?.userId ? (
         <User user={user} />
       ) : (

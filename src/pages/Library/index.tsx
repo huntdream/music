@@ -14,7 +14,7 @@ const Library: React.FC<Props> = () => {
   const [myList, otherList] = usePlaylists(user?.userId);
 
   if (!user?.userId && !isDesktop) {
-    return <Auth className='h-full w-full flex justify-center items-center' />;
+    return <Auth page />;
   }
 
   return (
