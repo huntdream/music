@@ -98,7 +98,7 @@ const Player: React.FC<Props> = () => {
           ? 'translate-x-0 opacity-100'
           : 'opacity-0 translate-y-full',
         {
-          'mx-2 rounded-md -translate-y-full': !isDesktop,
+          'mx-2 rounded-tl-md rounded-tr-md -translate-y-full': !isDesktop,
         }
       )}
     >
