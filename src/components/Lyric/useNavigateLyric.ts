@@ -1,22 +1,25 @@
+import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const useNavigateLyric = () => {
   const location = useLocation();
-
   const navigate = useNavigate();
 
-  const navigateLyric = (id: string | number) => {
-    if (window.location.pathname.startsWith('/lyric')) {
-      navigate(-1);
-    } else {
-      navigate(`/lyric/${id}`, {
-        state: {
-          backgroundLocation: location,
-        },
-      });
-    }
-  };
+  const navigateLyric = (id: string | number, replace?: boolean) => {
+    const isLyric = window.location.pathname.startsWith('/lyric');
 
+    if (isLyric && !replace) {
+      navigate(-1);
+      return;
+    }
+
+    navigate(`/lyric/${id}`, {
+      replace: isLyric,
+      state: {
+        backgroundLocation: location.state?.backgroundLocation || location,
+      },
+    });
+  };
   return navigateLyric;
 };
 

@@ -5,26 +5,28 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Line from './Line';
 import useSongDetail from '../../fetchers/useSongDetail';
 import usePlayer from '../Player/usePlayer';
+import useNavigateLyric from './useNavigateLyric';
 
 interface Props {}
 
 const Lyric: React.FC<Props> = () => {
-  const { audioRef, play, playingSong, queue, appendQueue, setPlayingSong } =
+  const { audioRef, playingSong, queue, appendQueue, setPlayingSong } =
     usePlayer();
   const [hlKey, setHlKey] = useState<number>(0);
-  const navigate = useNavigate();
+  const navigateLyric = useNavigateLyric();
   const audio = audioRef.current;
   const lyricRef = useRef<HTMLDivElement>(null);
   const { id } = useParams();
   const [songDetail] = useSongDetail(id);
   const [lyricData] = useLyric(id);
+  const mouted = useRef(false);
 
   useEffect(() => {
-    if (playingSong) {
-      navigate(`/lyric/${playingSong?.id}`, {
-        replace: true,
-      });
+    if (playingSong && mouted.current) {
+      navigateLyric(playingSong.id, true);
     }
+
+    mouted.current = true;
   }, [playingSong]);
 
   const lyric = useMemo(() => {
@@ -60,7 +62,7 @@ const Lyric: React.FC<Props> = () => {
     const updateLyric = () => {
       const ct = audio?.currentTime || 0;
 
-      const line = lyric.findLast(({ timestamp }, index) => {
+      const line = lyric.findLast(({ timestamp }) => {
         return ct >= timestamp;
       });
 
