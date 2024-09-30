@@ -22,11 +22,13 @@ const Lyric: React.FC<Props> = () => {
   const mouted = useRef(false);
 
   useEffect(() => {
-    if (playingSong && mouted.current) {
-      navigateLyric(playingSong.id, true);
+    if (playingSong) {
+      if (mouted.current) {
+        navigateLyric(playingSong.id, true);
+      } else {
+        mouted.current = true;
+      }
     }
-
-    mouted.current = true;
   }, [playingSong]);
 
   const lyric = useMemo(() => {

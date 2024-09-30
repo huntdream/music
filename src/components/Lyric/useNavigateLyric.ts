@@ -7,10 +7,10 @@ const useNavigateLyric = () => {
 
   const navigateLyric = (id: string | number, replace?: boolean) => {
     const isLyric = window.location.pathname.startsWith('/lyric');
+    const isLyricFirstLoad = !location.state;
 
     if (isLyric && !replace) {
-      navigate(-1);
-      return;
+      return isLyricFirstLoad ? navigate('/') : navigate(-1);
     }
 
     navigate(`/lyric/${id}`, {
