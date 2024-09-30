@@ -16,11 +16,14 @@ const Queue: React.FC<Props> = ({}) => {
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
-      <Popover.Trigger onClick={(e) => e.stopPropagation()}>
+      <Popover.Trigger
+        onClick={(e) => e.stopPropagation()}
+        className='outline-none'
+      >
         <PlaylistIcon
           className={cls(
             'w-8 h-8 cursor-pointer hover:text-primary',
-            open ? 'text-primary' : 'text-secondary '
+            open ? 'text-primary' : 'text-secondary'
           )}
         />
       </Popover.Trigger>

@@ -41,18 +41,14 @@ const Player: React.FC<Props> = () => {
   return (
     <div
       className={cls(
-        'fixed bottom-0 left-0 right-0 z-50 h-16 shadow-around bg-white  transition-transform duration-200 ease-in-out ',
-        playingSong
-          ? 'translate-x-0 opacity-100'
-          : 'opacity-0 translate-y-full',
-        {
-          'mx-2 rounded-tl-md rounded-tr-md -translate-y-full': !isDesktop,
-        }
+        'fixed bottom-0 left-0 right-0 px-4 mb-[--safe-b] mx-[--safe-b] z-50 shadow-around bg-white rounded-[--safe-radius]  transition-transform duration-200 ease-in-out ',
+        playingSong ? 'translate-x-0 opacity-100' : 'opacity-0 translate-y-16',
+        isDesktop ? 'py-2' : 'mx-2 rounded-tl-md rounded-tr-md -translate-y-16'
       )}
     >
       <audio src={url} ref={audioRef} onEnded={handleEnded}></audio>
       <div
-        className='flex items-center justify-between h-16 px-2'
+        className='flex items-center justify-between h-16'
         onClick={handleClick}
       >
         <div
@@ -63,7 +59,7 @@ const Player: React.FC<Props> = () => {
         >
           <div className='mr-2'>
             <Image
-              className='w-12 h-12 rounded-md'
+              className='w-14 h-14 rounded-md'
               src={`${playingSong?.al?.picUrl}?param=50y50`}
               alt=''
             />
@@ -81,8 +77,9 @@ const Player: React.FC<Props> = () => {
         </div>
         <div
           className={cls(
-            '',
-            isDesktop ? 'flex-1 max-w-[722px] w-2/5' : 'ml-auto'
+            isDesktop
+              ? 'flex flex-col justify-between h-full pt-1.5 flex-1 max-w-[722px] w-2/5'
+              : 'ml-auto'
           )}
         >
           <Controls />

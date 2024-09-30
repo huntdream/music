@@ -48,7 +48,7 @@ const Progress: FC<Props> = ({ duration = 0 }) => {
         onValueChange={handleSeekTime}
         step={0.01}
       >
-        <Slider.Track className='bg-secondary relative grow rounded-full h-1'>
+        <Slider.Track className='bg-secondary relative grow rounded-md h-1'>
           <Slider.Range className='absolute bg-primary rounded-full h-full' />
         </Slider.Track>
         <Slider.Thumb className='block w-2 h-2 bg-secondary rounded-md hover:bg-purple-500 ' />
