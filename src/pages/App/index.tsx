@@ -54,6 +54,14 @@ function App() {
               <Route path='lyric/:id' element={<Lyric />} />
               <Route path='artist/:id' element={<Artist />} />
               <Route path='daily' element={<Daily />} />
+              <Route
+                path='*'
+                element={
+                  <div className='h-full w-full flex justify-center items-center'>
+                    Work in progress
+                  </div>
+                }
+              />
             </Route>
           </Routes>
 
