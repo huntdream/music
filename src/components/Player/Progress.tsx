@@ -30,8 +30,6 @@ const Progress: FC<Props> = ({ duration = 0 }) => {
   }, [audioRef]);
 
   const handleSeekTime = (value: number[]) => {
-    console.log(value);
-
     if (audioRef.current) {
       audioRef.current.currentTime = (duration * value[0]) / 100000;
     }
