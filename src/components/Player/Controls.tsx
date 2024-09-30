@@ -23,7 +23,10 @@ const Controls: FC<Props> = () => {
   return (
     <div className='flex justify-center items-center'>
       {isDesktop && (
-        <PrevIcon className='w-8 h-8 cursor-pointer' onClick={prev} />
+        <PrevIcon
+          className='w-8 h-8 cursor-pointer text-secondary hover:text-primary'
+          onClick={prev}
+        />
       )}
       <div
         className={cls(
@@ -39,7 +42,10 @@ const Controls: FC<Props> = () => {
       </div>
 
       {isDesktop && (
-        <NextIcon className='w-8 h-8 cursor-pointer' onClick={next} />
+        <NextIcon
+          className='w-8 h-8 cursor-pointer text-secondary hover:text-primary'
+          onClick={next}
+        />
       )}
     </div>
   );
