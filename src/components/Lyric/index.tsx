@@ -1,35 +1,20 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import useLyric from '../../fetchers/useLyric';
 import { parseLyric } from '../../utils/parseLyric';
-import { useNavigate, useParams } from 'react-router-dom';
 import Line from './Line';
-import useSongDetail from '../../fetchers/useSongDetail';
 import usePlayer from '../Player/usePlayer';
-import useNavigateLyric from './useNavigateLyric';
 
-interface Props {}
+interface Props {
+  id: number | string;
+}
 
-const Lyric: React.FC<Props> = () => {
-  const { audioRef, playingSong, queue, appendQueue, setPlayingSong } =
-    usePlayer();
+const Lyric: React.FC<Props> = ({ id }) => {
+  const { audioRef } = usePlayer();
   const [hlKey, setHlKey] = useState<number>(0);
-  const navigateLyric = useNavigateLyric();
+
   const audio = audioRef.current;
   const lyricRef = useRef<HTMLDivElement>(null);
-  const { id } = useParams();
-  const [songDetail] = useSongDetail(id);
   const [lyricData] = useLyric(id);
-  const mouted = useRef(false);
-
-  useEffect(() => {
-    if (playingSong) {
-      if (mouted.current) {
-        navigateLyric(playingSong.id, true);
-      } else {
-        mouted.current = true;
-      }
-    }
-  }, [playingSong]);
 
   const lyric = useMemo(() => {
     const rawText = lyricData?.lrc?.lyric;
@@ -52,13 +37,6 @@ const Lyric: React.FC<Props> = () => {
 
     return rawLyric;
   }, [lyricData]);
-
-  useEffect(() => {
-    if (id && songDetail && !queue.length) {
-      appendQueue(songDetail);
-      setPlayingSong(songDetail);
-    }
-  }, [id, songDetail, queue]);
 
   useEffect(() => {
     const updateLyric = () => {
@@ -86,21 +64,19 @@ const Lyric: React.FC<Props> = () => {
   };
 
   return (
-    <div className='fixed inset-0 bg-white/80 backdrop-blur-md animate-slide-in'>
-      <div className='h-full overflow-auto p-2 px-6'>
-        <div
-          className='text-center text-xl pt-[43vh] px-6 mb-[50vh] flex items-center flex-col'
-          ref={lyricRef}
-        >
-          {lyric.map((item) => (
-            <Line
-              onClick={() => seekTime(item.timestamp, item.key)}
-              isHighlighted={hlKey === item.key}
-              key={item.key}
-              lyric={item}
-            />
-          ))}
-        </div>
+    <div className='h-full overflow-auto p-2 px-6'>
+      <div
+        className='text-center text-xl pt-[43vh] px-6 mb-[50vh] flex items-center flex-col'
+        ref={lyricRef}
+      >
+        {lyric.map((item) => (
+          <Line
+            onClick={() => seekTime(item.timestamp, item.key)}
+            isHighlighted={hlKey === item.key}
+            key={item.key}
+            lyric={item}
+          />
+        ))}
       </div>
     </div>
   );

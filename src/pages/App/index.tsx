@@ -4,7 +4,7 @@ import Home from '../Home';
 import Config from '../Config';
 import Library from '../Library';
 import Playlist from '../../components/Playlist';
-import Lyric from '../../components/Lyric';
+import Lyric from '../Lyric';
 import Moment from '../Moments';
 import { Toaster } from 'sonner';
 import PlayerProvider from '../../components/Player/Provider';
