@@ -1,14 +1,6 @@
-import { FC, MouseEvent, useContext } from 'react';
+import { FC, useContext } from 'react';
 import cls from 'classnames';
-import {
-  PauseIcon,
-  PlayIcon,
-  PrevIcon,
-  NextIcon,
-  PlaylistIcon,
-  LyricIcon,
-  VolumeIcon,
-} from '../../icons/Audio';
+import { LyricIcon } from '../../icons/Audio';
 import usePlayer from './usePlayer';
 import { AppContext } from '../../context/App/App';
 import Queue from './Queue';
