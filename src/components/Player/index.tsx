@@ -61,9 +61,9 @@ const Player: React.FC<Props> = () => {
             isDesktop ? 'w-[30%] min-w-44' : 'min-w-0 flex-1'
           )}
         >
-          <div className='mr-2'>
+          <div className='mr-4'>
             <Image
-              className='w-14 h-14 rounded-md'
+              className='w-12 h-12 rounded-md'
               src={`${playingSong?.al?.picUrl}?param=50y50`}
               alt=''
             />
