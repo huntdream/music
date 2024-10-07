@@ -14,8 +14,9 @@ const Volume: React.FC<Props> = () => {
 
   const handleChange = ([value]: [number]) => {
     setVolume(value);
-    setMuted(false);
-    audioRef.current!.muted = false;
+    const isMuted = value === 0 || false;
+    setMuted(isMuted);
+    audioRef.current!.muted = isMuted;
     audioRef.current!.volume = value;
     localStorage.setItem('volume', value.toString());
   };
