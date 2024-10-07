@@ -16,7 +16,7 @@ const NavIcon: React.FC<Props> = ({ path, icon }) => {
   return (
     <div
       onClick={() => navigate(path)}
-      className={cls('w-14 h-14 p-3 cursor-pointer rounded-md')}
+      className={cls('w-12 h-12 p-2 m-1 cursor-pointer rounded-md')}
     >
       {icon(isActive)}
     </div>
