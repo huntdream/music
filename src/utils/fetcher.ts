@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 
+const hostname = window.location.hostname;
+
 const fetcher = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
       ? 'https://music.maoyu.space/api'
-      : 'http://localhost:3000',
+      : `http://${hostname}:3000`,
   withCredentials: true,
 });
 
