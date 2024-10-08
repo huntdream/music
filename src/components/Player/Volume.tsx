@@ -23,7 +23,7 @@ const Volume: React.FC<Props> = () => {
 
   useEffect(() => {
     if (audioRef.current) {
-      const savedVolume = parseFloat(localStorage.getItem('volume') || '0');
+      const savedVolume = parseFloat(localStorage.getItem('volume') || '1');
 
       setMuted(audioRef.current.muted);
       setVolume(savedVolume || audioRef.current.volume);
