@@ -1,7 +1,7 @@
 import React from 'react';
 import useSWR from 'swr';
 import useUser from '../../context/App/useUser';
-import { IRecommendation } from '../../types/playlist';
+import { IRecommendation, ITrack } from '../../types/playlist';
 import Song from '../../components/Song';
 import { PlayCircleIcon, PlusCircleIcon } from '@heroicons/react/24/solid';
 import usePlayer from '../../components/Player/usePlayer';
@@ -18,9 +18,13 @@ const Daily: React.FC<Props> = () => {
     user?.userId ? '/recommend/songs' : ''
   );
 
-  const handlePlay = () => {
+  const handlePlay = (song?: ITrack) => {
     if (data?.data) {
       replaceQueue(data?.data.dailySongs);
+
+      if (song) {
+        setPlayingSong(song);
+      }
     }
   };
 
@@ -59,7 +63,7 @@ const Daily: React.FC<Props> = () => {
       </div>
       <div className='px-2 mt-4'>
         {data?.data.dailySongs.map((song) => (
-          <Song song={song} duration key={song.id} />
+          <Song song={song} duration key={song.id} onPlay={handlePlay} />
         ))}
       </div>
     </div>
