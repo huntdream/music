@@ -54,7 +54,7 @@ const Sider: React.FC<Props> = () => {
       </div>
 
       <h2 className='my-2 ml-4 font-bold text-lg border-b'>我的歌单</h2>
-      <div className='overflow-auto flex-1 pb-24 px-2'>
+      <div className='overflow-auto flex-1 mb-24 px-2'>
         {mylist?.map(({ id, name }) => (
           <Item
             onClick={() => navigateTo(`/playlist/${id}`)}
