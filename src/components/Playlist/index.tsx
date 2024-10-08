@@ -50,7 +50,7 @@ const Playlist: React.FC<Props> = () => {
 
   return (
     <div className='my-4 mx-2'>
-      <div className='flex flex-wrap pb-4 border-b'>
+      <div className='flex flex-wrap pb-4 border-b px-2'>
         <Image
           className='w-60 h-60 rounded-md mr-6'
           src={playlist.coverImgUrl}
