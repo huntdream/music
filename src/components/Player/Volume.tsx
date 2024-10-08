@@ -27,6 +27,7 @@ const Volume: React.FC<Props> = () => {
 
       setMuted(audioRef.current.muted);
       setVolume(savedVolume || audioRef.current.volume);
+      audioRef.current.volume = savedVolume;
     }
   }, [audioRef]);
 
