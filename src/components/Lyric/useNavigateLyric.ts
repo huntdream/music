@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const useNavigateLyric = () => {
