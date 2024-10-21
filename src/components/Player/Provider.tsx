@@ -3,6 +3,7 @@ import React, {
   createRef,
   ReactNode,
   RefObject,
+  SyntheticEvent,
   useEffect,
   useRef,
   useState,
@@ -89,17 +90,25 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
       navigator.mediaSession.playbackState = 'paused';
     };
 
+    const handleError = (e: Event) => {
+      const event = e as unknown as SyntheticEvent<HTMLAudioElement>;
+
+      console.log(event.currentTarget.error);
+    };
+
     const handleEnded = () => {
       next();
     };
 
     audio?.addEventListener('play', handlePlay);
     audio?.addEventListener('pause', handlePause);
+    audio?.addEventListener('error', handleError);
     audio?.addEventListener('ended', handleEnded);
 
     return () => {
       audio?.removeEventListener('play', handlePlay);
       audio?.removeEventListener('pause', handlePause);
+      audio?.removeEventListener('error', handleError);
       audio?.removeEventListener('ended', handleEnded);
     };
   }, [audio, setIsPlaying]);
