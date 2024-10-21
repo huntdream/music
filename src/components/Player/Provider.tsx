@@ -89,12 +89,18 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
       navigator.mediaSession.playbackState = 'paused';
     };
 
+    const handleEnded = () => {
+      next();
+    };
+
     audio?.addEventListener('play', handlePlay);
     audio?.addEventListener('pause', handlePause);
+    audio?.addEventListener('ended', handleEnded);
 
     return () => {
       audio?.removeEventListener('play', handlePlay);
       audio?.removeEventListener('pause', handlePause);
+      audio?.removeEventListener('ended', handleEnded);
     };
   }, [audio, setIsPlaying]);
 
