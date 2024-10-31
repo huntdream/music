@@ -10,7 +10,7 @@ const useSongUrl = (id?: number | string): [string] => {
     id ? `/song/url/v1?id=${id}&level=${level}` : null,
     (url) =>
       fetcher(url).then((res) => {
-        return res.data?.[0].url;
+        return res.data?.[0].url.replace(/http:/, 'https:');
       }),
     {
       revalidateIfStale: false,
@@ -19,7 +19,7 @@ const useSongUrl = (id?: number | string): [string] => {
     }
   );
 
-  return [data?.replace(/http:/, 'https:')];
+  return [data];
 };
 
 export default useSongUrl;
