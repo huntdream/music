@@ -52,7 +52,7 @@ const Daily: React.FC<Props> = () => {
         </div>
         <div className='flex gap-2 mt-4'>
           <PlayCircleIcon
-            onClick={handlePlay}
+            onClick={() => handlePlay()}
             className='w-10 h-10 cursor-pointer'
           />
           <PlusCircleIcon
