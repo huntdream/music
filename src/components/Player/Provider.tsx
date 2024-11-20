@@ -111,7 +111,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
       audio?.removeEventListener('error', handleError);
       audio?.removeEventListener('ended', handleEnded);
     };
-  }, [audio, setIsPlaying]);
+  }, [audio, setIsPlaying, queue, playingSong]);
 
   const pause = () => {
     audio?.pause();
