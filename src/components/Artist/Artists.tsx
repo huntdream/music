@@ -10,7 +10,7 @@ const Artists: FC<Props> = ({ artists }) => {
   return artists?.map((ar) => (
     <Link
       to={`/artist/${ar.id}`}
-      className='no-underline relative text-secondary ml-2 first:ml-0 hover:underline after:content-["/"] after:mx-0.5 after:absolute last:after:content-[""]'
+      className='no-underline relative text-secondary ml-2 first-of-type:ml-0 hover:underline after:content-["/"] after:mx-0.5 after:absolute last:after:content-[""]'
       key={ar.id}
       title={ar.name}
     >
