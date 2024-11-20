@@ -7,6 +7,8 @@ import { msToMinutes } from '../../utils/msConvert';
 import { ITrack } from '../../types/playlist';
 import usePlayer from '../Player/usePlayer';
 import Artists from '../Artist/Artists';
+import playingIcon from '../../assets/playing.gif';
+import { PauseIcon, PlayIcon } from '../../icons/Audio';
 
 interface Props {
   song: ISong;
@@ -24,8 +26,10 @@ const Song: React.FC<Props> = ({
   style,
   onPlay,
 }) => {
-  const { play, appendQueue } = usePlayer();
+  const { play, appendQueue, playingSong, isPlaying } = usePlayer();
   const { name, ar, al, dt } = song;
+  const isCurrentSong = playingSong?.id === song.id;
+  const isSongPlaying = isPlaying && isCurrentSong;
 
   const handleNavigate = (e: MouseEvent) => {
     e.stopPropagation();
@@ -49,12 +53,17 @@ const Song: React.FC<Props> = ({
       onClick={() => handlePlay(song)}
       style={style}
     >
-      <div className='rounded shrink-0'>
+      <div className='rounded shrink-0 relative'>
         <Image
           className='w-12 h-12 rounded'
           src={`${al?.picUrl}?param=50y50`}
           alt=''
         />
+        {isCurrentSong && (
+          <div className='absolute rounded inset-0 p-3 bg-gray-600 bg-opacity-35'>
+            {isPlaying ? <PauseIcon /> : <PlayIcon />}
+          </div>
+        )}
       </div>
       <div className='ml-2 flex-1 min-w-0 flex flex-col justify-between'>
         <div className='flex'>
@@ -74,6 +83,7 @@ const Song: React.FC<Props> = ({
           </div>
         </div>
       </div>
+      {isSongPlaying && <Image className='w-4 h-4 mr-4' src={playingIcon} />}
       {duration && (
         <div className='ml-auto text-gray-500'>{msToMinutes(dt)}</div>
       )}
