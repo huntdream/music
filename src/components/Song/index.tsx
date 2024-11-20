@@ -9,6 +9,7 @@ import usePlayer from '../Player/usePlayer';
 import Artists from '../Artist/Artists';
 import playingIcon from '../../assets/playing.gif';
 import { PauseIcon, PlayIcon } from '../../icons/Audio';
+import Actions from './Actions';
 
 interface Props {
   song: ISong;
@@ -27,7 +28,7 @@ const Song: React.FC<Props> = ({
   onPlay,
 }) => {
   const { play, appendQueue, playingSong, isPlaying } = usePlayer();
-  const { name, ar, al, dt } = song;
+  const { name, ar, al, dt, id } = song;
   const isCurrentSong = playingSong?.id === song.id;
   const isSongPlaying = isPlaying && isCurrentSong;
 
@@ -87,6 +88,7 @@ const Song: React.FC<Props> = ({
       {duration && (
         <div className='ml-auto text-gray-500'>{msToMinutes(dt)}</div>
       )}
+      <Actions id={id} />
     </div>
   );
 };

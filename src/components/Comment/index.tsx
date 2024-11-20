@@ -6,21 +6,24 @@ import cls from 'classnames';
 import React from 'react';
 import useSWRInfinite from 'swr/infinite';
 import User from '../User';
-import { CommentType, IComments } from '../../types/comment';
+import { IComments } from '../../types/comment';
 import Button from '../Button';
 import Loading from '../Loading';
 import fetcher from '../../utils/fetcher';
+import { IResourceType, ResourceTypes } from '../../types';
 
 interface Props {
   id: number | string;
-  type?: CommentType;
+  type?: IResourceType;
 }
 
 const Comment: React.FC<Props> = ({ type, id }) => {
+  const typeCode = type ? ResourceTypes[type] : '';
+
   const { data, error, isValidating, mutate, isLoading, size, setSize } =
     useSWRInfinite<IComments>(
       (pageIndex, previousPageData: IComments) => {
-        const url = `comment/new?type=${type}&id=${id}&sortType=3&pageSize=20&pageNo=${
+        const url = `comment/new?type=${typeCode}&id=${id}&sortType=3&pageSize=20&pageNo=${
           pageIndex + 1
         }`;
 

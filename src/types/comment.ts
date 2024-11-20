@@ -1,16 +1,6 @@
 import { IPLocation } from '.';
 import { IUser } from './user';
 
-export type CommentType =
-  | 'song'
-  | 'mv'
-  | 'playlist'
-  | 'album'
-  | 'show'
-  | 'video'
-  | 'post'
-  | 'podcast';
-
 export interface IComment {
   user: IUser;
   beReplied: IComment[];
