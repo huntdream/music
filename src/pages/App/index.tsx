@@ -1,5 +1,4 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { Theme } from '@radix-ui/themes';
 import Home from '../Home';
 import Config from '../Config';
 import Library from '../Library';
@@ -13,6 +12,8 @@ import Search from '../Search';
 import { useEffect } from 'react';
 import Artist from '../Artist';
 import Daily from '../Daily';
+import Playing from '../Playing';
+import Comments from '../Comments';
 
 function App() {
   let location = useLocation();
@@ -42,37 +43,37 @@ function App() {
 
   return (
     <Config>
-      <Theme>
-        <PlayerProvider>
-          <Routes location={state?.backgroundLocation || location}>
-            <Route path='' element={<Home />}>
-              <Route index path='/' element={<Main />} />
-              <Route path='me' element={<Library />} />
-              <Route path='playlist/:id' element={<Playlist />} />
-              <Route path='moments' element={<Moment />} />
-              <Route path='search' element={<Search />} />
-              <Route path='lyric/:id' element={<Lyric />} />
-              <Route path='artist/:id' element={<Artist />} />
-              <Route path='daily' element={<Daily />} />
-              <Route
-                path='*'
-                element={
-                  <div className='h-full w-full flex justify-center items-center'>
-                    Work in progress
-                  </div>
-                }
-              />
-            </Route>
-          </Routes>
+      <PlayerProvider>
+        <Routes location={state?.backgroundLocation || location}>
+          <Route path='' element={<Home />}>
+            <Route index path='/' element={<Main />} />
+            <Route path='me' element={<Library />} />
+            <Route path='playlist/:id' element={<Playlist />} />
+            <Route path='moments' element={<Moment />} />
+            <Route path='search' element={<Search />} />
+            <Route path='lyric/:id' element={<Lyric />} />
+            <Route path='artist/:id' element={<Artist />} />
+            <Route path='daily' element={<Daily />} />
+            <Route path='comments/:id' element={<Comments />} />
+            <Route path='playing/:id' element={<Playing />} />
+            <Route
+              path='*'
+              element={
+                <div className='h-full w-full flex justify-center items-center'>
+                  Work in progress
+                </div>
+              }
+            />
+          </Route>
+        </Routes>
 
-          <Toaster position='top-center' />
-          {state?.backgroundLocation && (
-            <Routes>
-              <Route path='lyric/:id' element={<Lyric />} />
-            </Routes>
-          )}
-        </PlayerProvider>
-      </Theme>
+        <Toaster position='top-center' />
+        {state?.backgroundLocation && (
+          <Routes>
+            <Route path='lyric/:id' element={<Lyric />} />
+          </Routes>
+        )}
+      </PlayerProvider>
     </Config>
   );
 }
