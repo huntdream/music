@@ -55,7 +55,7 @@ function App() {
             <Route path='artist/:id' element={<Artist />} />
             <Route path='daily' element={<Daily />} />
             <Route path='comments/:id' element={<Comments />} />
-            <Route path='playing/:id' element={<Playing />} />
+            {/* <Route path='playing/:id' element={<Playing />} /> */}
             <Route
               path='*'
               element={
