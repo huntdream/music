@@ -12,7 +12,7 @@ import Search from '../Search';
 import { useEffect } from 'react';
 import Artist from '../Artist';
 import Daily from '../Daily';
-import Playing from '../Playing';
+// import Playing from '../Playing';
 import Comments from '../Comments';
 
 function App() {
