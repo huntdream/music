@@ -28,7 +28,7 @@ const User: React.FC<Props> = ({
     <div>
       <div className={cls('flex items-center', className)}>
         <Image
-          className={cls('rounded', sizes[size])}
+          className={cls('rounded-sm', sizes[size])}
           src={user.avatarUrl}
           alt=''
         />

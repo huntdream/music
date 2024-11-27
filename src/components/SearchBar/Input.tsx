@@ -42,7 +42,7 @@ const Input: React.FC<Props> = ({
     <input
       placeholder='搜索'
       className={cls(
-        'flex h-8 w-full rounded-md border border-input outline-none px-3 py-2 text-sm',
+        'flex h-8 w-full rounded-md border border-input outline-hidden px-3 py-2 text-sm',
         className
       )}
       value={value}

@@ -77,7 +77,7 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
       <div className='mx-4 py-2 sticky' ref={ref}>
         <Input
           placeholder='搜索'
-          className='flex h-8 w-full rounded-md border border-input outline-none px-3 py-2 text-sm'
+          className='flex h-8 w-full rounded-md border border-input outline-hidden px-3 py-2 text-sm'
           value={keyword}
           onChange={handleChange}
           onFocus={handleFocus}

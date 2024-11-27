@@ -46,7 +46,7 @@ const Daily: React.FC<Props> = () => {
     <div>
       <div className='p-4'>
         <div>
-          <div className='w-36 h-36 rounded-md bg-gradient-to-r from-teal-400 to-blue-500 flex items-center justify-center'>
+          <div className='w-36 h-36 rounded-md bg-linear-to-r from-teal-400 to-blue-500 flex items-center justify-center'>
             <span className='text-2xl font-extrabold text-white'>每日推荐</span>
           </div>
         </div>
