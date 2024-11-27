@@ -17,7 +17,7 @@ const Comments: React.FC<Props> = () => {
     <div>
       <div className='sticky px-4 pt-4 top-0 bg-white'>
         <div className='flex'>
-          <Image src={song?.al.picUrl} className='w-28 h-28 rounded' />
+          <Image src={song?.al.picUrl} className='w-28 h-28 rounded-sm' />
           <div className='ml-4 flex flex-col justify-end'>
             <div className='text-lg font-bold'>{song?.name}</div>
             <Artists artists={song?.ar} />

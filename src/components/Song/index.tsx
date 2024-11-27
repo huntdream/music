@@ -54,14 +54,14 @@ const Song: React.FC<Props> = ({
       onClick={() => handlePlay(song)}
       style={style}
     >
-      <div className='rounded shrink-0 relative'>
+      <div className='rounded-sm shrink-0 relative'>
         <Image
-          className='w-12 h-12 rounded'
+          className='w-12 h-12 rounded-sm'
           src={`${al?.picUrl}?param=50y50`}
           alt=''
         />
         {isCurrentSong && (
-          <div className='absolute rounded inset-0 p-3 bg-gray-600 bg-opacity-35'>
+          <div className='absolute rounded-sm inset-0 p-3 bg-gray-600 bg-opacity-35'>
             {isPlaying ? <PauseIcon /> : <PlayIcon />}
           </div>
         )}

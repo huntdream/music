@@ -18,7 +18,7 @@ const Queue: React.FC<Props> = ({}) => {
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger
         onClick={(e) => e.stopPropagation()}
-        className='outline-none'
+        className='outline-hidden'
       >
         <PlaylistIcon
           className={cls(
@@ -29,7 +29,7 @@ const Queue: React.FC<Props> = ({}) => {
       </Popover.Trigger>
       <Popover.Content
         onClick={(e) => e.stopPropagation()}
-        className='player-popover mx-4 bg-white z-50 rounded-md shadow-around outline-none'
+        className='player-popover mx-4 bg-white z-50 rounded-md shadow-around outline-hidden'
       >
         <div className=''>
           <div className='px-4 py-2 border-b'>

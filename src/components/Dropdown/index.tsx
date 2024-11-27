@@ -41,7 +41,7 @@ export const DropdownMenuTrigger = ({
   return (
     <DropdownMenuPrimitive.Trigger
       {...props}
-      className={classNames('outline-none', className)}
+      className={classNames('outline-hidden', className)}
       onClick={handleClick}
     >
       {children}
@@ -67,7 +67,7 @@ export const DropdownMenuContent = React.forwardRef(
           {...props}
           ref={forwardedRef}
           className={classNames(
-            'outline-none mx-4 bg-white z-50 rounded-md p-2 shadow-around min-w-40',
+            'outline-hidden mx-4 bg-white z-50 rounded-md p-2 shadow-around min-w-40',
             className
           )}
           onClick={handleClick}
@@ -99,7 +99,7 @@ export const DropdownMenuItem = React.forwardRef(
         {...props}
         ref={forwardedRef}
         className={classNames(
-          'outline-none cursor-pointer px-2 h-8 flex items-center rounded hover:bg-active',
+          'outline-hidden cursor-pointer px-2 h-8 flex items-center rounded-sm hover:bg-active',
           className
         )}
         onClick={handleClick}
@@ -133,7 +133,7 @@ export const DropdownMenuCheckboxItem = React.forwardRef(
         {...props}
         ref={forwardedRef}
         className={classNames(
-          'outline-none cursor-pointer hover:bg-active',
+          'outline-hidden cursor-pointer hover:bg-active',
           className
         )}
         onClick={handleClick}
@@ -164,7 +164,7 @@ export const DropdownMenuRadioItem = React.forwardRef(
         {...props}
         ref={forwardedRef}
         className={classNames(
-          'outline-none cursor-pointer hover:bg-active',
+          'outline-hidden cursor-pointer hover:bg-active',
           className
         )}
         onClick={handleClick}
