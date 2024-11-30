@@ -52,11 +52,17 @@ const Comment: React.FC<Props> = ({ type, id }) => {
       {data?.map((block, index) => (
         <div key={block.cursor}>
           {block.comments.map((comment) => (
-            <div className='p-3' key={comment.commentId}>
-              <User user={comment.user} size='small' />
-              <div className='whitespace-pre-line mt-2'>{comment.content}</div>
-              <div className='flex justify-between items-center mt-1'>
-                <div className='text-secondary text-sm'>{comment.timeStr}</div>
+            <div className='p-3 border-b' key={comment.commentId}>
+              <div className='flex items-center'>
+                <User user={comment.user} size='normal' />
+                <div className='text-secondary text-sm ml-auto'>
+                  {comment.timeStr}
+                </div>
+              </div>
+              <div className='whitespace-pre-line mt-2 ml-10 text-gray-700'>
+                {comment.content}
+              </div>
+              <div className='flex justify-between items-center mt-4 ml-10'>
                 <div className='flex items-center'>
                   <HeartIcon
                     className={cls('h-4 w-4 cursor-pointer hover:scale-110', {
