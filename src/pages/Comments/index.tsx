@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import useSongDetail from '../../fetchers/useSongDetail';
 import Comment from '../../components/Comment';
 import Image from '../../components/Image';
-import Album from '../../components/Album';
-import Artist from '../../components/Artist';
 import Artists from '../../components/Artist/Artists';
 
 interface Props {}
