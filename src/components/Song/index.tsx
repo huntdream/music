@@ -1,4 +1,4 @@
-import React, { CSSProperties, MouseEvent } from 'react';
+import React, { CSSProperties, MouseEvent, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import cls from 'classnames';
 import { ISong } from '../../types/song';
@@ -10,6 +10,7 @@ import Artists from '../Artist/Artists';
 import playingIcon from '../../assets/playing.gif';
 import { PauseIcon, PlayIcon } from '../../icons/Audio';
 import Actions from './Actions';
+import { AppContext } from '../../context/App/App';
 
 interface Props {
   song: ISong;
@@ -27,16 +28,18 @@ const Song: React.FC<Props> = ({
   style,
   onPlay,
 }) => {
-  const { play, appendQueue, playingSong, isPlaying } = usePlayer();
+  const { play, pause, appendQueue, playingSong, isPlaying } = usePlayer();
+  const { isDesktop } = useContext(AppContext);
   const { name, ar, al, dt, id } = song;
   const isCurrentSong = playingSong?.id === song.id;
   const isSongPlaying = isPlaying && isCurrentSong;
 
-  const handleNavigate = (e: MouseEvent) => {
-    e.stopPropagation();
-  };
-
   const handlePlay = (song: ITrack) => {
+    if (isSongPlaying) {
+      pause();
+      return;
+    }
+
     appendQueue(song);
     play(song);
 
@@ -61,7 +64,7 @@ const Song: React.FC<Props> = ({
           alt=''
         />
         {isCurrentSong && (
-          <div className='absolute rounded-sm inset-0 p-3 bg-gray-600 bg-opacity-35'>
+          <div className='absolute rounded-sm inset-0 p-3 bg-gray-600/35'>
             {isPlaying ? <PauseIcon /> : <PlayIcon />}
           </div>
         )}
@@ -84,7 +87,9 @@ const Song: React.FC<Props> = ({
           </div>
         </div>
       </div>
-      {isSongPlaying && <Image className='w-4 h-4 mr-4' src={playingIcon} />}
+      {isSongPlaying && isDesktop && (
+        <Image className='w-4 h-4 mr-4' src={playingIcon} />
+      )}
       {duration && (
         <div className='ml-auto text-gray-500'>{msToMinutes(dt)}</div>
       )}
