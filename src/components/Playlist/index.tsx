@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
 import usePlaylist from '../../fetchers/usePlaylist';
@@ -7,8 +7,9 @@ import { ITrack } from '../../types/playlist';
 import Button from '../Button';
 import Image from '../Image';
 import Loading from '../Loading';
-import Song from '../Song';
 import usePlayer from '../Player/usePlayer';
+import Input from '../Input';
+import List from './List';
 
 interface Props {}
 
@@ -16,21 +17,33 @@ const Playlist: React.FC<Props> = () => {
   const { id } = useParams();
   const { pause, isPlaying, playingSong, replaceQueue, appendQueue } =
     usePlayer();
+  const [keyword, setKeyword] = useState('');
 
   const { data: playlist, error } = usePlaylist(id);
+
+  const tracks = useMemo(
+    () =>
+      playlist?.tracks?.filter((t) =>
+        t.name.toLowerCase().includes(keyword.toLowerCase())
+      ),
+    [keyword, playlist]
+  );
 
   const totalTime = useMemo(() => {
     const totalMs = sumBy(playlist?.tracks || [], 'dt');
     return msToHours(totalMs);
   }, [playlist]);
 
-  const handlePlay = (track: ITrack) => {
-    if (playingSong?.id === track.id && isPlaying) {
-      pause();
-    } else {
-      appendQueue(playlist.tracks);
-    }
-  };
+  const handlePlay = useCallback(
+    (track: ITrack) => {
+      if (playingSong?.id === track.id && isPlaying) {
+        pause();
+      } else {
+        appendQueue(playlist.tracks);
+      }
+    },
+    [playlist, playingSong, isPlaying]
+  );
 
   const handlePlayList = () => {
     replaceQueue(playlist.tracks);
@@ -38,6 +51,10 @@ const Playlist: React.FC<Props> = () => {
 
   const handleAppendQueue = () => {
     appendQueue(playlist.tracks);
+  };
+
+  const handleKeywordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
   };
 
   if (error) {
@@ -75,10 +92,15 @@ const Playlist: React.FC<Props> = () => {
           </div>
         </div>
       </div>
+      <div>
+        <Input
+          placeholder='搜索'
+          value={keyword}
+          onChange={handleKeywordChange}
+        />
+      </div>
       <div className='mt-4'>
-        {playlist.tracks.map((track) => (
-          <Song song={track} key={track.id} onPlay={handlePlay} duration />
-        ))}
+        <List list={tracks} onPlay={handlePlay} />
       </div>
     </div>
   );
