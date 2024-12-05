@@ -1866,10 +1866,15 @@ swr@2.2.5:
     client-only "^0.0.1"
     use-sync-external-store "^1.2.0"
 
-tailwindcss@4.0.0-beta.2, tailwindcss@^4.0.0-beta.2:
+tailwindcss@4.0.0-beta.2:
   version "4.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.0.0-beta.2.tgz#9e8ab806c279efa4a73ece4f2461fd36a23086de"
   integrity sha512-uZ+vgVsy6i18Glc3XYMkTq7dl4GsU4m8X8qRTVlU4+g8Uit7g+wttwfDCl3p+ZOq5KCB09th9XgVDx1zFLCeHA==
+
+tailwindcss@4.0.0-beta.5:
+  version "4.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.0.0-beta.5.tgz#af52b6972fbfc60c46ced13a7c81201795c055ff"
+  integrity sha512-59zeDyaVE5z1iQnhk5cGeBJvb6Z/Iym4qSFzPddiotWbnqWcIqj0kRgZH8OyR4VZU+solTRQaWRgfDZ8PQ+p8A==
 
 tapable@^2.2.0:
   version "2.2.1"
