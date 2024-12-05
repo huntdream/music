@@ -27,34 +27,37 @@ const Queue: React.FC<Props> = ({}) => {
           )}
         />
       </Popover.Trigger>
-      <Popover.Content
-        onClick={(e) => e.stopPropagation()}
-        className='player-popover mx-4 bg-white z-50 rounded-md shadow-around outline-hidden'
-      >
-        <div className=''>
-          <div className='px-4 py-2 border-b'>
-            <h2 className='text-primary font-bold text-lg'>播放列表</h2>
+      <Popover.Portal>
+        <Popover.Content
+          sideOffset={30}
+          onClick={(e) => e.stopPropagation()}
+          className='player-popover mx-4 bg-white z-50 rounded-md shadow-around outline-hidden'
+        >
+          <div className=''>
+            <div className='px-4 py-2 border-b'>
+              <h2 className='text-primary font-bold text-lg'>播放列表</h2>
+            </div>
+            <div className='py-2'>
+              <List
+                height={420}
+                width={290}
+                itemCount={queue.length}
+                itemSize={64}
+              >
+                {({ index, style }) => (
+                  <div style={style}>
+                    <Song
+                      song={queue[index]}
+                      key={queue[index].id}
+                      className='mx-2'
+                    />
+                  </div>
+                )}
+              </List>
+            </div>
           </div>
-          <div className='py-2'>
-            <List
-              height={420}
-              width={290}
-              itemCount={queue.length}
-              itemSize={64}
-            >
-              {({ index, style }) => (
-                <div style={style}>
-                  <Song
-                    song={queue[index]}
-                    key={queue[index].id}
-                    className='mx-2'
-                  />
-                </div>
-              )}
-            </List>
-          </div>
-        </div>
-      </Popover.Content>
+        </Popover.Content>
+      </Popover.Portal>
     </Popover.Root>
   );
 };
