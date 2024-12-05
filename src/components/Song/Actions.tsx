@@ -22,7 +22,7 @@ const Actions: React.FC<Props> = ({ id }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <VerticalDots className='mx-2' />
+        <VerticalDots className='mx-2 cursor-pointer' />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {/* <DropdownMenuItem>下一首播放</DropdownMenuItem> */}

@@ -51,7 +51,7 @@ const Song: React.FC<Props> = ({
   return (
     <div
       className={cls(
-        'flex p-2 items-center cursor-pointer rounded-md hover:bg-active overflow-hidden',
+        'flex py-2 pl-2 items-center cursor-pointer rounded-md hover:bg-active overflow-hidden',
         className
       )}
       onClick={() => handlePlay(song)}
@@ -90,7 +90,7 @@ const Song: React.FC<Props> = ({
       {isSongPlaying && isDesktop && (
         <Image className='w-4 h-4 mr-4' src={playingIcon} />
       )}
-      {duration && (
+      {duration && isDesktop && (
         <div className='ml-auto text-gray-500'>{msToMinutes(dt)}</div>
       )}
       <Actions id={id} />
