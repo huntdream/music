@@ -18,6 +18,9 @@ const Actions: FC<Props> = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const isLyricOpen = window.location.pathname.startsWith('/lyric');
+  const isCommentPage = pathname.includes('/comments') && !isLyricOpen;
+
   const handleClickLyric = () => {
     if (playingSong) {
       navigateLyric(playingSong?.id);
@@ -25,11 +28,12 @@ const Actions: FC<Props> = () => {
   };
 
   const navigateToComments = () => {
-    navigate(`/comments/${playingSong?.id}`);
+    if (isCommentPage) {
+      navigate(-1);
+    } else {
+      navigate(`/comments/${playingSong?.id}`);
+    }
   };
-
-  const isLyricOpen = window.location.pathname.startsWith('/lyric');
-  const isCommentPage = pathname.includes('/comments') && !isLyricOpen;
 
   return (
     <div className='flex justify-center items-center space-x-2'>
