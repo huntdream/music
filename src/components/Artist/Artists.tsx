@@ -11,7 +11,7 @@ const Artists: FC<Props> = ({ artists }) => {
     <Link
       to={`/artist/${ar.id}`}
       className='no-underline relative text-secondary ml-2 first-of-type:ml-0 hover:underline after:content-["/"] after:mx-0.5 after:absolute last:after:content-[""]'
-      key={ar.id}
+      key={ar.name}
       title={ar.name}
     >
       {ar.name}
