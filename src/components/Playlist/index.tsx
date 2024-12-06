@@ -1,4 +1,11 @@
-import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useParams } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
 import usePlaylist from '../../fetchers/usePlaylist';
@@ -18,6 +25,7 @@ const Playlist: React.FC<Props> = () => {
   const { pause, isPlaying, playingSong, replaceQueue, appendQueue } =
     usePlayer();
   const [keyword, setKeyword] = useState('');
+  const ref = useRef<HTMLDivElement>(null);
 
   const { data: playlist, error } = usePlaylist(id);
 
@@ -33,6 +41,12 @@ const Playlist: React.FC<Props> = () => {
     const totalMs = sumBy(playlist?.tracks || [], 'dt');
     return msToHours(totalMs);
   }, [playlist]);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
+  }, [id]);
 
   const handlePlay = useCallback(
     (track: ITrack) => {
@@ -66,7 +80,7 @@ const Playlist: React.FC<Props> = () => {
   }
 
   return (
-    <div className='my-4 mx-2'>
+    <div className='py-4 px-2' ref={ref}>
       <div className='flex flex-wrap pb-4 border-b px-2'>
         <Image
           className='w-60 h-60 rounded-md mr-6'
