@@ -69,14 +69,18 @@ const Lyric: React.FC<Props> = ({ id }) => {
         className='text-center text-xl pt-[43vh] px-6 mb-[50vh] flex items-center flex-col'
         ref={lyricRef}
       >
-        {lyric.map((item) => (
-          <Line
-            onClick={() => seekTime(item.timestamp, item.key)}
-            isHighlighted={hlKey === item.key}
-            key={item.key}
-            lyric={item}
-          />
-        ))}
+        {lyric.length ? (
+          lyric.map((item) => (
+            <Line
+              onClick={() => seekTime(item.timestamp, item.key)}
+              isHighlighted={hlKey === item.key}
+              key={item.key}
+              lyric={item}
+            />
+          ))
+        ) : (
+          <div className='text-secondary'>暂无歌词</div>
+        )}
       </div>
     </div>
   );
