@@ -21,7 +21,7 @@ const Event: React.FC<Props> = ({ event }) => {
   return (
     <div className='mb-8'>
       <div>
-        <User user={event.user} signature />
+        <User user={event.user} signature size='large' />
       </div>
       {event.json.msg && (
         <div className='whitespace-pre-line my-4'>{event.json.msg}</div>
