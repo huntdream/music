@@ -9,6 +9,7 @@ import cls from 'classnames';
 import Comment from '../Comment';
 import User from '../User';
 import Image from '../Image';
+import Pictures from './Pictures';
 
 interface Props {
   event: IEvent;
@@ -29,18 +30,7 @@ const Event: React.FC<Props> = ({ event }) => {
         <Image className='w-40 max-w-xs' src={event.json.mv.imgurl} alt='' />
       )}
       {event.json.song && <Song className='my-4' song={event.json.song} />}
-      {event.pics?.length > 0 && (
-        <div className='flex flex-wrap max-w-xs'>
-          {event.pics.map((pic) => (
-            <Image
-              src={pic.originUrl}
-              key={pic.originUrl}
-              className='w-1/3 basis-1/3'
-              alt=''
-            />
-          ))}
-        </div>
-      )}
+      <Pictures pics={event.pics} />
       <div className='flex border-t mt-4'>
         <div className='flex flex-1 justify-center items-center h-8'>
           <HeartIcon
