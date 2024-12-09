@@ -14,7 +14,7 @@ const Home: React.FC<Props> = () => {
     <div>
       <div className='h-dvh overflow-hidden flex'>
         {isDesktop && <Sider />}
-        <main className='pb-36 overflow-auto flex-1'>
+        <main className='overflow-auto flex-1'>
           <Outlet />
         </main>
       </div>

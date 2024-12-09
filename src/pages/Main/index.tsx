@@ -9,7 +9,7 @@ const Main: React.FC<Props> = () => {
   const [user] = useUser();
 
   return (
-    <div className='px-2'>
+    <div className='px-2 pb-36'>
       <SearchBar />
       <div className='flex gap-2'>{user?.userId && <Recommendation />}</div>
     </div>
