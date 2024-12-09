@@ -82,7 +82,7 @@ const Song: React.FC<Props> = ({
           </span>
         </div>
         <div className='flex items-center text-sm text-gray-500'>
-          {isLiked && <Heart className='h-4 w-4 mr-1 text-red-500' />}
+          {isLiked && <Heart className='h-4 w-4 mr-1 mt-0.5 text-red-500' />}
           <div className='truncate' title={ar?.map((ar) => ar.name).join('/')}>
             <Artists artists={ar} />
           </div>
