@@ -14,8 +14,10 @@ import Artist from '../Artist';
 import Daily from '../Daily';
 // import Playing from '../Playing';
 import Comments from '../Comments';
+import useAccount from '../../fetchers/useAccount';
 
 function App() {
+  useAccount();
   let location = useLocation();
   let state = location.state as { backgroundLocation?: Location };
 
