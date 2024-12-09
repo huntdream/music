@@ -24,32 +24,33 @@ const Event: React.FC<Props> = ({ event }) => {
         <User user={event.user} signature size='large' />
       </div>
       {event.json.msg && (
-        <div className='whitespace-pre-line my-4'>{event.json.msg}</div>
+        <div className='whitespace-pre-line my-4 max-w-[720px]'>
+          {event.json.msg}
+        </div>
       )}
       {event.json.mv && (
         <Image className='w-40 max-w-xs' src={event.json.mv.imgurl} alt='' />
       )}
       {event.json.song && (
-        <Song className='my-4' song={event.json.song} standalone />
+        <Song className='my-4 max-w-96' song={event.json.song} standalone />
       )}
       <Pictures pics={event.pics} />
-      <div className='flex border-t mt-4'>
-        <div className='flex flex-1 justify-center items-center h-8'>
+      <div className='flex border-b mt-4'>
+        <div className='flex w-20 justify-center items-center cursor-pointer h-8 hover:bg-active'>
           <HeartIcon
-            className={cls('h-4 w-4 cursor-pointer hover:scale-110', {
+            className={cls('h-5 min-w-5 hover:scale-110', {
               'fill-red-500': event.info.liked,
             })}
           />
           <span className='ml-1'>{event.info.likedCount || ''}</span>
         </div>
-        <div className='border-l my-1' />
         <div
-          className='flex flex-1 justify-center items-center cursor-pointer h-8 hover:bg-active'
+          className='flex w-20 justify-center items-center cursor-pointer h-8 hover:bg-active'
           onClick={() => {
             setShowComment(!showComment);
           }}
         >
-          <ChatBubbleOvalLeftEllipsisIcon className='h-4 w-4 hover:scale-110' />
+          <ChatBubbleOvalLeftEllipsisIcon className='h-5 min-w-5 hover:scale-110' />
           <span className='ml-1'>{event.info.commentCount || ''}</span>
         </div>
       </div>
