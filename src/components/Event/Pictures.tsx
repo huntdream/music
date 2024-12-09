@@ -13,13 +13,15 @@ const Pictures: React.FC<Props> = ({ pics }) => {
   const rows = Math.ceil(picsCount / 3);
   const cols = Math.min(picsCount, 3);
 
+  const height = ['h-32', 'h-64', 'h96'][rows - 1];
+
   return (
     pics?.length > 0 && (
       <div
         className={cls(
           'grid overflow-hidden max-w-96 max-h-96',
           `grid-cols-${cols} grid-rows-${rows}`,
-          isSingle ? '' : `h-${32 * rows}`
+          isSingle ? '' : height
         )}
       >
         {pics.map((pic) => (
