@@ -43,8 +43,8 @@ const Daily: React.FC<Props> = () => {
   }
 
   return (
-    <div>
-      <div className='p-4 pb-36'>
+    <div className='pb-36'>
+      <div className='p-4'>
         <div>
           <div className='w-36 h-36 rounded-md bg-linear-to-r from-teal-400 to-blue-500 flex items-center justify-center'>
             <span className='text-2xl font-extrabold text-white'>每日推荐</span>
