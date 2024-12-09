@@ -11,7 +11,7 @@ import playingIcon from '../../assets/playing.gif';
 import { PauseIcon, PlayIcon } from '../../icons/Audio';
 import Actions from './Actions';
 import { AppContext } from '../../context/App/App';
-import { HeartIcon } from '@heroicons/react/24/solid';
+import Heart from '../../icons/Heart';
 
 interface Props {
   song: ISong;
@@ -82,7 +82,7 @@ const Song: React.FC<Props> = ({
           </span>
         </div>
         <div className='flex items-center text-sm text-gray-500'>
-          {isLiked && <HeartIcon className='h-4 w-4 mr-1 text-red-500' />}
+          {isLiked && <Heart className='h-4 w-4 mr-1 text-red-500' />}
           <div className='truncate' title={ar?.map((ar) => ar.name).join('/')}>
             <Artists artists={ar} />
           </div>

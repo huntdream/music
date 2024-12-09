@@ -7,10 +7,10 @@ interface Props {
   onPlay: (song: ISong) => void;
 }
 
-const List: React.FC<Props> = memo(({ list, onPlay }) => {
+const List: React.FC<Props> = ({ list, onPlay }) => {
   return list.map((track) => (
     <Song song={track} key={track.id} onPlay={onPlay} duration />
   ));
-});
+};
 
 export default List;
