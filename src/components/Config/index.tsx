@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import { SWRConfig } from 'swr';
 import AppProvider from '../../context/App';
+import PlayerProvider from '../Player/Provider';
+
 import fetcher from '../../utils/fetcher';
 
 interface Props {
@@ -16,7 +18,7 @@ const Config: React.FC<Props> = ({ children }) => {
           revalidateOnFocus: false,
         }}
       >
-        {children}
+        <PlayerProvider>{children}</PlayerProvider>
       </SWRConfig>
     </AppProvider>
   );

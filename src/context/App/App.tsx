@@ -1,13 +1,9 @@
 import React, {
   createContext,
-  createRef,
   ReactNode,
-  RefObject,
   useLayoutEffect,
-  useRef,
   useState,
 } from 'react';
-import { ISong } from '../../types/song';
 import { IUser } from '../../types/user';
 import useMediaQuery from '../../hooks/useMatchMedia';
 
