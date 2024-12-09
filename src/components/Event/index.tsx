@@ -29,7 +29,9 @@ const Event: React.FC<Props> = ({ event }) => {
       {event.json.mv && (
         <Image className='w-40 max-w-xs' src={event.json.mv.imgurl} alt='' />
       )}
-      {event.json.song && <Song className='my-4' song={event.json.song} />}
+      {event.json.song && (
+        <Song className='my-4' song={event.json.song} standalone />
+      )}
       <Pictures pics={event.pics} />
       <div className='flex border-t mt-4'>
         <div className='flex flex-1 justify-center items-center h-8'>

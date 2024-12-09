@@ -17,6 +17,7 @@ interface Props {
   className?: string;
   duration?: boolean;
   border?: boolean;
+  standalone?: boolean;
   onPlay?: (song: ITrack) => void;
   style?: CSSProperties;
 }
@@ -25,6 +26,7 @@ const Song: React.FC<Props> = ({
   song,
   className,
   duration,
+  standalone,
   style,
   onPlay,
 }) => {
@@ -51,7 +53,8 @@ const Song: React.FC<Props> = ({
   return (
     <div
       className={cls(
-        'flex py-2 pl-2 items-center cursor-pointer rounded-md hover:bg-active overflow-hidden',
+        'flex py-2 pl-2 items-center cursor-pointer rounded-md overflow-hidden hover:bg-active',
+        standalone ? 'bg-gray-100' : '',
         className
       )}
       onClick={() => handlePlay(song)}
