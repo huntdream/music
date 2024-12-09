@@ -71,35 +71,42 @@ const Comment: React.FC<Props> = ({ type, id, infinite }) => {
     return <Loading />;
   }
 
+  const totalCount = data[0].totalCount;
+
   return (
-    <div className='px-1'>
-      {data?.map((block, index) => (
-        <div key={block.cursor}>
-          {block.comments.map((comment) => (
-            <div className='p-3 border-b' key={comment.commentId}>
-              <div className='flex items-center'>
-                <User user={comment.user} size='normal' />
-                <div className='text-secondary text-sm ml-auto'>
-                  {comment.timeStr}
-                </div>
-              </div>
-              <div className='whitespace-pre-line mt-2 ml-10 text-gray-700'>
-                {comment.content}
-              </div>
-              <div className='flex justify-between items-center mt-4 ml-10'>
+    <div className='px-2'>
+      <div className='mt-4 border-b font-bold text-lg'>
+        评论（{totalCount}）
+      </div>
+      <div>
+        {data?.map((block, index) => (
+          <div key={block.cursor}>
+            {block.comments.map((comment) => (
+              <div className='p-3 border-b' key={comment.commentId}>
                 <div className='flex items-center'>
-                  <HeartIcon
-                    className={cls('h-4 w-4 cursor-pointer hover:scale-110', {
-                      'fill-red-500': comment.liked,
-                    })}
-                  />
-                  <ChatBubbleOvalLeftEllipsisIcon className='h-4 w-4 ml-2' />
+                  <User user={comment.user} size='normal' />
+                  <div className='text-secondary text-sm ml-auto'>
+                    {comment.timeStr}
+                  </div>
+                </div>
+                <div className='whitespace-pre-line mt-2 ml-10 text-gray-700'>
+                  {comment.content}
+                </div>
+                <div className='flex justify-between items-center mt-4 ml-10'>
+                  <div className='flex items-center'>
+                    <HeartIcon
+                      className={cls('h-4 w-4 cursor-pointer hover:scale-110', {
+                        'fill-red-500': comment.liked,
+                      })}
+                    />
+                    <ChatBubbleOvalLeftEllipsisIcon className='h-4 w-4 ml-2' />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      ))}
+            ))}
+          </div>
+        ))}
+      </div>
       <div ref={bottomRef} />
       {isLoading && <Loading />}
     </div>
