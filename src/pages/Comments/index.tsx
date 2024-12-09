@@ -21,7 +21,6 @@ const Comments: React.FC<Props> = () => {
             <Artists artists={song?.ar} />
           </div>
         </div>
-        <div className='mt-2 border-b font-bold text-lg'>评论</div>
       </div>
       <Comment id={id!} type='song' infinite />
     </div>
