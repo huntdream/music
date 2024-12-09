@@ -25,7 +25,7 @@ const Pictures: React.FC<Props> = ({ pics }) => {
         )}
       >
         {pics.map((pic) => (
-          <div className='overflow-hidden col-auto'>
+          <div className='overflow-hidden col-auto' key={pic.originUrl}>
             <Image
               src={pic.originUrl}
               key={pic.originUrl}
