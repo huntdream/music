@@ -12,8 +12,8 @@ const Comments: React.FC<Props> = () => {
   const [song] = useSongDetail(id);
 
   return (
-    <div>
-      <div className='px-4 pt-4 bg-white'>
+    <div className='h-full pb-36 overflow-auto'>
+      <div className='px-4 pt-4 bg-white mb-1'>
         <div className='flex'>
           <Image src={song?.al.picUrl} className='w-28 h-28 rounded-sm' />
           <div className='ml-4 flex flex-col justify-end'>
@@ -23,9 +23,7 @@ const Comments: React.FC<Props> = () => {
         </div>
         <div className='mt-2 border-b font-bold text-lg'>评论</div>
       </div>
-      <div className='mt-1 px-1'>
-        <Comment id={id!} type='song' />
-      </div>
+      <Comment id={id!} type='song' infinite />
     </div>
   );
 };

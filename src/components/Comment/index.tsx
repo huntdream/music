@@ -3,7 +3,7 @@ import {
   ChatBubbleOvalLeftEllipsisIcon,
 } from '@heroicons/react/24/outline';
 import cls from 'classnames';
-import React from 'react';
+import React, { UIEvent, useEffect, useRef } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import User from '../User';
 import { IComments } from '../../types/comment';
@@ -15,40 +15,64 @@ import { IResourceType, ResourceTypes } from '../../types';
 interface Props {
   id: number | string;
   type?: IResourceType;
+  infinite?: boolean;
 }
 
-const Comment: React.FC<Props> = ({ type, id }) => {
+const Comment: React.FC<Props> = ({ type, id, infinite }) => {
+  const bottomRef = useRef<HTMLDivElement>(null);
   const typeCode = type ? ResourceTypes[type] : '';
 
-  const { data, error, isValidating, mutate, isLoading, size, setSize } =
-    useSWRInfinite<IComments>(
-      (pageIndex, previousPageData: IComments) => {
-        const url = `comment/new?type=${typeCode}&id=${id}&sortType=3&pageSize=20&pageNo=${
-          pageIndex + 1
-        }`;
+  const { data, isLoading, setSize } = useSWRInfinite<IComments>(
+    (pageIndex, previousPageData: IComments) => {
+      const url = `comment/new?type=${typeCode}&id=${id}&sortType=3&pageSize=20&pageNo=${
+        pageIndex + 1
+      }`;
 
-        if (previousPageData && !previousPageData?.hasMore) return null;
+      if (previousPageData && !previousPageData?.hasMore) return null;
 
-        if (pageIndex === 0) return url;
+      const cursor = previousPageData?.comments?.at(-1)?.time || '';
 
-        const cursor = previousPageData?.comments?.pop()?.time;
+      return `${url}&cursor=${cursor}`;
+    },
+    (url) => {
+      return fetcher(url).then((res) => res.data);
+    }
+  );
 
-        return `${url}&cursor=${cursor}`;
+  useEffect(() => {
+    if (!infinite) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setSize((s) => s + 1);
+        }
       },
-      (url) => {
-        return fetcher(url).then((res) => res.data);
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 1,
       }
     );
+
+    if (bottomRef.current) {
+      observer.observe(bottomRef.current);
+    }
+
+    return () => {
+      if (bottomRef.current) {
+        observer.unobserve(bottomRef.current);
+      }
+    };
+  }, [bottomRef.current]);
 
   if (!data?.[0]) {
     return <Loading />;
   }
 
-  const isLoadingMore =
-    isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined');
-
   return (
-    <div>
+    <div className='px-1'>
       {data?.map((block, index) => (
         <div key={block.cursor}>
           {block.comments.map((comment) => (
@@ -74,20 +98,10 @@ const Comment: React.FC<Props> = ({ type, id }) => {
               </div>
             </div>
           ))}
-          {block.hasMore && index === data.length - 1 && (
-            <div className='flex justify-center'>
-              <Button
-                loading={isLoadingMore}
-                onClick={() => {
-                  setSize(size + 1);
-                }}
-              >
-                加载更多
-              </Button>
-            </div>
-          )}
         </div>
       ))}
+      <div ref={bottomRef} />
+      {isLoading && <Loading />}
     </div>
   );
 };
