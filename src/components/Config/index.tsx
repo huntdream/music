@@ -11,16 +11,16 @@ interface Props {
 
 const Config: React.FC<Props> = ({ children }) => {
   return (
-    <AppProvider>
-      <SWRConfig
-        value={{
-          fetcher,
-          revalidateOnFocus: false,
-        }}
-      >
+    <SWRConfig
+      value={{
+        fetcher,
+        revalidateOnFocus: false,
+      }}
+    >
+      <AppProvider>
         <PlayerProvider>{children}</PlayerProvider>
-      </SWRConfig>
-    </AppProvider>
+      </AppProvider>
+    </SWRConfig>
   );
 };
 

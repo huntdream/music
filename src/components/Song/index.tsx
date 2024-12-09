@@ -1,4 +1,4 @@
-import React, { CSSProperties, MouseEvent, useContext } from 'react';
+import React, { CSSProperties, MouseEvent, useContext, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import cls from 'classnames';
 import { ISong } from '../../types/song';
@@ -11,6 +11,7 @@ import playingIcon from '../../assets/playing.gif';
 import { PauseIcon, PlayIcon } from '../../icons/Audio';
 import Actions from './Actions';
 import { AppContext } from '../../context/App/App';
+import { HeartIcon } from '@heroicons/react/24/solid';
 
 interface Props {
   song: ISong;
@@ -31,10 +32,12 @@ const Song: React.FC<Props> = ({
   onPlay,
 }) => {
   const { play, pause, appendQueue, playingSong, isPlaying } = usePlayer();
-  const { isDesktop } = useContext(AppContext);
+  const { isDesktop, likeList } = useContext(AppContext);
   const { name, ar, al, dt, id } = song;
   const isCurrentSong = playingSong?.id === song.id;
   const isSongPlaying = isPlaying && isCurrentSong;
+
+  const isLiked = useMemo(() => likeList.includes(id), []);
 
   const handlePlay = (song: ITrack) => {
     if (isSongPlaying) {
@@ -78,7 +81,8 @@ const Song: React.FC<Props> = ({
             {name}
           </span>
         </div>
-        <div className='flex text-sm text-gray-500'>
+        <div className='flex items-center text-sm text-gray-500'>
+          {isLiked && <HeartIcon className='h-4 w-4 mr-1 text-red-500' />}
           <div className='truncate' title={ar?.map((ar) => ar.name).join('/')}>
             <Artists artists={ar} />
           </div>
