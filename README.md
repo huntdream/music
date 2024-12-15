@@ -4,6 +4,8 @@ A music app build with React
 
 [Demo](https://music.maoyu.space)
 
-![image](https://github.com/user-attachments/assets/8133ba3b-b895-4df0-a48d-ee39f86cb4e8)
+![image](https://github.com/user-attachments/assets/79addcdd-2029-46ae-b959-c7946d510c51)
+
+
 
 
