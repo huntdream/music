@@ -42,7 +42,6 @@ const Word: React.FC<Props> = ({ word, isHighlighting, isHighlighted }) => {
 
       raf.current = requestAnimationFrame(calcProgress);
     } else {
-      console.log('this is ');
       resetRaf();
       setProgress(0);
     }
