@@ -22,6 +22,8 @@ const Word: React.FC<Props> = ({ word, isHighlighting, isHighlighted }) => {
   const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
+    const resetRaf = () => cancelAnimationFrame(raf.current);
+
     if (isHighlighting) {
       const startTime = Date.now();
       const durationMs = duration * 1000;
@@ -29,21 +31,23 @@ const Word: React.FC<Props> = ({ word, isHighlighting, isHighlighted }) => {
       function calcProgress() {
         const percent = (Date.now() - startTime) / durationMs;
 
-        setProgress(percent * 100);
-        raf.current = requestAnimationFrame(calcProgress);
+        setProgress(Math.min(percent * 100, 100));
 
-        if (percent >= 1) {
-          cancelAnimationFrame(raf.current);
+        if (percent < 1) {
+          raf.current = requestAnimationFrame(calcProgress);
+        } else {
+          resetRaf();
         }
       }
 
-      requestAnimationFrame(calcProgress);
+      raf.current = requestAnimationFrame(calcProgress);
     } else {
+      console.log('this is ');
+      resetRaf();
       setProgress(0);
-      cancelAnimationFrame(raf.current);
     }
 
-    return () => cancelAnimationFrame(raf.current);
+    return () => resetRaf();
   }, [isHighlighting, duration]);
 
   const transitionDuration = useMemo(() => `${Math.max(duration, 1)}s`, []);
