@@ -29,6 +29,7 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
 
   const isHighlighting = hlKey.line === key;
   const isHighlighted = hlKey.line > key;
+  const isLine = typeof text === 'string';
 
   useEffect(() => {
     if (isHighlighting) {
@@ -37,7 +38,7 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
   }, [isHighlighting]);
 
   const renderText = () => {
-    if (typeof text === 'string') {
+    if (isLine) {
       return text;
     }
 
@@ -56,7 +57,7 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
       ref={ref}
       className={cls(
         'mb-6  whitespace-pre',
-        isHighlighting ? 'font-bold text-primary' : 'text-secondary'
+        isHighlighting && isLine ? 'text-primary' : 'text-secondary'
       )}
       onClick={onClick}
     >
