@@ -56,7 +56,7 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
     <div
       ref={ref}
       className={cls(
-        'mb-6  whitespace-pre',
+        'mb-6',
         isHighlighting && isLine ? 'text-primary' : 'text-secondary'
       )}
       onClick={onClick}
