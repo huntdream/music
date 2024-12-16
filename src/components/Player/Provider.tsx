@@ -12,6 +12,7 @@ import { ISong } from '../../types/song';
 import fetcher from '../../utils/fetcher';
 import { uniqBy } from 'lodash-es';
 import { ITrack, IPlaylist } from '../../types/playlist';
+import getSongUrl from '../../fetchers/getSongUrl';
 
 interface IPlayerContext {
   queue: ISong[];
@@ -20,7 +21,7 @@ interface IPlayerContext {
   setPlayingSong: (song: ISong) => void;
   isPlaying: boolean;
   setIsPlaying: (isPlaying: boolean) => void;
-  audioRef: RefObject<HTMLAudioElement>;
+  audioRef: RefObject<HTMLAudioElement | null>;
   next: () => void;
   prev: () => void;
   play: (song?: ISong) => void;
@@ -42,8 +43,6 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
   const [playingSong, setPlayingSong] = useState<ISong>();
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-
-  const audio = audioRef.current;
 
   useEffect(() => {
     if ('mediaSession' in navigator) {
@@ -100,36 +99,40 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
       next();
     };
 
-    audio?.addEventListener('play', handlePlay);
-    audio?.addEventListener('pause', handlePause);
-    audio?.addEventListener('error', handleError);
-    audio?.addEventListener('ended', handleEnded);
+    audioRef.current?.addEventListener('play', handlePlay);
+    audioRef.current?.addEventListener('pause', handlePause);
+    audioRef.current?.addEventListener('error', handleError);
+    audioRef.current?.addEventListener('ended', handleEnded);
 
     return () => {
-      audio?.removeEventListener('play', handlePlay);
-      audio?.removeEventListener('pause', handlePause);
-      audio?.removeEventListener('error', handleError);
-      audio?.removeEventListener('ended', handleEnded);
+      audioRef.current?.removeEventListener('play', handlePlay);
+      audioRef.current?.removeEventListener('pause', handlePause);
+      audioRef.current?.removeEventListener('error', handleError);
+      audioRef.current?.removeEventListener('ended', handleEnded);
     };
-  }, [audio, setIsPlaying, queue, playingSong]);
+  }, [audioRef.current, setIsPlaying, queue, playingSong]);
 
   const pause = () => {
-    audio?.pause();
+    return audioRef.current?.pause();
   };
 
-  const play = (song?: ITrack) => {
-    if (song && song.id !== playingSong?.id) {
-      audio?.pause();
-      setPlayingSong(song);
-
-      return;
+  const play = async (song?: ITrack) => {
+    if (song && song.id === playingSong?.id && isPlaying) {
+      return pause();
     }
 
-    if (!song && !playingSong && queue.length) {
-      setPlayingSong(queue[0]);
+    let songToPlay = song || queue[0];
+
+    if (songToPlay) {
+      setPlayingSong(songToPlay);
+
+      const src = await getSongUrl(songToPlay.id);
+      if (src && audioRef.current) {
+        audioRef.current.src = src;
+      }
     }
 
-    audio?.play();
+    return audioRef.current?.play();
   };
 
   const next = () => {

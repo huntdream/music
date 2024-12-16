@@ -7,7 +7,7 @@ import { AppContext } from '../../context/App/App';
 interface Props {}
 
 const Controls: FC<Props> = () => {
-  const { prev, next, pause, play, isPlaying } = usePlayer();
+  const { prev, next, pause, play, isPlaying, playingSong } = usePlayer();
   const { isDesktop } = useContext(AppContext);
 
   const handlePause = (e: MouseEvent) => {
@@ -17,7 +17,7 @@ const Controls: FC<Props> = () => {
 
   const handlePlay = (e: MouseEvent) => {
     e.stopPropagation();
-    play();
+    play(playingSong);
   };
 
   return (

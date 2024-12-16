@@ -15,15 +15,8 @@ interface Props {}
 
 const Player: React.FC<Props> = () => {
   const { playingSong, audioRef } = useContext(PlayerContext);
-  const [url] = useSongUrl(playingSong?.id);
   const { isDesktop } = useContext(AppContext);
   const navigateLyric = useNavigateLyric();
-
-  useEffect(() => {
-    if (url) {
-      audioRef.current?.play();
-    }
-  }, [audioRef, url]);
 
   const handleClick = (e: MouseEvent) => {
     if (isDesktop) return;
@@ -46,7 +39,7 @@ const Player: React.FC<Props> = () => {
           : 'mx-2 rounded-tl-md rounded-tr-md -translate-y-[calc(var(--safe-b)/2+56px)]'
       )}
     >
-      <audio src={url} ref={audioRef}></audio>
+      <audio ref={audioRef}></audio>
       <div
         className='flex items-center justify-between h-16'
         onClick={handleClick}
