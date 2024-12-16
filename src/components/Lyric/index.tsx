@@ -38,6 +38,8 @@ const Lyric: React.FC<Props> = ({ id }) => {
       return fullLyric;
     }
 
+    lyricRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
     return rawLyric;
   }, [lyricData]);
 
