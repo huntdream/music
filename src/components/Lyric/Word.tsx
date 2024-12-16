@@ -3,7 +3,7 @@ import cls from 'classnames';
 
 interface Props {
   word: LyricWord;
-  isHighlighted: boolean;
+  isHighlighting: boolean;
 }
 
 export type LyricWord = {
@@ -14,14 +14,15 @@ export type LyricWord = {
   timestamp: number;
 };
 
-const Word: React.FC<Props> = ({ word, isHighlighted }) => {
-  const { text, duration, timestamp } = word;
+const Word: React.FC<Props> = ({ word, isHighlighting }) => {
+  const { text, duration } = word;
+  const [isPassed, setIsPassed] = useState(false);
   const raf = useRef<number>(0);
 
   const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
-    if (isHighlighted) {
+    if (isHighlighting) {
       const startTime = Date.now();
       const durationMs = duration * 1000;
 
@@ -33,14 +34,19 @@ const Word: React.FC<Props> = ({ word, isHighlighted }) => {
 
         if (percent >= 1) {
           cancelAnimationFrame(raf.current);
+          setIsPassed(true);
         }
       }
 
       requestAnimationFrame(calcProgress);
+    } else {
+      setProgress(0);
+      setIsPassed(false);
+      cancelAnimationFrame(raf.current);
     }
 
     return () => cancelAnimationFrame(raf.current);
-  }, [isHighlighted, duration]);
+  }, [isHighlighting, duration]);
 
   return (
     <span
@@ -49,8 +55,9 @@ const Word: React.FC<Props> = ({ word, isHighlighted }) => {
       )}
       style={{
         transitionDuration: `${duration}s`,
-        transform: isHighlighted ? 'matrix(1, 0, 0, 1, 0, -2)' : undefined,
-        backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.85) ${progress}%, rgba(0, 0, 0, 0.5) ${
+        transform:
+          isHighlighting || isPassed ? 'matrix(1, 0, 0, 1, 0, -2)' : undefined,
+        backgroundImage: `linear-gradient(90deg, var(--color-primary) ${progress}%, var(--color-secondary) ${
           progress ? progress + 20 : 0
         }%)`,
       }}

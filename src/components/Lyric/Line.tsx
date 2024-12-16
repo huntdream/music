@@ -27,13 +27,13 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
   const { text, wordKey = 0, key, translation, duration } = lyric;
   const ref = useRef<HTMLDivElement>(null);
 
-  const isHighlighted = hlKey.line === key;
+  const isHighlighting = hlKey.line === key;
 
   useEffect(() => {
-    if (isHighlighted) {
+    if (isHighlighting) {
       ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }, [isHighlighted]);
+  }, [isHighlighting]);
 
   const renderText = () => {
     if (typeof text === 'string') {
@@ -44,7 +44,7 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
       <Word
         word={t}
         key={t.wordKey}
-        isHighlighted={isHighlighted && hlKey.word >= t.wordKey}
+        isHighlighting={isHighlighting && hlKey.word >= t.wordKey}
       />
     ));
   };
@@ -54,7 +54,7 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
       ref={ref}
       className={cls(
         'mb-6  whitespace-pre',
-        isHighlighted ? 'font-bold text-primary' : 'text-secondary'
+        isHighlighting ? 'font-bold text-primary' : 'text-secondary'
       )}
       onClick={onClick}
     >
