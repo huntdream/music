@@ -28,6 +28,7 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const isHighlighting = hlKey.line === key;
+  const isHighlighted = hlKey.line > key;
 
   useEffect(() => {
     if (isHighlighting) {
@@ -45,6 +46,7 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
         word={t}
         key={t.wordKey}
         isHighlighting={isHighlighting && hlKey.word >= t.wordKey}
+        isHighlighted={isHighlighted}
       />
     ));
   };

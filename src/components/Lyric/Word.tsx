@@ -4,6 +4,7 @@ import cls from 'classnames';
 interface Props {
   word: LyricWord;
   isHighlighting: boolean;
+  isHighlighted: boolean;
 }
 
 export type LyricWord = {
@@ -14,9 +15,8 @@ export type LyricWord = {
   timestamp: number;
 };
 
-const Word: React.FC<Props> = ({ word, isHighlighting }) => {
+const Word: React.FC<Props> = ({ word, isHighlighting, isHighlighted }) => {
   const { text, duration } = word;
-  const [isPassed, setIsPassed] = useState(false);
   const raf = useRef<number>(0);
 
   const [progress, setProgress] = useState<number>(0);
@@ -34,14 +34,12 @@ const Word: React.FC<Props> = ({ word, isHighlighting }) => {
 
         if (percent >= 1) {
           cancelAnimationFrame(raf.current);
-          setIsPassed(true);
         }
       }
 
       requestAnimationFrame(calcProgress);
     } else {
       setProgress(0);
-      setIsPassed(false);
       cancelAnimationFrame(raf.current);
     }
 
@@ -58,7 +56,9 @@ const Word: React.FC<Props> = ({ word, isHighlighting }) => {
       style={{
         transitionDuration,
         transform:
-          isHighlighting || isPassed ? 'matrix(1, 0, 0, 1, 0, -2)' : undefined,
+          isHighlighting || isHighlighted
+            ? 'matrix(1, 0, 0, 1, 0, -2)'
+            : undefined,
         backgroundImage: `linear-gradient(90deg, var(--color-primary) ${progress}%, var(--color-secondary) ${
           progress ? progress + 20 : 0
         }%)`,
