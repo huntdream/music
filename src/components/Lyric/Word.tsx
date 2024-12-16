@@ -51,7 +51,7 @@ const Word: React.FC<Props> = ({ word, isHighlighting, isHighlighted }) => {
   return (
     <span
       className={cls(
-        'origin-right bg-clip-text text-transparent transition-transform inline-block ease-in-out'
+        'origin-right bg-clip-text text-transparent transition-transform inline-block ease will-change-transform'
       )}
       style={{
         transitionDuration,
