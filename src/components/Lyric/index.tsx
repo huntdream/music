@@ -64,7 +64,9 @@ const Lyric: React.FC<Props> = ({ id }) => {
         key.word = word?.wordKey || 0;
       }
 
-      setHlKey(key);
+      if (hlKey.line !== key.line || hlKey.word !== key.word) {
+        setHlKey(key);
+      }
     };
 
     audio?.addEventListener('timeupdate', updateLyric);
@@ -92,7 +94,6 @@ const Lyric: React.FC<Props> = ({ id }) => {
               hlKey={hlKey}
               key={item.key}
               lyric={item}
-              type='line'
             />
           ))
         ) : (

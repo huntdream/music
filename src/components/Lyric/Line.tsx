@@ -1,9 +1,10 @@
 import React, { ReactNode, useEffect, useMemo, useRef } from 'react';
 import cls from 'classnames';
+import Word, { LyricWord } from './Word';
 
 export interface LyricLine {
   type: 'line' | 'word';
-  text: string | LyricLine[];
+  text: string | LyricWord[];
   wordKey?: number;
   key: number;
   timestamp: number;
@@ -19,28 +20,17 @@ export type HlKey = {
 interface Props {
   hlKey: HlKey;
   lyric: LyricLine;
-  type: 'line' | 'word';
   onClick?: () => void;
 }
 
-const Line: React.FC<Props> = ({ hlKey, lyric, type, onClick }) => {
+const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
   const { text, wordKey = 0, key, translation, duration } = lyric;
   const ref = useRef<HTMLDivElement>(null);
 
-  const isHighlighted = useMemo(() => {
-    if (hlKey.line === key) {
-      if (type === 'line') {
-        return true;
-      }
-
-      if (hlKey.word >= wordKey) {
-        return true;
-      }
-    }
-  }, [hlKey, key, wordKey]);
+  const isHighlighted = hlKey.line === key;
 
   useEffect(() => {
-    if (isHighlighted && type === 'line') {
+    if (isHighlighted) {
       ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [isHighlighted]);
@@ -50,8 +40,12 @@ const Line: React.FC<Props> = ({ hlKey, lyric, type, onClick }) => {
       return text;
     }
 
-    return text.map((t, index) => (
-      <Line hlKey={hlKey} lyric={t} key={t.wordKey} type='word' />
+    return text.map((t) => (
+      <Word
+        word={t}
+        key={t.wordKey}
+        isHighlighted={isHighlighted && hlKey.word >= t.wordKey}
+      />
     ));
   };
 
@@ -59,9 +53,8 @@ const Line: React.FC<Props> = ({ hlKey, lyric, type, onClick }) => {
     <div
       ref={ref}
       className={cls(
-        'mb-6 transition-colors ease-in-out whitespace-pre',
-        isHighlighted ? 'font-bold text-primary' : 'text-secondary',
-        type === 'word' ? 'inline-flex ' : ''
+        'mb-6',
+        isHighlighted ? 'font-bold text-primary' : 'text-secondary'
       )}
       onClick={onClick}
     >

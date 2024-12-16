@@ -1,4 +1,5 @@
 import { LyricLine } from '../components/Lyric/Line';
+import { LyricWord } from '../components/Lyric/Word';
 
 export const parseLyric = (raw: string, type: 'line' | 'word' = 'line') => {
   return type === 'word' ? parseLyricByWord(raw) : parseLyricByLine(raw);
@@ -18,7 +19,7 @@ export const parseLyricByWord = (raw: string = ''): LyricLine[] => {
         /\((\d+),(\d+),(\d+)\)\s*([^\(\)]+)(?=\s*\(|$)/g
       );
 
-      const words: LyricLine[] = [...wordsMatch].map((wordMatch, index) => {
+      const words: LyricWord[] = [...wordsMatch].map((wordMatch, index) => {
         const [, wordTimestamp, wordDuration, , word] = wordMatch;
 
         return {
