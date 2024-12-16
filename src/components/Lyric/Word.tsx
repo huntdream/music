@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import cls from 'classnames';
 
 interface Props {
@@ -48,13 +48,15 @@ const Word: React.FC<Props> = ({ word, isHighlighting }) => {
     return () => cancelAnimationFrame(raf.current);
   }, [isHighlighting, duration]);
 
+  const transitionDuration = useMemo(() => `${Math.max(duration, 1)}s`, []);
+
   return (
     <span
       className={cls(
         'origin-right bg-clip-text text-transparent transition-transform inline-block ease-in-out'
       )}
       style={{
-        transitionDuration: `${duration}s`,
+        transitionDuration,
         transform:
           isHighlighting || isPassed ? 'matrix(1, 0, 0, 1, 0, -2)' : undefined,
         backgroundImage: `linear-gradient(90deg, var(--color-primary) ${progress}%, var(--color-secondary) ${
