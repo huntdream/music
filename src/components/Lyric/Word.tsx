@@ -45,13 +45,13 @@ const Word: React.FC<Props> = ({ word, isHighlighted }) => {
   return (
     <span
       className={cls(
-        'origin-right bg-clip-text text-transparent transition-all inline-block ease-in-out'
+        'origin-right bg-clip-text text-transparent transition-transform inline-block ease-in-out'
       )}
       style={{
         transitionDuration: `${duration}s`,
         transform: isHighlighted ? 'matrix(1, 0, 0, 1, 0, -2)' : undefined,
         backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.85) ${progress}%, rgba(0, 0, 0, 0.5) ${
-          progress + 20
+          progress ? progress + 20 : 0
         }%)`,
       }}
     >
