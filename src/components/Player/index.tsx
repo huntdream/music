@@ -51,11 +51,13 @@ const Player: React.FC<Props> = () => {
           )}
         >
           <div className='mr-4'>
-            <Image
-              className='w-12 h-12 rounded-md'
-              src={`${playingSong?.al?.picUrl}?param=50y50`}
-              alt=''
-            />
+            {playingSong && (
+              <Image
+                className='w-12 h-12 rounded-md'
+                src={`${playingSong?.al?.picUrl}?param=50y50`}
+                alt=''
+              />
+            )}
           </div>
           <div className='flex flex-col flex-1 min-w-0'>
             <div className='truncate' title={playingSong?.name}>
