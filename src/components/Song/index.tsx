@@ -1,6 +1,6 @@
-import React, { CSSProperties, MouseEvent, useContext, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { CSSProperties, useContext, useMemo } from 'react';
 import cls from 'classnames';
+import { toast } from 'sonner';
 import { ISong } from '../../types/song';
 import Image from '../Image';
 import { msToMinutes } from '../../utils/msConvert';
@@ -35,13 +35,16 @@ const Song: React.FC<Props> = ({
 }) => {
   const { play, pause, appendQueue, playingSong, isPlaying } = usePlayer();
   const { isDesktop, likeList } = useContext(AppContext);
-  const { name, ar, al, dt, id } = song;
+  const { name, ar, al, dt, id, noCopyrightRcmd } = song;
   const isCurrentSong = playingSong?.id === song.id;
   const isSongPlaying = isPlaying && isCurrentSong;
+  const canPlay = !noCopyrightRcmd;
 
   const isLiked = useMemo(() => likeList.includes(id), []);
 
   const handlePlay = (song: ITrack) => {
+    if (!canPlay) return toast.info('歌曲无版权');
+
     if (isSongPlaying) {
       pause();
       return;
@@ -79,7 +82,10 @@ const Song: React.FC<Props> = ({
       </div>
       <div className='ml-2 flex-1 min-w-0 flex flex-col justify-between'>
         <div className='flex'>
-          <span className='truncate' title={name}>
+          <span
+            className={cls('truncate', canPlay ? '' : 'text-secondary')}
+            title={name}
+          >
             {name}
           </span>
         </div>

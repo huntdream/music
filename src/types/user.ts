@@ -4,4 +4,5 @@ export interface IUser {
   userId: number;
   signature: string;
   id: number;
+  vipType: number;
 }

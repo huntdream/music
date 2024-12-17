@@ -50,6 +50,8 @@ export interface ITrack {
   al: IAlbum;
   ar: IArtist[];
   copyright: 0 | 1 | 2;
+  fee: number;
+  noCopyrightRcmd: any;
 }
 
 export interface IAlbum {
