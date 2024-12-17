@@ -66,7 +66,15 @@ function App() {
         </Route>
       </Routes>
 
-      <Toaster position='top-center' />
+      <Toaster
+        position='top-center'
+        className='flex justify-center'
+        toastOptions={{
+          style: {
+            width: 'fit-content',
+          },
+        }}
+      />
       {state?.backgroundLocation && (
         <Routes>
           <Route path='lyric/:id' element={<Lyric />} />
