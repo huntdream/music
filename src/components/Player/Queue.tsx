@@ -40,7 +40,7 @@ const Queue: React.FC<Props> = ({}) => {
             <div className='py-2'>
               <List
                 height={420}
-                width={290}
+                width={350}
                 itemCount={queue.length}
                 itemSize={64}
               >
