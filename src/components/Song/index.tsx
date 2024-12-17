@@ -19,6 +19,7 @@ interface Props {
   duration?: boolean;
   border?: boolean;
   standalone?: boolean;
+  showAlbum?: boolean;
   onPlay?: (song: ITrack) => void;
   style?: CSSProperties;
 }
@@ -28,6 +29,7 @@ const Song: React.FC<Props> = ({
   className,
   duration,
   standalone,
+  showAlbum,
   style,
   onPlay,
 }) => {
@@ -86,12 +88,14 @@ const Song: React.FC<Props> = ({
           <div className='truncate' title={ar?.map((ar) => ar.name).join('/')}>
             <Artists artists={ar} />
           </div>
-          <div
-            className='before:content-["•"] before:mx-1 truncate'
-            title={al?.name}
-          >
-            {al?.name}
-          </div>
+          {showAlbum && (
+            <div
+              className='before:content-["•"] before:mx-1 truncate'
+              title={al?.name}
+            >
+              {al?.name}
+            </div>
+          )}
         </div>
       </div>
       {isSongPlaying && isDesktop && (
