@@ -55,7 +55,7 @@ const Search: React.FC<Props> = () => {
   }, [data]);
 
   return (
-    <div className=''>
+    <div className='pb-36'>
       <div className='py-2 px-4 sticky z-30 top-0 bg-white/65 backdrop-blur-md'>
         <Input onChange={handleChange} value={keywords} />
         <div className='flex mt-3 overflow-hidden'>
