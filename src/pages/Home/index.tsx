@@ -4,6 +4,7 @@ import Player from '../../components/Player';
 import NavBar from '../../components/NavBar';
 import { AppContext } from '../../context/App/App';
 import Sider from '../../components/Sider';
+import Title from '../../components/Title';
 
 interface Props {}
 
@@ -12,6 +13,8 @@ const Home: React.FC<Props> = () => {
 
   return (
     <div>
+      <Title />
+
       <div className='h-dvh overflow-hidden flex'>
         {isDesktop && <Sider />}
         <main className='overflow-auto flex-1'>
