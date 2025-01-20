@@ -16,6 +16,10 @@ const Lyric: React.FC<Props> = ({ id }) => {
   const lyricRef = useRef<HTMLDivElement>(null);
   const [lyricData] = useLyric(id);
 
+  useEffect(() => {
+    lyricRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [lyricData]);
+
   const lyric = useMemo(() => {
     const rawText = lyricData?.yrc?.lyric || lyricData?.lrc?.lyric;
     if (!rawText) return [];
@@ -37,8 +41,6 @@ const Lyric: React.FC<Props> = ({ id }) => {
 
       return fullLyric;
     }
-
-    lyricRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     return rawLyric;
   }, [lyricData]);
