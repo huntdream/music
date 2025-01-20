@@ -107,7 +107,7 @@ const Comment: React.FC<Props> = ({ type, id, infinite }) => {
           </div>
         ))}
       </div>
-      <div ref={bottomRef} />
+      <div ref={bottomRef} className='h-2' />
       {isLoading && <Loading />}
     </div>
   );
