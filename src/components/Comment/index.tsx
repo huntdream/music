@@ -3,7 +3,7 @@ import {
   ChatBubbleOvalLeftEllipsisIcon,
 } from '@heroicons/react/24/outline';
 import cls from 'classnames';
-import React, { UIEvent, useEffect, useRef } from 'react';
+import React, { UIEvent, useEffect, useRef, useState, FC } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import User from '../User';
 import { IComments } from '../../types/comment';
@@ -18,9 +18,10 @@ interface Props {
   infinite?: boolean;
 }
 
-const Comment: React.FC<Props> = ({ type, id, infinite }) => {
+const Comment: FC<Props> = ({ type, id, infinite }) => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const typeCode = type ? ResourceTypes[type] : '';
+  const [loaded, setLoaded] = useState(false);
 
   const { data, isLoading, setSize } = useSWRInfinite<IComments>(
     (pageIndex, previousPageData: IComments) => {
@@ -40,11 +41,18 @@ const Comment: React.FC<Props> = ({ type, id, infinite }) => {
   );
 
   useEffect(() => {
+    if (data && data[0]) {
+      setLoaded(true);
+    }
+  }, [data]);
+
+  useEffect(() => {
     if (!infinite) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
+
         if (entry.isIntersecting) {
           setSize((s) => s + 1);
         }
@@ -65,7 +73,7 @@ const Comment: React.FC<Props> = ({ type, id, infinite }) => {
         observer.unobserve(bottomRef.current);
       }
     };
-  }, [bottomRef.current]);
+  }, [infinite, setSize, bottomRef.current, loaded]);
 
   if (!data?.[0]) {
     return <Loading />;
@@ -79,7 +87,7 @@ const Comment: React.FC<Props> = ({ type, id, infinite }) => {
         评论（{totalCount}）
       </div>
       <div>
-        {data?.map((block, index) => (
+        {data?.map((block) => (
           <div key={block.cursor}>
             {block.comments.map((comment) => (
               <div className='p-3 border-b' key={comment.commentId}>
