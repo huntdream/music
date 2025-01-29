@@ -18,7 +18,7 @@
     "react-window": "1.8.11",
     "sonner": "1.7.1",
     "swr": "2.2.5",
-    "tailwindcss": "4.0.0-beta.7"
+    "tailwindcss": "4.0.0"
   },
   "scripts": {
     "start": "vite dev",
