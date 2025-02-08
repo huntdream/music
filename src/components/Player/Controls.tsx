@@ -1,5 +1,5 @@
 import { FC, MouseEvent, useContext } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 import { PauseIcon, PlayIcon, PrevIcon, NextIcon } from '../../icons/Audio';
 import usePlayer from './usePlayer';
 import { AppContext } from '../../context/App/App';
@@ -29,7 +29,7 @@ const Controls: FC<Props> = () => {
         />
       )}
       <div
-        className={cls(
+        className={clsx(
           'w-8 h-8 rounded-2xl flex justify-center items-center shadow-around',
           isDesktop ? 'mx-8' : 'mx-4'
         )}

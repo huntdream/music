@@ -2,12 +2,12 @@ import {
   HeartIcon,
   ChatBubbleOvalLeftEllipsisIcon,
 } from '@heroicons/react/24/outline';
-import cls from 'classnames';
+import clsx from 'clsx';
 import React, { UIEvent, useEffect, useRef, useState, FC } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import User from '../User';
 import { IComments } from '../../types/comment';
-import Button from '../Button';
+import { Button } from '@/components/ui/button';
 import Loading from '../Loading';
 import fetcher from '../../utils/fetcher';
 import { IResourceType, ResourceTypes } from '../../types';
@@ -103,9 +103,12 @@ const Comment: FC<Props> = ({ type, id, infinite }) => {
                 <div className='flex justify-between items-center mt-4 ml-10'>
                   <div className='flex items-center'>
                     <HeartIcon
-                      className={cls('h-4 w-4 cursor-pointer hover:scale-110', {
-                        'fill-red-500': comment.liked,
-                      })}
+                      className={clsx(
+                        'h-4 w-4 cursor-pointer hover:scale-110',
+                        {
+                          'fill-red-500': comment.liked,
+                        }
+                      )}
                     />
                     <ChatBubbleOvalLeftEllipsisIcon className='h-4 w-4 ml-2' />
                   </div>

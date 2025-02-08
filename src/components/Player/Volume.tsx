@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 import * as Slider from '@radix-ui/react-slider';
 import usePlayer from './usePlayer';
 import { SpeakerXMarkIcon, SpeakerWaveIcon } from '@heroicons/react/24/solid';
@@ -57,14 +57,14 @@ const Volume: React.FC<Props> = () => {
       </Slider.Root>
       {muted ? (
         <SpeakerXMarkIcon
-          className={cls(
+          className={clsx(
             'w-6 h-6 cursor-pointer text-secondary hover:text-primary'
           )}
           onClick={handleClick}
         />
       ) : (
         <SpeakerWaveIcon
-          className={cls(
+          className={clsx(
             'w-6 h-6 cursor-pointer text-secondary hover:text-primary'
           )}
           onClick={handleClick}

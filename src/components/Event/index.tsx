@@ -5,7 +5,7 @@ import {
 import React, { useState } from 'react';
 import { IEvent } from '../../types/event';
 import Song from '../Song';
-import cls from 'classnames';
+import clsx from 'clsx';
 import Comment from '../Comment';
 import User from '../User';
 import Image from '../Image';
@@ -38,7 +38,7 @@ const Event: React.FC<Props> = ({ event }) => {
       <div className='flex border-b mt-4'>
         <div className='flex w-20 justify-center items-center cursor-pointer h-8 hover:bg-active'>
           <HeartIcon
-            className={cls('h-5 min-w-5 hover:scale-110', {
+            className={clsx('h-5 min-w-5 hover:scale-110', {
               'fill-red-500': event.info.liked,
             })}
           />

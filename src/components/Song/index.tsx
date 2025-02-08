@@ -1,5 +1,5 @@
 import React, { CSSProperties, useContext, useMemo } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 import { toast } from 'sonner';
 import { ISong } from '../../types/song';
 import Image from '../Image';
@@ -60,7 +60,7 @@ const Song: React.FC<Props> = ({
 
   return (
     <div
-      className={cls(
+      className={clsx(
         'flex py-2 pl-2 items-center cursor-pointer rounded-md overflow-hidden hover:bg-active',
         standalone ? 'bg-gray-100' : '',
         className
@@ -83,7 +83,7 @@ const Song: React.FC<Props> = ({
       <div className='ml-2 flex-1 min-w-0 flex flex-col justify-between'>
         <div className='flex'>
           <span
-            className={cls('truncate', canPlay ? '' : 'text-secondary')}
+            className={clsx('truncate', canPlay ? '' : 'text-secondary')}
             title={name}
           >
             {name}

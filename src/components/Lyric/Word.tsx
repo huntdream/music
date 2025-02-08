@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 
 interface Props {
   word: LyricWord;
@@ -53,7 +53,7 @@ const Word: React.FC<Props> = ({ word, isHighlighting, isHighlighted }) => {
 
   return (
     <span
-      className={cls(
+      className={clsx(
         'origin-right bg-clip-text text-transparent transition-transform inline-block ease will-change-transform whitespace-pre'
       )}
       style={{

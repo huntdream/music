@@ -1,6 +1,6 @@
 import React, { ComponentType, useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
-import cls from 'classnames';
+import clsx from 'clsx';
 import { FixedSizeList, FixedSizeListProps } from 'react-window';
 import Song from '../Song';
 import usePlayer from './usePlayer';
@@ -21,7 +21,7 @@ const Queue: React.FC<Props> = ({}) => {
         className='outline-hidden'
       >
         <PlaylistIcon
-          className={cls(
+          className={clsx(
             'w-8 h-8 cursor-pointer hover:text-primary',
             open ? 'text-primary' : 'text-secondary'
           )}

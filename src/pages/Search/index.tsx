@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useMemo, useState } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 import { useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
 import Input from '../../components/SearchBar/Input';
@@ -61,7 +61,7 @@ const Search: React.FC<Props> = () => {
         <div className='flex mt-3 overflow-hidden'>
           {SEARCH_TYPE_LIST.map((key) => (
             <div
-              className={cls(
+              className={clsx(
                 'px-4 mr-2 mb-2 cursor-pointer text-secondary whitespace-nowrap rounded-3xl hover:bg-active',
                 {
                   'text-primary bg-active ': key === searchType,

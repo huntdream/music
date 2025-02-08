@@ -1,6 +1,6 @@
 import React, { MouseEvent, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import cls from 'classnames';
+import clsx from 'clsx';
 import useSongUrl from '../../fetchers/useSongUrl';
 import Image from '../Image';
 import { AppContext } from '../../context/App/App';
@@ -29,7 +29,7 @@ const Player: React.FC<Props> = () => {
 
   return (
     <div
-      className={cls(
+      className={clsx(
         'fixed bottom-0 left-0 right-0 px-4 z-50 shadow-around bg-white rounded-(--safe-radius)  transition-transform duration-200 ease-in-out ',
         playingSong
           ? 'translate-x-0 opacity-100'
@@ -45,7 +45,7 @@ const Player: React.FC<Props> = () => {
         onClick={handleClick}
       >
         <div
-          className={cls(
+          className={clsx(
             'flex items-center',
             isDesktop ? 'w-[30%] min-w-44' : 'min-w-0 flex-1'
           )}
@@ -71,7 +71,7 @@ const Player: React.FC<Props> = () => {
           </div>
         </div>
         <div
-          className={cls(
+          className={clsx(
             isDesktop
               ? 'flex flex-col justify-between h-full pt-1.5 flex-1 max-w-[722px] w-2/5'
               : 'ml-auto'
@@ -81,7 +81,7 @@ const Player: React.FC<Props> = () => {
           {isDesktop && <Progress duration={playingSong?.dt} />}
         </div>
         <div
-          className={cls(
+          className={clsx(
             'flex justify-end',
             isDesktop ? 'w-[30%] min-w-44' : ''
           )}

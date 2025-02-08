@@ -1,5 +1,5 @@
 import React from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 
 interface Props {
   className?: string;
@@ -8,7 +8,7 @@ interface Props {
 const Loading: React.FC<Props> = ({ className }) => {
   return (
     <div
-      className={cls(
+      className={clsx(
         'w-full h-full inset-0 flex justify-center items-center',
         className
       )}

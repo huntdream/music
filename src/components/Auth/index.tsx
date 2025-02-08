@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-import cls from 'classnames';
+import clsx from 'clsx';
 import { useUser } from '../../context/App';
 import { IUser } from '../../types/user';
 import fetcher from '../../utils/fetcher';
 import Login from '../Login';
 import User from '../User';
 import Modal from '../Modal';
-import Button from '../Button';
+import { Button } from '@/components/ui/button';
 import useAccount from '../../fetchers/useAccount';
 
 interface Props {
@@ -36,7 +36,7 @@ const Auth: React.FC<Props> = ({ className, page }) => {
 
   return (
     <div
-      className={cls(
+      className={clsx(
         page ? ' h-full w-full flex justify-center items-center' : '',
         className
       )}

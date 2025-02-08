@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useMemo, useRef } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 import Word, { LyricWord } from './Word';
 
 export interface LyricLine {
@@ -55,7 +55,7 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
   return (
     <div
       ref={ref}
-      className={cls(
+      className={clsx(
         'mb-6 text-xl',
         isHighlighting ? 'text-primary font-bold' : 'text-secondary'
       )}

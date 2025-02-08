@@ -11,7 +11,7 @@ import { sumBy } from 'lodash-es';
 import usePlaylist from '../../fetchers/usePlaylist';
 import { msToHours } from '../../utils/msConvert';
 import { ITrack } from '../../types/playlist';
-import Button from '../Button';
+import { Button } from '@/components/ui/button';
 import Image from '../Image';
 import Loading from '../Loading';
 import usePlayer from '../Player/usePlayer';

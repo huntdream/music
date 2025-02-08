@@ -1,7 +1,7 @@
 import React, { useState, MouseEvent } from 'react';
 import { toast } from 'sonner';
 import fetcher from '../../utils/fetcher';
-import Button from '../Button';
+import { Button } from '@/components/ui/button';
 import Input from '../Input';
 
 interface Props {

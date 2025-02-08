@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   value?: string;
   keyword?: string;
@@ -41,7 +41,7 @@ const Input: React.FC<Props> = ({
   return (
     <input
       placeholder='搜索'
-      className={cls(
+      className={clsx(
         'flex h-8 w-full rounded-md border border-input outline-hidden px-3 py-2 text-sm',
         className
       )}

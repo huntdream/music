@@ -1,5 +1,5 @@
 import { FC, useContext } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 import { LyricIcon } from '../../icons/Audio';
 import usePlayer from './usePlayer';
 import { AppContext } from '../../context/App/App';
@@ -42,13 +42,13 @@ const Actions: FC<Props> = () => {
           <Volume />
           <ChatBubbleOvalLeftEllipsisIcon
             onClick={navigateToComments}
-            className={cls(
+            className={clsx(
               'h-7 w-7 hover:text-primary cursor-pointer',
               isCommentPage ? 'text-primary' : 'text-secondary'
             )}
           />
           <LyricIcon
-            className={cls(
+            className={clsx(
               'w-8 h-8 cursor-pointer hover:text-primary',
               isLyricOpen ? 'text-primary' : 'text-secondary'
             )}

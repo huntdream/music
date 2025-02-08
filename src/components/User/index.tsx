@@ -1,5 +1,5 @@
 import React from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 import { IUser } from '../../types/user';
 import Image from '../Image';
 
@@ -26,9 +26,9 @@ const User: React.FC<Props> = ({
 
   return (
     <div>
-      <div className={cls('flex items-center', className)}>
+      <div className={clsx('flex items-center', className)}>
         <Image
-          className={cls('rounded-full', sizes[size])}
+          className={clsx('rounded-full', sizes[size])}
           src={user.avatarUrl}
           alt=''
         />

@@ -1,6 +1,6 @@
 import React, { ReactNode, ForwardedRef } from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { DropdownMenuItemProps } from '@radix-ui/react-dropdown-menu';
 
 interface DropdownMenuContentProps {

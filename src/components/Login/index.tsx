@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 import QR from './QR';
 import Phone from './Phone';
 
@@ -12,9 +12,9 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
 
   return (
     <div className=''>
-      <div className={cls('flex items-center p-4 border-b divide-x')}>
+      <div className={clsx('flex items-center p-4 border-b divide-x')}>
         <div
-          className={cls(
+          className={clsx(
             'flex-1 text-center cursor-pointer',
             type === 'qr' && 'text-blue-600 font-semibold'
           )}
@@ -23,7 +23,7 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
           二维码登录
         </div>
         <div
-          className={cls(
+          className={clsx(
             'flex-1 text-center cursor-pointer',
             type === 'phone' && 'text-blue-600 font-semibold'
           )}

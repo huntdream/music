@@ -1,5 +1,5 @@
 import { FC, MouseEvent, ReactNode } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 
 interface Props {
   children: ReactNode;
@@ -10,7 +10,7 @@ interface Props {
 const Item: FC<Props> = ({ children, active, onClick }) => {
   return (
     <div
-      className={cls(
+      className={clsx(
         'px-3 h-9 rounded-md flex items-center cursor-pointer mb-1 hover:bg-active',
         {
           'bg-active': active,

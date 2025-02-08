@@ -1,5 +1,5 @@
 import React from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 import { IPic } from '../../types/event';
 import Image from '../Image';
 
@@ -18,7 +18,7 @@ const Pictures: React.FC<Props> = ({ pics }) => {
   return (
     pics?.length > 0 && (
       <div
-        className={cls(
+        className={clsx(
           'grid overflow-hidden max-w-96 max-h-96',
           `grid-cols-${cols} grid-rows-${rows}`,
           isSingle ? '' : height
@@ -29,7 +29,7 @@ const Pictures: React.FC<Props> = ({ pics }) => {
             <Image
               src={pic.originUrl}
               key={pic.originUrl}
-              className={cls(
+              className={clsx(
                 'object-contain',
                 isSingle ? 'max-w-full max-h-full' : 'w-full'
               )}

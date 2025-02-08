@@ -1,5 +1,5 @@
 import React, { ReactNode, MouseEvent } from 'react';
-import cls from 'classnames';
+import clsx from 'clsx';
 import { createPortal } from 'react-dom';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({
             <div className='flex flex-col items-stretch min-h-screen py-20 px-2'>
               <div className='flex justify-center items-start'>
                 <div
-                  className={cls(
+                  className={clsx(
                     'relative flex flex-col max-w-full bg-white rounded-lg w-96 pointer-events-auto shadow-xs',
                     className
                   )}
