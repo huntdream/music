@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import useSWR, { useSWRConfig } from 'swr';
+import { useSWRConfig } from 'swr';
 import clsx from 'clsx';
 import { useUser } from '../../context/App';
-import { IUser } from '../../types/user';
-import fetcher from '../../utils/fetcher';
 import Login from '../Login';
 import User from '../User';
 import Modal from '../Modal';
 import { Button } from '@/components/ui/button';
-import useAccount from '../../fetchers/useAccount';
 
 interface Props {
   className?: string;
