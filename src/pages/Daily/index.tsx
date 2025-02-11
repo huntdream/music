@@ -1,7 +1,7 @@
 import React from 'react';
 import useSWR from 'swr';
 import useUser from '../../context/App/useUser';
-import { IRecommendation, ITrack } from '../../types/playlist';
+import { IRecommendation } from '../../types/playlist';
 import Song from '../../components/Song';
 import usePlayer from '../../components/Player/usePlayer';
 import Auth from '../../components/Auth';
@@ -12,11 +12,10 @@ import { ISong } from '@/types/song';
 interface Props {}
 
 const Daily: React.FC<Props> = () => {
-  const { play, replaceQueue, appendQueue, setPlayingSong, queue } =
-    usePlayer();
+  const { replaceQueue, appendQueue } = usePlayer();
   const [user] = useUser();
 
-  const { data, isLoading } = useSWR<IRecommendation>(
+  const { data } = useSWR<IRecommendation>(
     user?.userId ? '/recommend/songs' : ''
   );
 

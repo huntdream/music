@@ -1,8 +1,10 @@
 import React from 'react';
 import SearchBar from '../../components/SearchBar';
-import Recommendation from './Recommendation';
+import DailySongs from './DailySongs';
 import { useUser } from '../../context/App';
 import Auth from '@/components/Auth';
+import useSWR from 'swr';
+import DailyList from './DailyList';
 
 interface Props {}
 
@@ -12,7 +14,12 @@ const Main: React.FC<Props> = () => {
   return (
     <div className='px-2 pb-36 h-full'>
       <SearchBar />
-      <div className='flex gap-2'>{user?.userId && <Recommendation />}</div>
+      {user?.userId && (
+        <div className='flex gap-2 flex-wrap'>
+          <DailySongs />
+          <DailyList />
+        </div>
+      )}
       <Auth page />
     </div>
   );

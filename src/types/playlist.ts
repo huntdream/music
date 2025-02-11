@@ -79,3 +79,21 @@ export interface IRecommendation {
     recommendReasons: RecommendReason[];
   };
 }
+
+export interface IDailyListRecommendation {
+  recommend: IDailyListRecommend[];
+}
+
+export interface IDailyListRecommend {
+  id: number;
+  type: number;
+  name: string;
+  copywriter: string;
+  picUrl: string;
+  playcount: number;
+  createTime: number;
+  creator: IUser;
+  trackCount: number;
+  userId: number;
+  alg: string;
+}

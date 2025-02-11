@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface Props {}
 
-const Recommendation: React.FC<Props> = () => {
+const DailySongs: React.FC<Props> = () => {
   const [user] = useUser();
   const navigate = useNavigate();
 
@@ -43,4 +43,4 @@ const Recommendation: React.FC<Props> = () => {
   );
 };
 
-export default Recommendation;
+export default DailySongs;
