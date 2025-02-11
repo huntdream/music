@@ -1,8 +1,8 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
-import clsx from 'clsx';
+import React, { useEffect, useState } from 'react';
 import * as Slider from '@radix-ui/react-slider';
 import usePlayer from './usePlayer';
-import { SpeakerXMarkIcon, SpeakerWaveIcon } from '@heroicons/react/24/solid';
+import { Volume2, VolumeX } from 'lucide-react';
+import IconButton from '../IconButton';
 
 interface Props {}
 
@@ -55,21 +55,10 @@ const Volume: React.FC<Props> = () => {
         </Slider.Track>
         <Slider.Thumb className='block w-2 h-2 bg-secondary cursor-grab rounded-md hover:bg-purple-500 ' />
       </Slider.Root>
-      {muted ? (
-        <SpeakerXMarkIcon
-          className={clsx(
-            'w-6 h-6 cursor-pointer text-secondary hover:text-primary'
-          )}
-          onClick={handleClick}
-        />
-      ) : (
-        <SpeakerWaveIcon
-          className={clsx(
-            'w-6 h-6 cursor-pointer text-secondary hover:text-primary'
-          )}
-          onClick={handleClick}
-        />
-      )}
+
+      <IconButton onClick={handleClick}>
+        {muted ? <VolumeX /> : <Volume2 />}
+      </IconButton>
     </div>
   );
 };

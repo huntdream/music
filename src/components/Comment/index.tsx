@@ -1,9 +1,4 @@
-import {
-  HeartIcon,
-  ChatBubbleOvalLeftEllipsisIcon,
-} from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-import React, { UIEvent, useEffect, useRef, useState, FC } from 'react';
+import { useEffect, useRef, useState, FC } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import User from '../User';
 import { IComments } from '../../types/comment';
@@ -11,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import Loading from '../Loading';
 import fetcher from '../../utils/fetcher';
 import { IResourceType, ResourceTypes } from '../../types';
+import { Heart, MessageCircle } from 'lucide-react';
 
 interface Props {
   id: number | string;
@@ -93,7 +89,7 @@ const Comment: FC<Props> = ({ type, id, infinite }) => {
               <div className='p-3 border-b' key={comment.commentId}>
                 <div className='flex items-center'>
                   <User user={comment.user} size='normal' />
-                  <div className='text-secondary text-sm ml-auto'>
+                  <div className='text-secondary-foreground text-sm ml-auto'>
                     {comment.timeStr}
                   </div>
                 </div>
@@ -102,15 +98,15 @@ const Comment: FC<Props> = ({ type, id, infinite }) => {
                 </div>
                 <div className='flex justify-between items-center mt-4 ml-10'>
                   <div className='flex items-center'>
-                    <HeartIcon
-                      className={clsx(
-                        'h-4 w-4 cursor-pointer hover:scale-110',
-                        {
-                          'fill-red-500': comment.liked,
-                        }
-                      )}
-                    />
-                    <ChatBubbleOvalLeftEllipsisIcon className='h-4 w-4 ml-2' />
+                    <Button variant='ghost'>
+                      <Heart
+                        fill={comment.liked ? 'red' : 'transparent'}
+                        stroke={comment.liked ? 'red' : 'currentColor'}
+                      />
+                    </Button>
+                    <Button variant='ghost'>
+                      <MessageCircle />
+                    </Button>
                   </div>
                 </div>
               </div>

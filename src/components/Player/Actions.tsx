@@ -1,13 +1,13 @@
 import { FC, useContext } from 'react';
-import clsx from 'clsx';
 import { LyricIcon } from '../../icons/Audio';
 import usePlayer from './usePlayer';
 import { AppContext } from '../../context/App/App';
 import Queue from './Queue';
 import useNavigateLyric from '../Lyric/useNavigateLyric';
 import Volume from './Volume';
-import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/outline';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { MessageCircleMore } from 'lucide-react';
+import IconButton from '../IconButton';
 
 interface Props {}
 
@@ -36,24 +36,16 @@ const Actions: FC<Props> = () => {
   };
 
   return (
-    <div className='flex justify-center items-center space-x-2'>
+    <div className='flex justify-center items-center space-x-1'>
       {isDesktop && (
         <>
           <Volume />
-          <ChatBubbleOvalLeftEllipsisIcon
-            onClick={navigateToComments}
-            className={clsx(
-              'h-7 w-7 hover:text-primary cursor-pointer',
-              isCommentPage ? 'text-primary' : 'text-secondary'
-            )}
-          />
-          <LyricIcon
-            className={clsx(
-              'w-8 h-8 cursor-pointer hover:text-primary',
-              isLyricOpen ? 'text-primary' : 'text-secondary'
-            )}
-            onClick={handleClickLyric}
-          />
+          <IconButton onClick={navigateToComments}>
+            <MessageCircleMore />
+          </IconButton>
+          <IconButton onClick={handleClickLyric} className='p-1'>
+            <LyricIcon />
+          </IconButton>
         </>
       )}
       <Queue />

@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { IUser } from '../../types/user';
-import Image from '../Image';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 interface Props {
   user: IUser;
@@ -18,25 +18,20 @@ const User: React.FC<Props> = ({
   avatar,
   className,
 }) => {
-  const sizes = {
-    small: 'w-6 h-6',
-    normal: 'w-8 h-8',
-    large: 'w-10 h-10',
-  };
-
   return (
     <div>
       <div className={clsx('flex items-center', className)}>
-        <Image
-          className={clsx('rounded-full', sizes[size])}
-          src={user.avatarUrl}
-          alt=''
-        />
+        <Avatar>
+          <AvatarImage src={user?.avatarUrl} />
+          <AvatarFallback delayMs={600}>
+            {user?.nickname?.slice(0, 1).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
         {!avatar && (
           <div className='flex-1 overflow-hidden ml-2'>
             <div>{user.nickname}</div>
             {signature && (
-              <div className='text-secondary text-sm truncate'>
+              <div className='text-secondary-foreground text-sm truncate'>
                 {user.signature}
               </div>
             )}

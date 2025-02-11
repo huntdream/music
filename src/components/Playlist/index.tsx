@@ -89,11 +89,11 @@ const Playlist: React.FC<Props> = () => {
         />
         <div className='flex flex-col'>
           <h2 className='text-lg mb-2'>{playlist.name}</h2>
-          <div className='text-sm text-secondary mb-2'>
+          <div className='text-sm text-secondary-foreground mb-2'>
             {playlist.trackCount}首歌曲<span className='mx-1'>•</span>时长
             {totalTime}
           </div>
-          <div className='mt-auto text-secondary mb-8'>
+          <div className='mt-auto text-secondary-foreground mb-8'>
             {playlist.description}
           </div>
           <div className='self-end'>

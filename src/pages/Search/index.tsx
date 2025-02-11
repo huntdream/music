@@ -62,9 +62,9 @@ const Search: React.FC<Props> = () => {
           {SEARCH_TYPE_LIST.map((key) => (
             <div
               className={clsx(
-                'px-4 mr-2 mb-2 cursor-pointer text-secondary whitespace-nowrap rounded-3xl hover:bg-active',
+                'px-4 mr-2 mb-2 cursor-pointer text-secondary-foreground whitespace-nowrap rounded-3xl hover:bg-secondary',
                 {
-                  'text-primary bg-active ': key === searchType,
+                  'text-primary-foreground bg-secondary ': key === searchType,
                 }
               )}
               key={key}

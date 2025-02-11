@@ -57,12 +57,14 @@ const Line: React.FC<Props> = ({ hlKey, lyric, onClick }) => {
       ref={ref}
       className={clsx(
         'mb-6 text-xl',
-        isHighlighting ? 'text-primary font-bold' : 'text-secondary'
+        isHighlighting ? 'text-primary' : 'text-secondary-foreground'
       )}
       onClick={onClick}
     >
-      <div>{renderText()}</div>
-      {translation && <div className='text-secondary'>{translation}</div>}
+      <div className={isHighlighting ? 'font-bold' : ''}>{renderText()}</div>
+      {translation && (
+        <div className='text-muted-foreground'>{translation}</div>
+      )}
     </div>
   );
 };

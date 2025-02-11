@@ -1,10 +1,10 @@
 import React, { ComponentType, useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
-import clsx from 'clsx';
 import { FixedSizeList, FixedSizeListProps } from 'react-window';
 import Song from '../Song';
 import usePlayer from './usePlayer';
-import { PlaylistIcon } from '../../icons/Audio';
+import { ListMusic } from 'lucide-react';
+import IconButton from '../IconButton';
 
 const List = FixedSizeList as ComponentType<FixedSizeListProps>;
 
@@ -20,12 +20,9 @@ const Queue: React.FC<Props> = ({}) => {
         onClick={(e) => e.stopPropagation()}
         className='outline-hidden'
       >
-        <PlaylistIcon
-          className={clsx(
-            'w-8 h-8 cursor-pointer hover:text-primary',
-            open ? 'text-primary' : 'text-secondary'
-          )}
-        />
+        <IconButton>
+          <ListMusic />
+        </IconButton>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content

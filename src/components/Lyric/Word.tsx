@@ -62,7 +62,7 @@ const Word: React.FC<Props> = ({ word, isHighlighting, isHighlighted }) => {
           isHighlighting || isHighlighted
             ? 'matrix(1, 0, 0, 1, 0, -2)'
             : undefined,
-        backgroundImage: `linear-gradient(90deg, var(--color-primary) ${progress}%, var(--color-secondary) ${
+        backgroundImage: `linear-gradient(90deg, var(--foreground) ${progress}%, var(--muted-foreground) ${
           progress ? progress + 20 : 0
         }%)`,
       }}

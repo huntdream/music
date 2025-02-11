@@ -37,7 +37,7 @@ const Progress: FC<Props> = ({ duration = 0 }) => {
 
   return (
     <div className='flex justify-center items-center'>
-      <div className='text-sm text-secondary min-w-10 text-right'>
+      <div className='text-sm text-secondary-foreground min-w-10 text-right'>
         {playedTime}
       </div>
       <Slider.Root
@@ -53,7 +53,9 @@ const Progress: FC<Props> = ({ duration = 0 }) => {
         </Slider.Track>
         <Slider.Thumb className='block w-2 h-2 bg-secondary cursor-grab rounded-md hover:bg-purple-500 ' />
       </Slider.Root>
-      <div className='text-sm text-secondary min-w-10'>{totalTime}</div>
+      <div className='text-sm text-secondary-foreground min-w-10'>
+        {totalTime}
+      </div>
     </div>
   );
 };

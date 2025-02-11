@@ -31,9 +31,9 @@ const Player: React.FC<Props> = () => {
     <div
       className={clsx(
         'fixed bottom-0 left-0 right-0 px-4 z-50 shadow-around bg-white rounded-(--safe-radius)  transition-transform duration-200 ease-in-out ',
-        playingSong
-          ? 'translate-x-0 opacity-100'
-          : 'opacity-0 translate-y-[calc(var(--safe-b)/2+56px)]',
+        // playingSong
+        //   ? 'translate-x-0 opacity-100'
+        //   : 'opacity-0 translate-y-[calc(var(--safe-b)/2+56px)]',
         isDesktop
           ? 'py-2 mb-(--safe-b) mx-(--safe-b)'
           : 'mx-2 rounded-tl-md rounded-tr-md -translate-y-[calc(var(--safe-b)/2+56px)]'
@@ -63,7 +63,7 @@ const Player: React.FC<Props> = () => {
             <div className='truncate' title={playingSong?.name}>
               {playingSong?.name}
             </div>
-            <div className='flex items-center min-w-0 text-secondary'>
+            <div className='flex items-center min-w-0 text-secondary-foreground'>
               <div className='text-sm flex items-center truncate'>
                 <Artists artists={playingSong?.ar} />
               </div>

@@ -1,7 +1,8 @@
 import React, { ReactNode, MouseEvent } from 'react';
 import clsx from 'clsx';
 import { createPortal } from 'react-dom';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Button } from '../ui/button';
+import { CircleX, XSquare } from 'lucide-react';
 
 interface ModalProps {
   visible?: boolean;
@@ -39,10 +40,14 @@ const Modal: React.FC<ModalProps> = ({
                   <div className='h-14 flex items-center justify-center relative border-b border-b-slate-100 '>
                     <h2 className='text-lg capitalize'>{title}</h2>
 
-                    <XMarkIcon
-                      className='absolute right-4 h-7 w-7 flex p-1 items-center justify-center rounded-full cursor-pointer transition duration-500 hover:bg-active'
+                    <Button
+                      variant='ghost'
+                      size='icon'
                       onClick={onClose}
-                    />
+                      className='absolute right-4 cursor-pointer'
+                    >
+                      <CircleX />
+                    </Button>
                   </div>
                   <div className='flex-1'>{children}</div>
                 </div>

@@ -99,7 +99,7 @@ export const DropdownMenuItem = React.forwardRef(
         {...props}
         ref={forwardedRef}
         className={classNames(
-          'outline-hidden cursor-pointer px-2 h-8 flex items-center rounded-sm hover:bg-active',
+          'outline-hidden cursor-pointer px-2 h-8 flex items-center rounded-sm hover:bg-secondary',
           className
         )}
         onClick={handleClick}
@@ -133,7 +133,7 @@ export const DropdownMenuCheckboxItem = React.forwardRef(
         {...props}
         ref={forwardedRef}
         className={classNames(
-          'outline-hidden cursor-pointer hover:bg-active',
+          'outline-hidden cursor-pointer hover:bg-secondary',
           className
         )}
         onClick={handleClick}
@@ -164,7 +164,7 @@ export const DropdownMenuRadioItem = React.forwardRef(
         {...props}
         ref={forwardedRef}
         className={classNames(
-          'outline-hidden cursor-pointer hover:bg-active',
+          'outline-hidden cursor-pointer hover:bg-secondary',
           className
         )}
         onClick={handleClick}

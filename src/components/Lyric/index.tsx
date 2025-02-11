@@ -99,7 +99,7 @@ const Lyric: React.FC<Props> = ({ id }) => {
             />
           ))
         ) : (
-          <div className='text-secondary'>暂无歌词</div>
+          <div className='text-secondary-foreground'>暂无歌词</div>
         )}
       </div>
     </div>

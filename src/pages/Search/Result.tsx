@@ -33,7 +33,7 @@ const Result: React.FC<Props> = ({ data, type }) => {
             user={data as IUser}
             size='large'
             signature
-            className=' hover:bg-active cursor-pointer px-2 rounded-md py-1'
+            className=' hover:bg-secondary cursor-pointer px-2 rounded-md py-1'
           />
         );
       case 'lyric':

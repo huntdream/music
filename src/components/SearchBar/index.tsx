@@ -1,11 +1,10 @@
 import React, { ChangeEvent, MouseEvent, ReactNode, useState } from 'react';
 import useSWR from 'swr';
 import { ResultType, SearchSuggest } from '../../types/search';
-import { MusicalNoteIcon, UserIcon } from '@heroicons/react/24/solid';
-import { AlbumIcon, PlaylistIcon } from '../../icons/Audio';
 import { useNavigate } from 'react-router-dom';
 import useClickAway from '../../hooks/useClickAway';
 import Input from './Input';
+import { Album, ListMusic, Music, User } from 'lucide-react';
 
 interface Props {
   initialKeyword?: string;
@@ -14,22 +13,22 @@ interface Props {
 const RESULT_TYPE: Record<Partial<ResultType>, ReactNode> = {
   songs: (
     <>
-      <MusicalNoteIcon className='h-4 w-4 mr-2'></MusicalNoteIcon>歌曲
+      <Music className='h-4 w-4 mr-2'></Music>歌曲
     </>
   ),
   artists: (
     <>
-      <UserIcon className='h-4 w-4 mr-2'></UserIcon>音乐人
+      <User className='h-4 w-4 mr-2'></User>音乐人
     </>
   ),
   playlists: (
     <>
-      <PlaylistIcon className='h-4 w-4 mr-2'></PlaylistIcon>歌单
+      <ListMusic className='h-4 w-4 mr-2'></ListMusic>歌单
     </>
   ),
   albums: (
     <>
-      <AlbumIcon className='h-4 w-4 mr-2'></AlbumIcon>专辑
+      <Album className='h-4 w-4 mr-2'></Album>专辑
     </>
   ),
   userprofiles: undefined,
@@ -90,14 +89,14 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
                 <h2 className='font-bold'>猜你想搜</h2>
                 {result?.order?.map((type) => (
                   <div key={type} className='first:mt-0 mt-2'>
-                    <div className='text-secondary flex items-center mb-1 border-b'>
+                    <div className='text-secondary-foreground flex items-center mb-1 border-b'>
                       {RESULT_TYPE[type]}
                     </div>
                     <div className=''>
                       {result?.[type].map(({ name, id }) => (
                         <div
                           key={id}
-                          className='hover:bg-active px-2 h-6 flex items-center rounded-s cursor-pointer'
+                          className='hover:bg-secondary px-2 h-6 flex items-center rounded-s cursor-pointer'
                           onClick={(e) => handleNavigate(e, type, name)}
                         >
                           {name}
@@ -108,7 +107,9 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
                 ))}
               </div>
             ) : (
-              <div className='text-center text-secondary'>暂无数据</div>
+              <div className='text-center text-secondary-foreground'>
+                暂无数据
+              </div>
             )}
           </div>
         )}

@@ -11,7 +11,7 @@ const Artist: FC<Props> = ({ className, data }) => {
   const { name, id, picUrl } = data;
 
   return (
-    <div className='p-2 flex items-center rounded-md hover:bg-active'>
+    <div className='p-2 flex items-center rounded-md hover:bg-secondary'>
       <Image src={picUrl} className='h-12 w-12 rounded-md' />
       <div className='ml-2 flex items-center h-12'>{name}</div>
     </div>

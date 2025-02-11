@@ -1,7 +1,3 @@
-import {
-  HeartIcon,
-  ChatBubbleOvalLeftEllipsisIcon,
-} from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
 import { IEvent } from '../../types/event';
 import Song from '../Song';
@@ -10,6 +6,8 @@ import Comment from '../Comment';
 import User from '../User';
 import Image from '../Image';
 import Pictures from './Pictures';
+import { Heart, MessageCircle } from 'lucide-react';
+import { Button } from '../ui/button';
 
 interface Props {
   event: IEvent;
@@ -36,23 +34,29 @@ const Event: React.FC<Props> = ({ event }) => {
       )}
       <Pictures pics={event.pics} />
       <div className='flex border-b mt-4'>
-        <div className='flex w-20 justify-center items-center cursor-pointer h-8 hover:bg-active'>
-          <HeartIcon
-            className={clsx('h-5 min-w-5 hover:scale-110', {
-              'fill-red-500': event.info.liked,
-            })}
+        <Button variant='ghost'>
+          <Heart
+            fill={event.info.liked ? 'red' : 'transparent'}
+            stroke={event.info.liked ? 'red' : 'currentColor'}
           />
-          <span className='ml-1'>{event.info.likedCount || ''}</span>
-        </div>
-        <div
-          className='flex w-20 justify-center items-center cursor-pointer h-8 hover:bg-active'
+          {event.info.likedCount > 0 && (
+            <span className='text-secondary-foreground'>
+              {event.info.likedCount || ''}
+            </span>
+          )}
+        </Button>
+        <Button
+          variant='ghost'
           onClick={() => {
             setShowComment(!showComment);
           }}
+          size={event.info.commentCount ? 'default' : 'icon'}
         >
-          <ChatBubbleOvalLeftEllipsisIcon className='h-5 min-w-5 hover:scale-110' />
-          <span className='ml-1'>{event.info.commentCount || ''}</span>
-        </div>
+          <MessageCircle />
+          {event.info.commentCount > 0 && (
+            <span className='ml-1'>{event.info.commentCount || ''}</span>
+          )}
+        </Button>
       </div>
       {showComment && <Comment id={event.info.threadId} />}
     </div>

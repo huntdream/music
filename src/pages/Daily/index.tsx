@@ -3,9 +3,9 @@ import useSWR from 'swr';
 import useUser from '../../context/App/useUser';
 import { IRecommendation, ITrack } from '../../types/playlist';
 import Song from '../../components/Song';
-import { PlayCircleIcon, PlusCircleIcon } from '@heroicons/react/24/solid';
 import usePlayer from '../../components/Player/usePlayer';
 import Auth from '../../components/Auth';
+import { Button } from '@/components/ui/button';
 
 interface Props {}
 
@@ -51,14 +51,11 @@ const Daily: React.FC<Props> = () => {
           </div>
         </div>
         <div className='flex gap-2 mt-4'>
-          <PlayCircleIcon
-            onClick={() => handlePlay()}
-            className='w-10 h-10 cursor-pointer'
-          />
-          <PlusCircleIcon
-            onClick={handleAdd}
-            className='w-10 h-10 cursor-pointer'
-          />
+          <Button onClick={() => handlePlay()}>播放</Button>
+
+          <Button onClick={handleAdd} variant='secondary'>
+            加入播放列表
+          </Button>
         </div>
       </div>
       <div className='px-2 mt-4'>

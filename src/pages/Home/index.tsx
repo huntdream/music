@@ -5,6 +5,7 @@ import NavBar from '../../components/NavBar';
 import { AppContext } from '../../context/App/App';
 import Sider from '../../components/Sider';
 import Title from '../../components/Title';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 interface Props {}
 
@@ -12,18 +13,16 @@ const Home: React.FC<Props> = () => {
   const { isDesktop } = useContext(AppContext);
 
   return (
-    <div>
+    <SidebarProvider>
       <Title />
 
-      <div className='h-dvh overflow-hidden flex'>
-        {isDesktop && <Sider />}
-        <main className='overflow-auto flex-1'>
-          <Outlet />
-        </main>
-      </div>
+      {isDesktop && <Sider />}
+      <main className='overflow-auto flex-1'>
+        <Outlet />
+      </main>
       <Player />
       {!isDesktop && <NavBar />}
-    </div>
+    </SidebarProvider>
   );
 };
 

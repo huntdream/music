@@ -8,10 +8,10 @@ import { ITrack } from '../../types/playlist';
 import usePlayer from '../Player/usePlayer';
 import Artists from '../Artist/Artists';
 import playingIcon from '../../assets/playing.gif';
-import { PauseIcon, PlayIcon } from '../../icons/Audio';
 import Actions from './Actions';
 import { AppContext } from '../../context/App/App';
 import Heart from '../../icons/Heart';
+import { Pause, Play } from 'lucide-react';
 
 interface Props {
   song: ISong;
@@ -61,7 +61,7 @@ const Song: React.FC<Props> = ({
   return (
     <div
       className={clsx(
-        'flex py-2 pl-2 items-center cursor-pointer rounded-md overflow-hidden hover:bg-active',
+        'flex py-2 pl-2 items-center cursor-pointer rounded-md overflow-hidden hover:bg-secondary',
         standalone ? 'bg-gray-100' : '',
         className
       )}
@@ -76,14 +76,17 @@ const Song: React.FC<Props> = ({
         />
         {isCurrentSong && (
           <div className='absolute rounded-sm inset-0 p-3 bg-gray-600/35'>
-            {isPlaying ? <PauseIcon /> : <PlayIcon />}
+            {isPlaying ? <Pause /> : <Play />}
           </div>
         )}
       </div>
       <div className='ml-2 flex-1 min-w-0 flex flex-col justify-between'>
         <div className='flex'>
           <span
-            className={clsx('truncate', canPlay ? '' : 'text-secondary')}
+            className={clsx(
+              'truncate',
+              canPlay ? '' : 'text-secondary-foreground'
+            )}
             title={name}
           >
             {name}

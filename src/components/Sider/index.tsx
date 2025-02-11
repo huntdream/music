@@ -1,10 +1,33 @@
 import React, { useContext } from 'react';
-import Item from './Item';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Auth from '../Auth';
+import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import usePlaylists from '../../fetchers/usePlaylists';
 import { AppContext } from '../../context/App/App';
-import { PlaylistIcon } from '../../icons/Audio';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from '../ui/sidebar';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import {
+  ChevronDown,
+  House,
+  ListMusic,
+  Radius,
+  Rss,
+  Settings,
+} from 'lucide-react';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '../ui/collapsible';
 
 interface Props {}
 
@@ -26,52 +49,83 @@ const Sider: React.FC<Props> = () => {
     {
       name: '推荐',
       path: '/',
+      icon: <House />,
     },
     {
       name: '私人漫游',
       path: '/enjoy',
+      icon: <Radius />,
     },
     {
       name: '动态',
       path: '/moments',
+      icon: <Rss />,
     },
   ];
 
   return (
-    <div className='pt-4 border-r w-60 overflow-hidden h-full flex flex-col'>
-      <Auth className='pl-4' />
-
-      <div className='py-4 px-2'>
-        {menu.map(({ path, name }) => (
-          <Item
-            key={path}
-            active={isActive(path)}
-            onClick={() => navigateTo(path)}
-          >
-            {name}
-          </Item>
-        ))}
-      </div>
-
-      <h2 className='my-2 ml-4 font-bold text-lg border-b'>我的歌单</h2>
-      <div className='overflow-auto flex-1 mb-24 px-2'>
-        {mylist?.map(({ id, name }) => (
-          <Item
-            onClick={() => navigateTo(`/playlist/${id}`)}
-            active={id === playlistId}
-            key={id}
-          >
-            <PlaylistIcon className='h-4 w-4 mr-1' />
-            <span
-              className='flex-1 whitespace-nowrap text-ellipsis overflow-hidden'
-              title={name}
-            >
-              {name}
-            </span>
-          </Item>
-        ))}
-      </div>
-    </div>
+    <Sidebar className='pb-20'>
+      <SidebarHeader>
+        <SidebarGroup>
+          <SidebarGroupLabel>发现</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {menu.map(({ name, path, icon }) => (
+                <SidebarMenuItem key={path}>
+                  <SidebarMenuButton asChild isActive={isActive(path)}>
+                    <NavLink to={path}>
+                      {icon}
+                      <span>{name}</span>
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarHeader>
+      <SidebarContent>
+        <Collapsible defaultOpen>
+          <SidebarGroup>
+            <SidebarGroupLabel asChild>
+              <CollapsibleTrigger>
+                我的音乐
+                <ChevronDown className='ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180' />
+              </CollapsibleTrigger>
+            </SidebarGroupLabel>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {mylist?.map((list) => (
+                    <SidebarMenuItem key={list.id}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={playlistId === list.id}
+                      >
+                        <NavLink to={`/playlist/${list.id}`}>
+                          <ListMusic />
+                          <span>{list.name}</span>
+                        </NavLink>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </SidebarGroup>
+        </Collapsible>
+      </SidebarContent>
+      <SidebarFooter className='flex flex-row items-center'>
+        <Avatar>
+          <AvatarImage src={user?.avatarUrl} />
+          <AvatarFallback>
+            {user?.nickname?.slice(0, 1).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+        {user?.nickname}
+        <Settings className='ml-auto' />
+      </SidebarFooter>
+    </Sidebar>
   );
 };
 

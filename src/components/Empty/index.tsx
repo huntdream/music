@@ -59,7 +59,7 @@ const Empty: FC<Props> = ({ className }) => {
           p-id='17622'
         ></path>
       </svg>
-      <div className='mt-2 text-center text-secondary'>暂无数据</div>
+      <div className='mt-2 text-center text-secondary-foreground'>暂无数据</div>
     </div>
   );
 };

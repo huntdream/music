@@ -23,7 +23,7 @@ const Recommendation: React.FC<Props> = () => {
   };
 
   return (
-    <div className='p-3 inline-flex gap-2 flex-col max-w-52 hover:bg-active rounded-md'>
+    <div className='p-3 inline-flex gap-2 flex-col max-w-52 hover:bg-secondary rounded-md'>
       <div className='h-44 w-44'>
         {isLoading ? (
           <Skeleton />
@@ -34,7 +34,7 @@ const Recommendation: React.FC<Props> = () => {
         )}
       </div>
       <div
-        className='text-center text-secondary cursor-pointer'
+        className='text-center text-secondary-foreground cursor-pointer'
         onClick={handleNavigate}
       >
         每日推荐
