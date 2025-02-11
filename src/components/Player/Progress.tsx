@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo, useState } from 'react';
-import * as Slider from '@radix-ui/react-slider';
 import { msToMinutes } from '../../utils/msConvert';
 import usePlayer from './usePlayer';
+import { Slider } from '../ui/slider';
 
 interface Props {
   duration?: number;
@@ -40,19 +40,14 @@ const Progress: FC<Props> = ({ duration = 0 }) => {
       <div className='text-sm text-secondary-foreground min-w-10 text-right'>
         {playedTime}
       </div>
-      <Slider.Root
-        className='relative flex items-center select-none mx-4 touch-none flex-1 h-5'
+      <Slider
+        className='mx-4'
         max={100}
         value={[percent]}
         onClick={(e) => e.stopPropagation()}
         onValueChange={handleSeekTime}
         step={0.01}
-      >
-        <Slider.Track className='bg-secondary relative cursor-pointer grow rounded-md h-1'>
-          <Slider.Range className='absolute bg-primary rounded-full h-full' />
-        </Slider.Track>
-        <Slider.Thumb className='block w-2 h-2 bg-secondary cursor-grab rounded-md hover:bg-purple-500 ' />
-      </Slider.Root>
+      />
       <div className='text-sm text-secondary-foreground min-w-10'>
         {totalTime}
       </div>

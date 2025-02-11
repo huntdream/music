@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import * as Slider from '@radix-ui/react-slider';
 import usePlayer from './usePlayer';
 import { Volume2, VolumeX } from 'lucide-react';
 import IconButton from '../IconButton';
+import { Slider } from '../ui/slider';
 
 interface Props {}
 
@@ -42,19 +42,14 @@ const Volume: React.FC<Props> = () => {
 
   return (
     <div className='flex items-center'>
-      <Slider.Root
-        className='relative flex items-center w-20 select-none mx-4 touch-none flex-1 h-5'
+      <Slider
+        className='w-20 mx-4 h-5'
         max={1}
         value={[volume]}
         onClick={(e) => e.stopPropagation()}
         onValueChange={handleChange}
         step={0.01}
-      >
-        <Slider.Track className='bg-secondary relative cursor-pointer grow rounded-md h-1'>
-          <Slider.Range className='absolute bg-primary rounded-full h-full' />
-        </Slider.Track>
-        <Slider.Thumb className='block w-2 h-2 bg-secondary cursor-grab rounded-md hover:bg-purple-500 ' />
-      </Slider.Root>
+      />
 
       <IconButton onClick={handleClick}>
         {muted ? <VolumeX /> : <Volume2 />}
