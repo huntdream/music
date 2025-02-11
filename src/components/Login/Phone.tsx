@@ -2,7 +2,7 @@ import React, { useState, MouseEvent } from 'react';
 import { toast } from 'sonner';
 import fetcher from '../../utils/fetcher';
 import { Button } from '@/components/ui/button';
-import Input from '../Input';
+import { Input } from '../ui/input';
 
 interface Props {
   onSuccess: () => void;
@@ -47,17 +47,9 @@ const Phone: React.FC<Props> = ({ onSuccess }) => {
   return (
     <div>
       <div className='px-10 py-4'>
-        <Input
-          label='Phone'
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
+        <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
         <div className='flex items-end justify-between mt-2'>
-          <Input
-            label='Code'
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-          />
+          <Input value={code} onChange={(e) => setCode(e.target.value)} />
           <Button disabled={!phone} onClick={handleSend}>
             Send
           </Button>

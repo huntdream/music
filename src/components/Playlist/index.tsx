@@ -15,8 +15,9 @@ import { Button } from '@/components/ui/button';
 import Image from '../Image';
 import Loading from '../Loading';
 import usePlayer from '../Player/usePlayer';
-import Input from '../Input';
 import List from './List';
+import { Input } from '../ui/input';
+import { Play, Plus } from 'lucide-react';
 
 interface Props {}
 
@@ -98,24 +99,26 @@ const Playlist: React.FC<Props> = () => {
           </div>
           <div className='self-end'>
             <div className='space-x-4'>
-              <Button onClick={handlePlayList} pirmary>
+              <Button onClick={handlePlayList}>
+                <Play />
                 播放
               </Button>
-              <Button onClick={handleAppendQueue}>加入播放列表</Button>
+              <Button onClick={handleAppendQueue} variant='secondary'>
+                <Plus />
+                加入播放列表
+              </Button>
             </div>
           </div>
         </div>
       </div>
-      <div>
+      <div className='my-2'>
         <Input
           placeholder='搜索'
           value={keyword}
           onChange={handleKeywordChange}
         />
       </div>
-      <div className='mt-4'>
-        <List list={tracks} onPlay={handlePlay} />
-      </div>
+      <List list={tracks} onPlay={handlePlay} />
     </div>
   );
 };

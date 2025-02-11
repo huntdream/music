@@ -1,8 +1,13 @@
-import React, { ChangeEvent, useMemo, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import clsx from 'clsx';
 import { useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
-import Input from '../../components/SearchBar/Input';
 import {
   ResultDataKey,
   ResultType,
@@ -14,10 +19,12 @@ import Empty from '../../components/Empty';
 import Result, { ResultDataType } from './Result';
 import Loading from '../../components/Loading';
 import { IUser } from '../../types/user';
+import { Input } from '@/components/ui/input';
 
 interface Props {}
 
 const Search: React.FC<Props> = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [searchParams] = useSearchParams();
 
   const [searchType, setSearchType] = useState<ResultType>(
@@ -36,6 +43,10 @@ const Search: React.FC<Props> = () => {
         }
       : ''
   );
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeywords(e.target.value);
@@ -57,7 +68,7 @@ const Search: React.FC<Props> = () => {
   return (
     <div className='pb-36'>
       <div className='py-2 px-4 sticky z-30 top-0 bg-white/65 backdrop-blur-md'>
-        <Input onChange={handleChange} value={keywords} />
+        <Input onChange={handleChange} value={keywords} ref={inputRef} />
         <div className='flex mt-3 overflow-hidden'>
           {SEARCH_TYPE_LIST.map((key) => (
             <div

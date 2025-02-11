@@ -1,10 +1,16 @@
-import React, { ChangeEvent, MouseEvent, ReactNode, useState } from 'react';
+import React, {
+  ChangeEvent,
+  MouseEvent,
+  ReactNode,
+  KeyboardEvent,
+  useState,
+} from 'react';
 import useSWR from 'swr';
 import { ResultType, SearchSuggest } from '../../types/search';
 import { useNavigate } from 'react-router-dom';
 import useClickAway from '../../hooks/useClickAway';
-import Input from './Input';
 import { Album, ListMusic, Music, User } from 'lucide-react';
+import { Input } from '../ui/input';
 
 interface Props {
   initialKeyword?: string;
@@ -55,8 +61,12 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
     setOpen(true);
   };
 
-  const handleKeyUp = (value: string) => {
-    navigate(`/search?keyword=${value}`);
+  const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter') {
+      e.preventDefault();
+
+      navigate(`/search?keyword=${e.currentTarget.value}`);
+    }
   };
 
   const handleNavigate = (e: MouseEvent, type: string, name: string) => {
@@ -73,14 +83,14 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
 
   return (
     <div>
-      <div className='mx-4 py-2 sticky' ref={ref}>
+      <div className='mx-2 py-2 sticky' ref={ref}>
         <Input
           placeholder='搜索'
-          className='flex h-8 w-full rounded-md border border-input outline-hidden px-3 py-2 text-sm'
+          className='flex outline-hidden'
           value={keyword}
           onChange={handleChange}
           onFocus={handleFocus}
-          onPressEnter={handleKeyUp}
+          onKeyUp={handleKeyUp}
         />
         {open && result && (
           <div className='absolute bg-white left-0 right-0 shadow-lg rounded-md p-2'>
