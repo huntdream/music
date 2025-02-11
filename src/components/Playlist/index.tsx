@@ -23,7 +23,7 @@ interface Props {}
 
 const Playlist: React.FC<Props> = () => {
   const { id } = useParams();
-  const { pause, isPlaying, playingSong, replaceQueue, appendQueue } =
+  const { pause, play, isPlaying, playingSong, replaceQueue, appendQueue } =
     usePlayer();
   const [keyword, setKeyword] = useState('');
   const ref = useRef<HTMLDivElement>(null);

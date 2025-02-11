@@ -7,7 +7,7 @@ const fetcher = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
       ? 'https://music.maoyu.space/api'
-      : `http://${hostname}:3000`,
+      : `http://${hostname}:4000`,
   withCredentials: true,
 });
 

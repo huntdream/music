@@ -7,6 +7,7 @@ import usePlayer from '../../components/Player/usePlayer';
 import Auth from '../../components/Auth';
 import { Button } from '@/components/ui/button';
 import { Play, Plus } from 'lucide-react';
+import { ISong } from '@/types/song';
 
 interface Props {}
 
@@ -19,18 +20,16 @@ const Daily: React.FC<Props> = () => {
     user?.userId ? '/recommend/songs' : ''
   );
 
-  const handlePlay = (song?: ITrack) => {
-    appendQueue(data?.data.dailySongs || []);
+  const handlePlay = (song?: ISong) => {
+    if (song) {
+      appendQueue(data?.data.dailySongs || []);
+    } else {
+      replaceQueue(data?.data.dailySongs || []);
+    }
   };
 
   const handleAdd = () => {
-    if (data?.data) {
-      if (!queue.length) {
-        setPlayingSong(data.data.dailySongs[0]);
-      }
-
-      appendQueue(data?.data.dailySongs);
-    }
+    appendQueue(data?.data.dailySongs || []);
   };
 
   if (!user?.userId) {

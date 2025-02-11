@@ -133,7 +133,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
 
     let songToPlay = song || queue[0];
 
-    if (songToPlay) {
+    if (songToPlay?.id !== playingSong?.id) {
       await handlePlayingSongChange(songToPlay);
     }
 
@@ -170,6 +170,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
   const replaceQueue = (newQueue: ISong[] | string | number) => {
     if (Array.isArray(newQueue)) {
       setQueue(filterQueue(newQueue));
+      play(newQueue[0]);
     } else if (newQueue) {
       fetcher<any, { playlist: IPlaylist }>(
         `/playlist/detail?id=${newQueue}`
