@@ -102,7 +102,7 @@ const Sider: React.FC<Props> = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className='px-2'>
         <Collapsible defaultOpen>
           <SidebarGroup>
             <SidebarGroupLabel asChild>
