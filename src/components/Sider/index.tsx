@@ -50,10 +50,6 @@ const Sider: React.FC<Props> = () => {
   const [mylist] = usePlaylists(user?.userId);
   const playlistId = pathname.startsWith('/playlist') ? parseInt(id, 10) : 0;
 
-  const navigateTo = (path: string) => {
-    navigate(path);
-  };
-
   const isActive = (path: string) => pathname === path;
 
   const menu = [
@@ -64,7 +60,7 @@ const Sider: React.FC<Props> = () => {
     },
     {
       name: '私人漫游',
-      path: '/enjoy',
+      path: '/personal',
       icon: <Radius />,
     },
     {

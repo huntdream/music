@@ -3,7 +3,6 @@ import SearchBar from '../../components/SearchBar';
 import DailySongs from './DailySongs';
 import { useUser } from '../../context/App';
 import Auth from '@/components/Auth';
-import useSWR from 'swr';
 import DailyList from './DailyList';
 
 interface Props {}

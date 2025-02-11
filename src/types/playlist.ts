@@ -52,6 +52,9 @@ export interface ITrack {
   copyright: 0 | 1 | 2;
   fee: number;
   noCopyrightRcmd: any;
+  duration: number;
+  album: IAlbum;
+  artists: IArtist[];
 }
 
 export interface IAlbum {
