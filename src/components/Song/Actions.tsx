@@ -5,8 +5,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../components/Dropdown';
+} from '@/components/ui/dropdown-menu';
+import { MessageCircle } from 'lucide-react';
 
 interface Props {
   id: number;
@@ -26,7 +29,10 @@ const Actions: React.FC<Props> = ({ id }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {/* <DropdownMenuItem>下一首播放</DropdownMenuItem> */}
-        <DropdownMenuItem onClick={navigateToComments}>评论</DropdownMenuItem>
+        <DropdownMenuItem onClick={navigateToComments}>
+          <MessageCircle />
+          <span>评论</span>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

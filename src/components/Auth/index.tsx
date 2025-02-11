@@ -14,7 +14,7 @@ interface Props {
 
 const Auth: React.FC<Props> = ({ className, page }) => {
   const [showQr, setShowQr] = useState(false);
-  const [user, setUser] = useUser();
+  const [user] = useUser();
   const { mutate } = useSWRConfig();
 
   const handleLoginSuccess = () => {
@@ -31,18 +31,14 @@ const Auth: React.FC<Props> = ({ className, page }) => {
     }
   };
 
-  return (
+  return user?.userId ? null : (
     <div
       className={clsx(
         page ? ' h-full w-full flex justify-center items-center' : '',
         className
       )}
     >
-      {user?.userId ? (
-        <User user={user} />
-      ) : (
-        <Button onClick={handleLogin}>登录</Button>
-      )}
+      <Button onClick={handleLogin}>登录</Button>
       <Modal title='登录' visible={showQr} onClose={() => setShowQr(false)}>
         <Login onSuccess={handleLoginSuccess} />
       </Modal>

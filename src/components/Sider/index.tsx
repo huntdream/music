@@ -19,6 +19,7 @@ import {
   ChevronDown,
   House,
   ListMusic,
+  LogOut,
   Radius,
   Rss,
   Settings,
@@ -28,6 +29,16 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '../ui/collapsible';
+
+import {
+  DropdownMenuShortcut,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
+import { Button } from '../ui/button';
+import fetcher from '@/utils/fetcher';
 
 interface Props {}
 
@@ -62,6 +73,13 @@ const Sider: React.FC<Props> = () => {
       icon: <Rss />,
     },
   ];
+
+  const handleSignout = () => {
+    fetcher('/logout').then(() => {
+      navigate('/');
+      window.location.reload();
+    });
+  };
 
   return (
     <Sidebar className='pb-20'>
@@ -123,7 +141,21 @@ const Sider: React.FC<Props> = () => {
           </AvatarFallback>
         </Avatar>
         {user?.nickname}
-        <Settings className='ml-auto' />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            {user?.userId && (
+              <Button variant='ghost' size='icon' className='ml-auto'>
+                <Settings />
+              </Button>
+            )}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent side='top' align='end'>
+            <DropdownMenuItem onClick={handleSignout}>
+              <LogOut />
+              <span>Log out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </SidebarFooter>
     </Sidebar>
   );

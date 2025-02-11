@@ -29,7 +29,7 @@ const Login: React.FC<Props> = ({ onSuccess }) => {
           )}
           onClick={() => setType('phone')}
         >
-          手机验证码登录
+          验证码登录
         </div>
       </div>
       {type === 'qr' ? (
