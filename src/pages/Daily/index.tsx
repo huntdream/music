@@ -6,6 +6,7 @@ import Song from '../../components/Song';
 import usePlayer from '../../components/Player/usePlayer';
 import Auth from '../../components/Auth';
 import { Button } from '@/components/ui/button';
+import { Play, Plus } from 'lucide-react';
 
 interface Props {}
 
@@ -19,13 +20,7 @@ const Daily: React.FC<Props> = () => {
   );
 
   const handlePlay = (song?: ITrack) => {
-    if (data?.data) {
-      replaceQueue(data?.data.dailySongs);
-
-      if (song) {
-        setPlayingSong(song);
-      }
-    }
+    appendQueue(data?.data.dailySongs || []);
   };
 
   const handleAdd = () => {
@@ -51,9 +46,13 @@ const Daily: React.FC<Props> = () => {
           </div>
         </div>
         <div className='flex gap-2 mt-4'>
-          <Button onClick={() => handlePlay()}>播放</Button>
+          <Button onClick={() => handlePlay()}>
+            <Play />
+            播放
+          </Button>
 
           <Button onClick={handleAdd} variant='secondary'>
+            <Plus />
             加入播放列表
           </Button>
         </div>

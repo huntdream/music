@@ -112,10 +112,11 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     };
   }, [audioRef.current, setIsPlaying, queue, playingSong]);
 
-  const fetchAndUpdateSrc = async (song: ISong) => {
-    if (!song?.id) return;
+  const handlePlayingSongChange = async (song: ISong) => {
+    setPlayingSong(song);
 
     const src = await getSongUrl(song.id);
+
     if (src && audioRef.current) {
       audioRef.current.src = src;
     }
@@ -125,7 +126,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     return audioRef.current?.pause();
   };
 
-  const play = async (song?: ITrack, isInit?: boolean) => {
+  const play = async (song?: ITrack) => {
     if (song && song.id === playingSong?.id && isPlaying) {
       return pause();
     }
@@ -133,15 +134,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     let songToPlay = song || queue[0];
 
     if (songToPlay) {
-      setPlayingSong(songToPlay);
-
-      if (
-        songToPlay.id !== playingSong?.id ||
-        isInit ||
-        !audioRef.current?.src
-      ) {
-        fetchAndUpdateSrc(songToPlay);
-      }
+      await handlePlayingSongChange(songToPlay);
     }
 
     return audioRef.current?.play();
@@ -177,7 +170,6 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
   const replaceQueue = (newQueue: ISong[] | string | number) => {
     if (Array.isArray(newQueue)) {
       setQueue(filterQueue(newQueue));
-      play(newQueue[0], true);
     } else if (newQueue) {
       fetcher<any, { playlist: IPlaylist }>(
         `/playlist/detail?id=${newQueue}`
@@ -197,7 +189,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     queue,
     setQueue,
     playingSong,
-    setPlayingSong,
+    setPlayingSong: handlePlayingSongChange,
     isPlaying,
     setIsPlaying,
     audioRef,
