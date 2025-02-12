@@ -2,6 +2,7 @@ import Image from '@/components/Image';
 import { IDailyListRecommendation } from '@/types/playlist';
 import { useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
+import Card from './Card';
 
 const DailyList = () => {
   const navigate = useNavigate();
@@ -12,20 +13,12 @@ const DailyList = () => {
   };
 
   return data?.recommend.map(({ id, creator, picUrl, name }) => (
-    <div
-      className='p-3 inline-flex gap-2 flex-col max-w-52 hover:bg-secondary rounded-md'
+    <Card
+      name={name}
       onClick={() => handleNavigate(id)}
+      picUrl={picUrl}
       key={id}
-    >
-      <div className='h-44 w-44'>
-        <div>
-          <Image src={picUrl} className='rounded-md cursor-pointer' />
-        </div>
-      </div>
-      <div className='text-center text-secondary-foreground cursor-pointer'>
-        {name}
-      </div>
-    </div>
+    />
   ));
 };
 

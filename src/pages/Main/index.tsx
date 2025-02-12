@@ -4,6 +4,7 @@ import DailySongs from './DailySongs';
 import { useUser } from '../../context/App';
 import Auth from '@/components/Auth';
 import DailyList from './DailyList';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 interface Props {}
 
@@ -14,10 +15,13 @@ const Main: React.FC<Props> = () => {
     <div className='px-2 pb-36 h-full'>
       <SearchBar />
       {user?.userId && (
-        <div className='flex gap-2 flex-wrap'>
-          <DailySongs />
-          <DailyList />
-        </div>
+        <ScrollArea className='pr-1'>
+          <div className='flex w-max space-x-2 p-4'>
+            <DailySongs />
+            <DailyList />
+          </div>
+          <ScrollBar orientation='horizontal' />
+        </ScrollArea>
       )}
       <Auth page />
     </div>
