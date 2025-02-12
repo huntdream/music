@@ -39,6 +39,8 @@ import {
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import fetcher from '@/utils/fetcher';
+import clsx from 'clsx';
+import usePlayer from '../Player/usePlayer';
 
 interface Props {}
 
@@ -49,6 +51,7 @@ const Sider: React.FC<Props> = () => {
   const { id = '' } = useParams();
   const [mylist] = usePlaylists(user?.userId);
   const playlistId = pathname.startsWith('/playlist') ? parseInt(id, 10) : 0;
+  const { isShow } = usePlayer();
 
   const isActive = (path: string) => pathname === path;
 
@@ -78,7 +81,12 @@ const Sider: React.FC<Props> = () => {
   };
 
   return (
-    <Sidebar className='pb-20'>
+    <Sidebar
+      className={clsx(
+        'transition duration-400',
+        isShow && 'h-[calc(100svh_-_80px)]'
+      )}
+    >
       <SidebarHeader>
         <SidebarGroup>
           <SidebarGroupLabel>发现</SidebarGroupLabel>

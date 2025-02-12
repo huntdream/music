@@ -3,12 +3,11 @@ import { msToMinutes } from '../../utils/msConvert';
 import usePlayer from './usePlayer';
 import { Slider } from '../ui/slider';
 
-interface Props {
-  duration?: number;
-}
+interface Props {}
 
-const Progress: FC<Props> = ({ duration = 0 }) => {
-  const { audioRef } = usePlayer();
+const Progress: FC<Props> = () => {
+  const { audioRef, playingSong } = usePlayer();
+  const { dt: duration = 0 } = playingSong || { dt: 0 };
   const totalTime = useMemo(() => msToMinutes(duration), [duration]);
   const [currentTime, setCurrentTime] = useState(0);
 

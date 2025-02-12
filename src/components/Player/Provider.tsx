@@ -13,6 +13,7 @@ import fetcher from '../../utils/fetcher';
 import { uniqBy } from 'lodash-es';
 import { ITrack, IPlaylist } from '../../types/playlist';
 import getSongUrl from '../../fetchers/getSongUrl';
+import { useLocation } from 'react-router-dom';
 
 interface IPlayerContext {
   queue: ISong[];
@@ -26,6 +27,7 @@ interface IPlayerContext {
   prev: () => void;
   play: (song?: ISong) => void;
   pause: () => void;
+  isShow: boolean;
   replaceQueue: (newQueue: ISong[] | string | number) => void;
   appendQueue: (song: ISong | ISong[]) => void;
 }
@@ -43,6 +45,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
   const [playingSong, setPlayingSong] = useState<ISong>();
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if ('mediaSession' in navigator) {
@@ -186,6 +189,8 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     setQueue(uniqBy(newQueue, 'id'));
   };
 
+  const isShow = !!playingSong && !['/playing'].includes(pathname);
+
   const context: IPlayerContext = {
     queue,
     setQueue,
@@ -193,6 +198,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     setPlayingSong: handlePlayingSongChange,
     isPlaying,
     setIsPlaying,
+    isShow,
     audioRef,
     next,
     prev,

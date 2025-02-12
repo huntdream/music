@@ -30,10 +30,10 @@ const Player: React.FC<Props> = () => {
   return (
     <div
       className={clsx(
-        'fixed bottom-0 left-0 right-0 px-4 z-50 shadow-around bg-white rounded-(--safe-radius)  transition-transform duration-200 ease-in-out ',
-        // playingSong
-        //   ? 'translate-x-0 opacity-100'
-        //   : 'opacity-0 translate-y-[calc(var(--safe-b)/2+56px)]',
+        'fixed bottom-0 left-0 right-0 px-4 z-50 shadow-around bg-white rounded-(--safe-radius) transition-transform duration-300',
+        playingSong
+          ? 'opacity-100'
+          : 'opacity-0 translate-y-[calc(var(--safe-b)/2+56px)]',
         isDesktop
           ? 'py-2 mb-(--safe-b) mx-(--safe-b)'
           : 'mx-2 rounded-tl-md rounded-tr-md -translate-y-[calc(var(--safe-b)/2+56px)]'
@@ -77,8 +77,8 @@ const Player: React.FC<Props> = () => {
               : 'ml-auto'
           )}
         >
-          <Controls />
-          {isDesktop && <Progress duration={playingSong?.dt} />}
+          <Controls isMini />
+          {isDesktop && <Progress />}
         </div>
         <div
           className={clsx(

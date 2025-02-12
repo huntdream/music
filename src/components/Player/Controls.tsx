@@ -1,14 +1,15 @@
 import { FC, MouseEvent, useContext } from 'react';
 import clsx from 'clsx';
-import { PauseIcon, PlayIcon } from '../../icons/Audio';
 import usePlayer from './usePlayer';
 import { AppContext } from '../../context/App/App';
 import { Pause, Play, SkipBack, SkipForward } from 'lucide-react';
 import IconButton from '../IconButton';
 
-interface Props {}
+interface Props {
+  isMini?: boolean;
+}
 
-const Controls: FC<Props> = () => {
+const Controls: FC<Props> = ({ isMini }) => {
   const { prev, next, pause, play, isPlaying, playingSong } = usePlayer();
   const { isDesktop } = useContext(AppContext);
 
@@ -21,9 +22,11 @@ const Controls: FC<Props> = () => {
     }
   };
 
+  const showNextPrev = isDesktop || !isMini;
+
   return (
     <div className='flex justify-center items-center'>
-      {isDesktop && (
+      {showNextPrev && (
         <IconButton onClick={prev}>
           <SkipBack />
         </IconButton>
@@ -34,7 +37,7 @@ const Controls: FC<Props> = () => {
         </IconButton>
       </div>
 
-      {isDesktop && (
+      {showNextPrev && (
         <IconButton onClick={next}>
           <SkipForward />
         </IconButton>
