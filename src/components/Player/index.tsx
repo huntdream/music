@@ -14,7 +14,7 @@ import Actions from './Actions';
 interface Props {}
 
 const Player: React.FC<Props> = () => {
-  const { playingSong, audioRef } = useContext(PlayerContext);
+  const { playingSong, isShow, audioRef } = useContext(PlayerContext);
   const { isDesktop } = useContext(AppContext);
   const navigateLyric = useNavigateLyric();
 
@@ -31,7 +31,7 @@ const Player: React.FC<Props> = () => {
     <div
       className={clsx(
         'fixed bottom-0 left-0 right-0 px-4 z-50 shadow-around bg-white rounded-(--safe-radius) transition-transform duration-300',
-        playingSong
+        isShow
           ? 'opacity-100'
           : 'opacity-0 translate-y-[calc(var(--safe-b)/2+56px)]',
         isDesktop
