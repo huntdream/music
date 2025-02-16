@@ -93,7 +93,7 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
           onKeyUp={handleKeyUp}
         />
         {open && result && (
-          <div className='absolute bg-white left-0 right-0 shadow-lg rounded-md p-2'>
+          <div className='absolute bg-white left-0 right-0 shadow-lg rounded-md p-2 z-50'>
             {result?.order ? (
               <div>
                 <h2 className='font-bold'>猜你想搜</h2>

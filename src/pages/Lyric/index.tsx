@@ -33,7 +33,7 @@ const Lyric: React.FC<Props> = () => {
   }, [id, songDetail, queue]);
 
   return (
-    <div className='fixed inset-0 bg-white/80 backdrop-blur-md animate-slide-in'>
+    <div className='fixed z-50 inset-0 bg-white/80 backdrop-blur-md animate-slide-in'>
       <LyricComp id={id!} />
     </div>
   );
