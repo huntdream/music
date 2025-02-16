@@ -83,7 +83,7 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
 
   return (
     <div>
-      <div className='mx-2 py-2 sticky' ref={ref}>
+      <div className='mx-2 py-2 sticky z-20' ref={ref}>
         <Input
           placeholder='搜索'
           className='flex outline-hidden'
@@ -93,7 +93,7 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
           onKeyUp={handleKeyUp}
         />
         {open && result && (
-          <div className='absolute bg-white left-0 right-0 shadow-lg rounded-md p-2 z-50'>
+          <div className='absolute bg-white left-0 right-0 shadow-lg rounded-md p-2'>
             {result?.order ? (
               <div>
                 <h2 className='font-bold'>猜你想搜</h2>
