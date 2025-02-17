@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import useClickAway from '../../hooks/useClickAway';
 import { Album, ListMusic, Music, User } from 'lucide-react';
 import { Input } from '../ui/input';
+import { cn } from '@/lib/utils';
 
 interface Props {
   initialKeyword?: string;
@@ -99,14 +100,14 @@ const SearchBar: React.FC<Props> = ({ initialKeyword = '' }) => {
                 <h2 className='font-bold'>猜你想搜</h2>
                 {result?.order?.map((type) => (
                   <div key={type} className='first:mt-0 mt-2'>
-                    <div className='text-secondary-foreground flex items-center mb-1 border-b'>
+                    <div className='text-muted-foreground flex items-center mb-1 border-b'>
                       {RESULT_TYPE[type]}
                     </div>
                     <div className=''>
                       {result?.[type].map(({ name, id }) => (
                         <div
                           key={id}
-                          className='hover:bg-secondary px-2 h-6 flex items-center rounded-s cursor-pointer'
+                          className='flex h-9 items-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer'
                           onClick={(e) => handleNavigate(e, type, name)}
                         >
                           {name}
