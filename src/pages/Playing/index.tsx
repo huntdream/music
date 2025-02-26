@@ -1,3 +1,4 @@
+import Artists from '@/components/Artist/Artists';
 import GradientOverlay from '@/components/GradientOverlay';
 import Image from '@/components/Image';
 import Lyric from '@/components/Lyric';
@@ -35,18 +36,24 @@ const Playing: React.FC<Props> = () => {
         <ArrowDownFromLine />
       </Button>
       <div className='flex h-full'>
-        <div className='h-full flex-1 flex flex-col items-center justify-between pt-16 mx-auto'>
+        <div className='h-full flex-1 flex flex-col items-center pt-16 mx-auto'>
           <Image
             src={al.picUrl}
             alt={name}
             className='h-auto rounded-lg w-72'
           />
-          <div className='mb-40'>
-            <div className='my-8'>
-              <Controls />
+          <div className='mt-24 w-full'>
+            <div className='text-center'>
+              <div className='font-bold text-lg'>{playingSong.name}</div>
+              <div>
+                <Artists artists={playingSong.ar} />
+              </div>
             </div>
-            <div className='w-80'>
+            <div className='my-8 w-[70%] mx-auto'>
               <Progress />
+            </div>
+            <div className='mt-12'>
+              <Controls />
             </div>
           </div>
         </div>
