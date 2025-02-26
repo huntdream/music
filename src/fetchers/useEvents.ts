@@ -21,6 +21,7 @@ const useEvents = ({ id, ...params }: Params) => {
           if (json.song) {
             json.song = {
               ...json.song,
+              dt: json.song?.duration,
               al: json.song?.album,
               ar: json.song?.artists,
             };
