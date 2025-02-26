@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, MouseEvent } from 'react';
 import { LyricIcon } from '../../icons/Audio';
 import usePlayer from './usePlayer';
 import { AppContext } from '../../context/App/App';
@@ -21,13 +21,17 @@ const Actions: FC<Props> = () => {
   const isLyricOpen = window.location.pathname.startsWith('/lyric');
   const isCommentPage = pathname.includes('/comments') && !isLyricOpen;
 
-  const handleClickLyric = () => {
+  const handleClickLyric = (e: MouseEvent) => {
+    e.stopPropagation();
+
     if (playingSong) {
       navigateLyric(playingSong?.id);
     }
   };
 
-  const navigateToComments = () => {
+  const navigateToComments = (e: MouseEvent) => {
+    e.stopPropagation();
+
     if (isCommentPage) {
       navigate(-1);
     } else {

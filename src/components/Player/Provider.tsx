@@ -189,7 +189,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     setQueue(uniqBy(newQueue, 'id'));
   };
 
-  const isShow = !!playingSong && !['/playing'].includes(pathname);
+  const isShow = !!playingSong && !pathname.startsWith('/playing');
 
   const context: IPlayerContext = {
     queue,

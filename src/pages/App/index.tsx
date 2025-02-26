@@ -57,7 +57,7 @@ function App() {
           <Route path='daily' element={<Daily />} />
           <Route path='personal' element={<Personal />} />
           <Route path='comments/:id' element={<Comments />} />
-          <Route path='playing' element={<Playing />} />
+          <Route path='playing/:id' element={<Playing />} />
           <Route
             path='*'
             element={
@@ -81,6 +81,7 @@ function App() {
       {state?.backgroundLocation && (
         <Routes>
           <Route path='lyric/:id' element={<Lyric />} />
+          <Route path='playing/:id' element={<Playing />} />
         </Routes>
       )}
     </>

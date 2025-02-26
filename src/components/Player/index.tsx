@@ -10,6 +10,7 @@ import Artists from '../Artist/Artists';
 import Progress from './Progress';
 import Controls from './Controls';
 import Actions from './Actions';
+import useNavigatePlaying from '@/hooks/useNavigatePlaying';
 
 interface Props {}
 
@@ -17,14 +18,20 @@ const Player: React.FC<Props> = () => {
   const { playingSong, isShow, audioRef } = useContext(PlayerContext);
   const { isDesktop } = useContext(AppContext);
   const navigateLyric = useNavigateLyric();
+  const navigatePlaying = useNavigatePlaying();
 
   const handleClick = (e: MouseEvent) => {
-    if (isDesktop) return;
+    if (!playingSong?.id) return;
+
+    if (isDesktop) {
+      navigatePlaying(playingSong.id);
+      return;
+    }
 
     e.stopPropagation();
     e.preventDefault();
 
-    navigateLyric(playingSong!.id);
+    navigateLyric(playingSong.id);
   };
 
   return (

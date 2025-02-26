@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import usePlayer from './usePlayer';
 import { Volume2, VolumeX } from 'lucide-react';
 import IconButton from '../IconButton';
@@ -31,7 +31,9 @@ const Volume: React.FC<Props> = () => {
     }
   }, [audioRef]);
 
-  const handleClick = () => {
+  const handleClick = (e: MouseEvent) => {
+    e.stopPropagation();
+
     if (audioRef.current) {
       const isMuted = audioRef.current.muted;
       setVolume(isMuted ? audioRef.current.volume : 0);

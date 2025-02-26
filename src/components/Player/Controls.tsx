@@ -22,12 +22,22 @@ const Controls: FC<Props> = ({ isMini }) => {
     }
   };
 
+  const handlePrev = (e: MouseEvent) => {
+    e.stopPropagation();
+    prev();
+  };
+
+  const handleNext = (e: MouseEvent) => {
+    e.stopPropagation();
+    next();
+  };
+
   const showNextPrev = isDesktop || !isMini;
 
   return (
     <div className='flex justify-center items-center'>
       {showNextPrev && (
-        <IconButton onClick={prev}>
+        <IconButton onClick={handlePrev}>
           <SkipBack />
         </IconButton>
       )}
@@ -38,7 +48,7 @@ const Controls: FC<Props> = ({ isMini }) => {
       </div>
 
       {showNextPrev && (
-        <IconButton onClick={next}>
+        <IconButton onClick={handleNext}>
           <SkipForward />
         </IconButton>
       )}
