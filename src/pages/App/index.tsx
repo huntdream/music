@@ -1,11 +1,10 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
-import Home from '../Home';
+import Main from '../Main';
 import Library from '../Library';
 import Playlist from '../../components/Playlist';
 import Lyric from '../Lyric';
 import Moment from '../Moments';
 import { Toaster } from 'sonner';
-import Main from '../Main';
 import Search from '../Search';
 import { useEffect } from 'react';
 import Artist from '../Artist';
@@ -15,6 +14,7 @@ import useAccount from '../../fetchers/useAccount';
 import Personal from '../Personal';
 import Playing from '../Playing';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import Home from '../Home';
 
 function App() {
   useAccount();
@@ -46,8 +46,8 @@ function App() {
   return (
     <ThemeProvider>
       <Routes location={state?.backgroundLocation || location}>
-        <Route path='' element={<Home />}>
-          <Route index path='/' element={<Main />} />
+        <Route path='' element={<Main />}>
+          <Route index path='/' element={<Home />} />
           <Route path='me' element={<Library />} />
           <Route path='playlist/:id' element={<Playlist />} />
           <Route path='moments' element={<Moment />} />
