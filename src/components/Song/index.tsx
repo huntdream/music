@@ -62,7 +62,7 @@ const Song: React.FC<Props> = ({
     <div
       className={clsx(
         'flex py-2 pl-2 items-center cursor-pointer rounded-md overflow-hidden hover:bg-secondary',
-        standalone ? 'bg-gray-100' : '',
+        standalone ? 'bg-secondary' : '',
         className
       )}
       onClick={() => handlePlay(song)}
