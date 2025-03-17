@@ -1,7 +1,5 @@
-import React, { MouseEvent, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { MouseEvent, useContext } from 'react';
 import clsx from 'clsx';
-import useSongUrl from '../../fetchers/useSongUrl';
 import Image from '../Image';
 import { AppContext } from '../../context/App/App';
 import useNavigateLyric from '../Lyric/useNavigateLyric';
