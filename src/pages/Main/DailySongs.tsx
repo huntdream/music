@@ -23,6 +23,8 @@ const DailySongs: React.FC<Props> = () => {
     navigate('/daily');
   };
 
+  if (!data) return null;
+
   return <Card name='每日推荐' picUrl={images[0]} onClick={handleNavigate} />;
 };
 
