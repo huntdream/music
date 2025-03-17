@@ -136,7 +136,13 @@ const Sider: React.FC<Props> = () => {
                         isActive={playlistId === list.id}
                       >
                         <NavLink to={`/playlist/${list.id}`}>
-                          <ListMusic />
+                          {list.coverImgUrl ? (
+                            <Avatar className='w-6 h-6'>
+                              <AvatarImage src={list.coverImgUrl} />
+                            </Avatar>
+                          ) : (
+                            <ListMusic className='w-6 h-6 stroke-current' />
+                          )}
                           <span>{list.name}</span>
                         </NavLink>
                       </SidebarMenuButton>
