@@ -93,7 +93,7 @@ const Comment: FC<Props> = ({ type, id, infinite }) => {
                     {comment.timeStr}
                   </div>
                 </div>
-                <div className='whitespace-pre-line mt-2 ml-10 text-gray-700'>
+                <div className='whitespace-pre-line mt-2 ml-10 text-secondary-foreground'>
                   {comment.content}
                 </div>
                 <div className='flex justify-between items-center mt-4 ml-10'>

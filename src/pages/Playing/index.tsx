@@ -26,7 +26,7 @@ const Playing: React.FC<Props> = () => {
   };
 
   return (
-    <div className='fixed z-40 inset-0 bg-white/80 backdrop-blur-md animate-slide-in'>
+    <div className='fixed z-40 inset-0 bg-background/80 backdrop-blur-md animate-slide-in'>
       <Button
         size='icon'
         variant='ghost'

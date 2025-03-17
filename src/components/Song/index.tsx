@@ -92,7 +92,7 @@ const Song: React.FC<Props> = ({
             {name}
           </span>
         </div>
-        <div className='flex items-center text-sm text-gray-500'>
+        <div className='flex items-center text-sm text-secondary-foreground'>
           {isLiked && <Heart className='h-4 w-4 mr-1 text-red-500' />}
           <div className='truncate' title={ar?.map((ar) => ar.name).join('/')}>
             <Artists artists={ar} />
@@ -111,7 +111,9 @@ const Song: React.FC<Props> = ({
         <Image className='w-4 h-4 mr-4' src={playingIcon} />
       )}
       {duration && isDesktop && (
-        <div className='ml-auto text-gray-500'>{msToMinutes(dt)}</div>
+        <div className='ml-auto text-secondary-foreground'>
+          {msToMinutes(dt)}
+        </div>
       )}
       <Actions id={id} />
     </div>

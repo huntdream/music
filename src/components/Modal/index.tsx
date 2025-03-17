@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({
               <div className='flex justify-center items-start'>
                 <div
                   className={clsx(
-                    'relative flex flex-col max-w-full bg-white rounded-lg w-96 pointer-events-auto shadow-xs',
+                    'relative flex flex-col max-w-full bg-background rounded-lg w-96 pointer-events-auto shadow-xs',
                     className
                   )}
                   onClick={stopPropagation}

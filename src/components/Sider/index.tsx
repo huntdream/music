@@ -20,9 +20,12 @@ import {
   House,
   ListMusic,
   LogOut,
+  Moon,
   Radius,
   Rss,
   Settings,
+  Sun,
+  SunMoon,
 } from 'lucide-react';
 import {
   Collapsible,
@@ -36,11 +39,18 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSubTrigger,
+  DropdownMenuPortal,
+  DropdownMenuSubContent,
+  DropdownMenuSub,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import fetcher from '@/utils/fetcher';
 import clsx from 'clsx';
 import usePlayer from '../Player/usePlayer';
+import { Theme, useTheme } from '../ThemeProvider';
 
 interface Props {}
 
@@ -52,6 +62,7 @@ const Sider: React.FC<Props> = () => {
   const [mylist] = usePlaylists(user?.userId);
   const playlistId = pathname.startsWith('/playlist') ? parseInt(id, 10) : 0;
   const { isShow } = usePlayer();
+  const { setTheme, theme } = useTheme();
 
   const isActive = (path: string) => pathname === path;
 
@@ -153,7 +164,40 @@ const Sider: React.FC<Props> = () => {
               </Button>
             )}
           </DropdownMenuTrigger>
-          <DropdownMenuContent side='top' align='end'>
+          <DropdownMenuContent side='top' align='end' className='w-40'>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger className='gap-2'>
+                {theme === 'system' ? (
+                  <SunMoon className='w-4 h-4 stroke-current' />
+                ) : theme === 'light' ? (
+                  <Sun className='w-4 h-4 stroke-current' />
+                ) : (
+                  <Moon className='w-4 h-4 stroke-current' />
+                )}
+                <span>Theme</span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  <DropdownMenuRadioGroup
+                    value={theme}
+                    onValueChange={(value) => setTheme(value as Theme)}
+                  >
+                    <DropdownMenuRadioItem value='system'>
+                      <SunMoon />
+                      <span>System</span>
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value='light'>
+                      <Sun />
+                      <span>Light</span>
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value='dark'>
+                      <Moon />
+                      <span>Dark</span>
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
             <DropdownMenuItem onClick={handleSignout}>
               <LogOut />
               <span>Log out</span>

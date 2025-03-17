@@ -37,7 +37,7 @@ const Player: React.FC<Props> = () => {
   return (
     <div
       className={clsx(
-        'fixed bottom-0 left-0 right-0 px-4 z-50 shadow-around bg-white rounded-(--safe-radius) transition-transform duration-300',
+        'fixed bottom-0 left-0 right-0 px-4 z-50 shadow-around bg-background rounded-(--safe-radius) transition-transform duration-300',
         isShow
           ? 'opacity-100'
           : 'opacity-0 translate-y-[calc(var(--safe-b)/2+56px)]',

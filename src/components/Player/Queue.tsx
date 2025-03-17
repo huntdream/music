@@ -28,7 +28,7 @@ const Queue: React.FC<Props> = ({}) => {
         <Popover.Content
           sideOffset={30}
           onClick={(e) => e.stopPropagation()}
-          className='player-popover mx-4 bg-white z-50 rounded-md shadow-around outline-hidden'
+          className='player-popover mx-4 bg-background z-50 rounded-md shadow-around outline-hidden'
         >
           <div className=''>
             <div className='px-4 py-2 border-b'>

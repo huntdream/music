@@ -13,7 +13,7 @@ const Comments: React.FC<Props> = () => {
 
   return (
     <div className='h-full pb-36 overflow-auto'>
-      <div className='px-4 pt-4 bg-white mb-1'>
+      <div className='px-4 pt-4 bg-background mb-1'>
         <div className='flex'>
           <Image src={song?.al.picUrl} className='w-28 h-28 rounded-sm' />
           <div className='ml-4 flex flex-col justify-end'>

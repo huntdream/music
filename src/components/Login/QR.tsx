@@ -120,7 +120,9 @@ const QR: React.FC<Props> = ({ onSuccess }) => {
       ) : (
         <Loading />
       )}
-      <div className='leading-4 h-4 mt-4 text-gray-600'>{status?.message}</div>
+      <div className='leading-4 h-4 mt-4 text-secondary-foreground'>
+        {status?.message}
+      </div>
     </div>
   );
 };

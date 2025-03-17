@@ -10,11 +10,11 @@ import Search from '../Search';
 import { useEffect } from 'react';
 import Artist from '../Artist';
 import Daily from '../Daily';
-// import Playing from '../Playing';
 import Comments from '../Comments';
 import useAccount from '../../fetchers/useAccount';
 import Personal from '../Personal';
 import Playing from '../Playing';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 function App() {
   useAccount();
@@ -44,7 +44,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <ThemeProvider>
       <Routes location={state?.backgroundLocation || location}>
         <Route path='' element={<Home />}>
           <Route index path='/' element={<Main />} />
@@ -84,7 +84,7 @@ function App() {
           <Route path='playing/:id' element={<Playing />} />
         </Routes>
       )}
-    </>
+    </ThemeProvider>
   );
 }
 
