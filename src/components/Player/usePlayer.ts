@@ -4,7 +4,6 @@ import { PlayerContext } from './Provider';
 const usePlayer = () => {
   const {
     queue,
-    setIsPlaying,
     isPlaying,
     playingSong,
     audioRef,
@@ -20,7 +19,6 @@ const usePlayer = () => {
 
   return {
     queue,
-    setIsPlaying,
     isPlaying,
     playingSong,
     setPlayingSong,

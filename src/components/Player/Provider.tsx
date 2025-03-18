@@ -14,6 +14,7 @@ import { uniqBy } from 'lodash-es';
 import { ITrack, IPlaylist } from '../../types/playlist';
 import getSongUrl from '../../fetchers/getSongUrl';
 import { useLocation } from 'react-router-dom';
+import usePlayerState from '../../hooks/usePlayerState';
 
 interface IPlayerContext {
   queue: ISong[];
@@ -21,7 +22,6 @@ interface IPlayerContext {
   playingSong?: ISong;
   setPlayingSong: (song: ISong) => void;
   isPlaying: boolean;
-  setIsPlaying: (isPlaying: boolean) => void;
   audioRef: RefObject<HTMLAudioElement | null>;
   next: () => void;
   prev: () => void;
@@ -41,8 +41,7 @@ interface Props {
 }
 
 const PlayerProvider: React.FC<Props> = ({ children }) => {
-  const [queue, setQueue] = useState<ISong[]>([]);
-  const [playingSong, setPlayingSong] = useState<ISong>();
+  const { queue, setQueue, playingSong, setPlayingSong } = usePlayerState();
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const { pathname } = useLocation();
@@ -136,7 +135,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
 
     let songToPlay = song || queue[0];
 
-    if (songToPlay?.id !== playingSong?.id) {
+    if (songToPlay?.id !== playingSong?.id || !audioRef.current?.src) {
       await handlePlayingSongChange(songToPlay);
     }
 
@@ -197,7 +196,6 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     playingSong,
     setPlayingSong: handlePlayingSongChange,
     isPlaying,
-    setIsPlaying,
     isShow,
     audioRef,
     next,
