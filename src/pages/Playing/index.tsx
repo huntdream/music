@@ -6,17 +6,18 @@ import Controls from '@/components/Player/Controls';
 import Progress from '@/components/Player/Progress';
 import usePlayer from '@/components/Player/usePlayer';
 import { Button } from '@/components/ui/button';
+import { AppContext } from '@/context/App/App';
 import { ISong } from '@/types/song';
 import { ArrowDownFromLine } from 'lucide-react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {}
 
 const Playing: React.FC<Props> = () => {
   const navigate = useNavigate();
-  const { playingSong, prev, next, play } = usePlayer();
-
+  const { playingSong } = usePlayer();
+  const { isDesktop } = useContext(AppContext);
   if (!playingSong) return null;
 
   const { name, al } = playingSong;
@@ -37,11 +38,14 @@ const Playing: React.FC<Props> = () => {
       </Button>
       <div className='flex h-full'>
         <div className='h-full flex-1 flex flex-col items-center pt-16 mx-auto'>
-          <Image
-            src={al.picUrl}
-            alt={name}
-            className='h-auto rounded-lg w-72'
-          />
+          <div className='w-72 h-72 overflow-hidden flex items-center justify-center'>
+            <Image
+              src={al.picUrl}
+              alt={name}
+              className='max-w-full max-h-full rounded-lg aspect-auto'
+            />
+          </div>
+
           <div className='mt-24 w-full'>
             <div className='text-center'>
               <div className='font-bold text-lg'>{playingSong.name}</div>
@@ -57,11 +61,13 @@ const Playing: React.FC<Props> = () => {
             </div>
           </div>
         </div>
-        <div className='flex-1 h-full relative'>
-          <GradientOverlay className='h-[32%]' position='top' />
-          <Lyric id={playingSong.id} />
-          <GradientOverlay className='h-[32%]' />
-        </div>
+        {isDesktop && (
+          <div className='flex-1 h-full relative'>
+            <GradientOverlay className='h-[32%]' position='top' />
+            <Lyric id={playingSong.id} />
+            <GradientOverlay className='h-[32%]' />
+          </div>
+        )}
       </div>
     </div>
   );
