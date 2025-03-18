@@ -62,10 +62,14 @@ const Playing: React.FC<Props> = () => {
           </div>
         </div>
         {isDesktop && (
-          <div className='flex-1 h-full relative'>
-            <GradientOverlay className='h-[32%]' position='top' />
+          <div
+            className='flex-1 h-full relative'
+            style={{
+              maskImage:
+                'linear-gradient(180deg,transparent,#000 40px,#000 50%,transparent)',
+            }}
+          >
             <Lyric id={playingSong.id} />
-            <GradientOverlay className='h-[32%]' />
           </div>
         )}
       </div>
