@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import VerticalDots from '../../icons/VerticalDots';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { MessageCircle } from 'lucide-react';
+import { DropdownMenuPortal } from '@radix-ui/react-dropdown-menu';
 
 interface Props {
   id: number;
@@ -18,7 +19,8 @@ interface Props {
 const Actions: React.FC<Props> = ({ id }) => {
   const navigate = useNavigate();
 
-  const navigateToComments = () => {
+  const navigateToComments = (e: MouseEvent) => {
+    e.stopPropagation();
     navigate(`/comments/${id}`);
   };
 
