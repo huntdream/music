@@ -22,7 +22,7 @@ const User: React.FC<Props> = ({
     <div>
       <div className={clsx('flex items-center', className)}>
         <Avatar>
-          <AvatarImage src={user?.avatarUrl} />
+          <AvatarImage src={`${user?.avatarUrl}?param=150y150`} />
           <AvatarFallback delayMs={600}>
             {user?.nickname?.slice(0, 1).toUpperCase()}
           </AvatarFallback>

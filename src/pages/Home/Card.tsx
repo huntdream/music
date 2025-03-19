@@ -15,7 +15,7 @@ const Card: React.FC<Props> = ({ name, picUrl, onClick }) => {
     >
       <div className='relative w-full aspect-square overflow-hidden rounded-md'>
         <Image
-          src={picUrl}
+          src={`${picUrl}?param=200y200`}
           className='w-full h-full object-cover cursor-pointer transform group-hover:scale-105 transition-transform'
         />
       </div>

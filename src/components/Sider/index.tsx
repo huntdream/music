@@ -138,7 +138,9 @@ const Sider: React.FC<Props> = () => {
                         <NavLink to={`/playlist/${list.id}`}>
                           {list.coverImgUrl ? (
                             <Avatar className='w-6 h-6'>
-                              <AvatarImage src={list.coverImgUrl} />
+                              <AvatarImage
+                                src={`${list.coverImgUrl}?param=150y150`}
+                              />
                             </Avatar>
                           ) : (
                             <ListMusic className='w-6 h-6 stroke-current' />
