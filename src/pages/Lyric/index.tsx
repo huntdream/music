@@ -4,6 +4,8 @@ import usePlayer from '../../components/Player/usePlayer';
 import { useParams } from 'react-router-dom';
 import LyricComp from '../../components/Lyric';
 import useSongDetail from '../../fetchers/useSongDetail';
+import { Button } from '@/components/ui/button';
+import { ArrowDownFromLine } from 'lucide-react';
 
 interface Props {}
 
@@ -34,6 +36,14 @@ const Lyric: React.FC<Props> = () => {
 
   return (
     <div className='fixed z-40 inset-0 bg-background/80 backdrop-blur-md animate-slide-in'>
+      <Button
+        size='icon'
+        variant='ghost'
+        className='fixed left-2 top-2'
+        onClick={() => navigateLyric(id!)}
+      >
+        <ArrowDownFromLine />
+      </Button>
       <LyricComp id={id!} />
     </div>
   );

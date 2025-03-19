@@ -31,7 +31,7 @@ const Playing: React.FC<Props> = () => {
       <Button
         size='icon'
         variant='ghost'
-        className='fixed left-4 top-4'
+        className='fixed left-2 top-2'
         onClick={handleBack}
       >
         <ArrowDownFromLine />
