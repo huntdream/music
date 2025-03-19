@@ -3,6 +3,9 @@ import useLyric from '../../fetchers/useLyric';
 import { parseLyric } from '../../utils/parseLyric';
 import Line, { HlKey, LyricLine } from './Line';
 import usePlayer from '../Player/usePlayer';
+import { Button } from '../ui/button';
+import { PictureInPicture } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface Props {
   id: number | string;
@@ -11,6 +14,7 @@ interface Props {
 const Lyric: React.FC<Props> = ({ id }) => {
   const { audioRef } = usePlayer();
   const [hlKey, setHlKey] = useState<HlKey>({ line: 0, word: 0 });
+  const ref = useRef<HTMLDivElement>(null);
 
   const audio = audioRef.current;
   const lyricRef = useRef<HTMLDivElement>(null);
@@ -83,8 +87,56 @@ const Lyric: React.FC<Props> = ({ id }) => {
     }
   };
 
+  const pip = async () => {
+    if (!('documentPictureInPicture' in window)) {
+      toast.error('当前浏览器不支持文档画中画');
+      return;
+    }
+    // @ts-ignore
+    const pipWindow = await documentPictureInPicture.requestWindow({
+      disallowReturnToOpener: true,
+    });
+
+    [...document.styleSheets].forEach((styleSheet) => {
+      try {
+        const cssRules = [...styleSheet.cssRules]
+          .map((rule) => rule.cssText)
+          .join('');
+        const style = document.createElement('style');
+
+        style.textContent = cssRules;
+        pipWindow.document.head.appendChild(style);
+      } catch (e) {
+        const link = document.createElement('link');
+
+        link.rel = 'stylesheet';
+        link.type = styleSheet.type;
+        link.media = styleSheet.media.mediaText;
+        if (styleSheet.href) {
+          link.href = styleSheet.href;
+        }
+        pipWindow.document.head.appendChild(link);
+      }
+    });
+
+    pipWindow.document.body.append(lyricRef.current);
+
+    pipWindow.addEventListener('pagehide', () => {
+      const playerContainer = ref.current;
+      const pipPlayer = lyricRef.current;
+      if (!playerContainer || !pipPlayer) return;
+
+      playerContainer.append(pipPlayer);
+    });
+  };
+
   return (
-    <div className='h-full overflow-auto p-2 px-6'>
+    <div className='h-full overflow-auto p-2 px-6' ref={ref}>
+      <div className='absolute top-2 right-2'>
+        <Button size='icon' variant='ghost' onClick={pip}>
+          <PictureInPicture />{' '}
+        </Button>
+      </div>
       <div
         className='text-center text-xl pt-[43vh] px-6 mb-[50vh] flex items-center flex-col'
         ref={lyricRef}
