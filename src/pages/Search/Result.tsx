@@ -22,7 +22,7 @@ const Result: React.FC<Props> = ({ data, type }) => {
       case 'songs':
         return <Song song={data as ISong} />;
       case 'albums':
-        return <Album data={data as IAlbum} />;
+        return <Album album={data as IAlbum} />;
       case 'artists':
         return <Artist data={data as IArtist} />;
       case 'playlists':

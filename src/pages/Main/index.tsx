@@ -6,18 +6,21 @@ import { AppContext } from '../../context/App/App';
 import Sider from '../../components/Sider';
 import Title from '../../components/Title';
 import { SidebarProvider } from '@/components/ui/sidebar';
+import usePlayer from '@/components/Player/usePlayer';
+import clsx from 'clsx';
 
 interface Props {}
 
 const Main: React.FC<Props> = () => {
   const { isDesktop } = useContext(AppContext);
+  const { isShow } = usePlayer();
 
   return (
     <SidebarProvider>
       <Title />
 
       {isDesktop && <Sider />}
-      <main className='overflow-auto flex-1'>
+      <main className={clsx('overflow-auto flex-1', isShow && 'pb-30')}>
         <Outlet />
       </main>
       <Player />

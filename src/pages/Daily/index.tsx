@@ -36,7 +36,7 @@ const Daily: React.FC<Props> = () => {
   }
 
   return (
-    <div className='pb-36'>
+    <div>
       <div className='p-4'>
         <div>
           <div className='w-36 h-36 rounded-md bg-linear-to-r from-teal-400 to-blue-500 flex items-center justify-center'>

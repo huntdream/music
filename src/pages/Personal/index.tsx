@@ -30,7 +30,7 @@ const Personal: React.FC<Props> = () => {
   }, [data]);
 
   return (
-    <div className='px-2 pb-36 h-full'>
+    <div className='px-2 h-full'>
       <div>Work in progress</div>
       <Auth page />
     </div>

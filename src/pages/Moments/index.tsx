@@ -13,7 +13,7 @@ const Moment: React.FC<Props> = () => {
   }
 
   return (
-    <div className='p-4 pb-36 max-w-full'>
+    <div className='p-4 max-w-full'>
       <Events />
     </div>
   );

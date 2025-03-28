@@ -12,7 +12,7 @@ const Comments: React.FC<Props> = () => {
   const [song] = useSongDetail(id);
 
   return (
-    <div className='h-full pb-36 overflow-auto'>
+    <div className='h-full overflow-auto'>
       <div className='px-4 pt-4 bg-background mb-1'>
         <div className='flex'>
           <Image
