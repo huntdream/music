@@ -13,7 +13,7 @@ const Home: React.FC<Props> = () => {
 
   return (
     <div className='px-2 h-full'>
-      <SearchBar />
+      <SearchBar className='mt-2 mx-2' />
       {user?.userId && (
         <ScrollArea className='pr-1'>
           <div className='flex w-max space-x-2 p-4'>

@@ -8,7 +8,6 @@ import Title from '../../components/Title';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import usePlayer from '@/components/Player/usePlayer';
 import clsx from 'clsx';
-import Nav from '@/components/Nav';
 
 interface Props {}
 

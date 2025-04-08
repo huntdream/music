@@ -67,8 +67,13 @@ const Search: React.FC<Props> = () => {
 
   return (
     <div>
-      <div className='py-2 px-4 sticky z-30 top-0 bg-background/65 backdrop-blur-md'>
-        <Input onChange={handleChange} value={keywords} ref={inputRef} />
+      <div className='py-2 px-4 sticky top-0 bg-background/65 backdrop-blur-md'>
+        <Input
+          onChange={handleChange}
+          value={keywords}
+          className='outline-hidden rounded-full'
+          ref={inputRef}
+        />
         <div className='flex mt-3 overflow-hidden'>
           {SEARCH_TYPE_LIST.map((key) => (
             <div
