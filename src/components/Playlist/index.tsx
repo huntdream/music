@@ -18,6 +18,7 @@ import usePlayer from '../Player/usePlayer';
 import List from './List';
 import { Input } from '../ui/input';
 import { Play, Plus } from 'lucide-react';
+import AI from '../AI';
 
 interface Props {}
 
@@ -37,6 +38,12 @@ const Playlist: React.FC<Props> = () => {
       ),
     [keyword, playlist]
   );
+
+  const songsInfo = useMemo(() => {
+    return playlist?.tracks
+      .map((t) => `${t.name} - ${t.ar[0].name}`)
+      .join('\n');
+  }, [playlist]);
 
   const totalTime = useMemo(() => {
     const totalMs = sumBy(playlist?.tracks || [], 'dt');
@@ -107,6 +114,7 @@ const Playlist: React.FC<Props> = () => {
                 <Plus />
                 加入播放列表
               </Button>
+              {songsInfo && <AI content={songsInfo} />}
             </div>
           </div>
         </div>
