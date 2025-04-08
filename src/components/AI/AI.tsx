@@ -13,6 +13,7 @@ import remarkGfm from 'remark-gfm';
 import { Skeleton } from '../ui/skeleton';
 import Config from './Config';
 import useAIConfig from '@/hooks/useAIConfig';
+import Copy from '../Copy';
 
 export default function AI({ content }: { content: string }) {
   const [text, setText] = useState('');
@@ -22,6 +23,8 @@ export default function AI({ content }: { content: string }) {
   } = useAIConfig();
 
   const getMessage = async () => {
+    setLoading(true);
+    setText('');
     const openai = new OpenAI({
       baseURL,
       apiKey,
@@ -41,44 +44,54 @@ export default function AI({ content }: { content: string }) {
       stream: true,
     });
 
+    setLoading(false);
+
     for await (const chunk of stream) {
       const content = chunk.choices[0]?.delta?.content || '';
       setText((t) => t + content);
     }
   };
 
-  const handleClick = async () => {};
-
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant='ghost' size='icon' onClick={handleClick}>
+          <Button variant='ghost' size='icon'>
             <AtomIcon size={36} />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className='w-96'>
+        <PopoverContent className='w-96 p-0'>
           {baseURL && model && apiKey ? (
             <>
-              {!text && (
-                <Button
-                  variant='outline'
-                  className='w-full'
-                  onClick={getMessage}
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <div className='flex items-center gap-2'>
-                      <span>Loading...</span>
-                      <Skeleton className='h-4 w-4' />
-                    </div>
-                  ) : (
-                    '获取分析'
+              <div>
+                <div className='flex items-center justify-between p-2 border-b'>
+                  <h2 className='text-lg'>歌单分析</h2>
+                  {text && <Copy content={text} />}
+                </div>
+                <div className='p-2'>
+                  {!text && (
+                    <Button
+                      variant='outline'
+                      className='w-full'
+                      onClick={getMessage}
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <div className='flex items-center gap-2'>
+                          <span>Loading...</span>
+                          <Skeleton className='h-4 w-4' />
+                        </div>
+                      ) : (
+                        '获取分析'
+                      )}
+                    </Button>
                   )}
-                </Button>
-              )}
-              <div className='h-96 overflow-auto whitespace-pre-line markdown-body'>
-                <Markdown remarkPlugins={[remarkGfm]}>{text}</Markdown>
+                </div>
+                {text && (
+                  <div className='h-96 overflow-auto whitespace-pre-line markdown-body p-2'>
+                    <Markdown remarkPlugins={[remarkGfm]}>{text}</Markdown>
+                  </div>
+                )}
               </div>
             </>
           ) : (
