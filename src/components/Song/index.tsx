@@ -4,7 +4,6 @@ import { toast } from 'sonner';
 import { ISong } from '../../types/song';
 import Image from '../Image';
 import { msToMinutes } from '../../utils/msConvert';
-import { ITrack } from '../../types/playlist';
 import usePlayer from '../Player/usePlayer';
 import Artists from '../Artist/Artists';
 import playingIcon from '../../assets/playing.gif';
@@ -20,7 +19,8 @@ interface Props {
   border?: boolean;
   standalone?: boolean;
   showAlbum?: boolean;
-  onPlay?: (song: ITrack) => void;
+  showCover?: boolean;
+  onPlay?: (song: ISong) => void;
   style?: CSSProperties;
 }
 
@@ -30,6 +30,7 @@ const Song: React.FC<Props> = ({
   duration,
   standalone,
   showAlbum,
+  showCover = true,
   style,
   onPlay,
 }) => {
@@ -42,7 +43,7 @@ const Song: React.FC<Props> = ({
 
   const isLiked = useMemo(() => likeList.includes(id), []);
 
-  const handlePlay = (song: ITrack) => {
+  const handlePlay = (song: ISong) => {
     if (!canPlay) return toast.info('歌曲无版权');
 
     if (isSongPlaying) {
@@ -68,18 +69,20 @@ const Song: React.FC<Props> = ({
       onClick={() => handlePlay(song)}
       style={style}
     >
-      <div className='rounded-sm shrink-0 relative'>
-        <Image
-          className='w-12 h-12 rounded-sm'
-          src={`${al?.picUrl}?param=50y50`}
-          alt=''
-        />
-        {isCurrentSong && (
-          <div className='absolute rounded-sm inset-0 p-3 bg-gray-600/35'>
-            {isPlaying ? <Pause /> : <Play />}
-          </div>
-        )}
-      </div>
+      {showCover && (
+        <div className='rounded-sm shrink-0 relative'>
+          <Image
+            className='w-12 h-12 rounded-sm'
+            src={`${al?.picUrl}?param=50y50`}
+            alt=''
+          />
+          {isCurrentSong && (
+            <div className='absolute rounded-sm inset-0 p-3 bg-gray-600/35'>
+              {isPlaying ? <Pause /> : <Play />}
+            </div>
+          )}
+        </div>
+      )}
       <div className='ml-2 flex-1 min-w-0 flex flex-col justify-between'>
         <div className='flex'>
           <span

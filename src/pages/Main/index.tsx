@@ -8,6 +8,7 @@ import Title from '../../components/Title';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import usePlayer from '@/components/Player/usePlayer';
 import clsx from 'clsx';
+import Nav from '@/components/Nav';
 
 interface Props {}
 
@@ -20,7 +21,7 @@ const Main: React.FC<Props> = () => {
       <Title />
 
       {isDesktop && <Sider />}
-      <main className={clsx('overflow-auto flex-1', isShow && 'pb-30')}>
+      <main className={clsx('flex-1 min-w-0', isShow && 'pb-30')}>
         <Outlet />
       </main>
       <Player />

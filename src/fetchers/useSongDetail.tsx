@@ -1,8 +1,8 @@
 import useSWR from 'swr';
 import fetcher from '../utils/fetcher';
-import { ITrack } from '../types/playlist';
+import { ISong } from '@/types/song';
 
-const useSongDetail = (ids?: number | string): [ITrack] => {
+const useSongDetail = (ids?: number | string): [ISong] => {
   const { data } = useSWR(
     ids ? `/song/detail?ids=${ids}` : null,
     (url) =>

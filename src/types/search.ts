@@ -1,4 +1,6 @@
-import { IAlbum, IArtist, IPlaylist } from './playlist';
+import { IAlbum } from './album';
+import { IArtist } from './artist';
+import { IPlaylist } from './playlist';
 import { ISong } from './song';
 import { IUser } from './user';
 

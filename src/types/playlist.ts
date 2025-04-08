@@ -38,36 +38,7 @@ export interface IPlaylistsItem {
 }
 
 export interface IPlaylist extends IPlaylistsItem {
-  tracks: ITrack[];
-}
-
-export interface ITrack {
-  bMusic: any;
-  id: number;
-  name: string;
-  publishTime: number;
-  dt: number;
-  al: IAlbum;
-  ar: IArtist[];
-  copyright: 0 | 1 | 2;
-  fee: number;
-  noCopyrightRcmd: any;
-  duration: number;
-  album: IAlbum;
-  artists: IArtist[];
-}
-
-export interface IAlbum {
-  id: string;
-  name: string;
-  picUrl: string;
-}
-
-export interface IArtist {
-  id: number;
-  name: string;
-  picUrl: string;
-  followed: boolean;
+  tracks: ISong[];
 }
 
 export interface RecommendReason {

@@ -1,5 +1,5 @@
 import { IPLocation } from '.';
-import { IArtist } from './playlist';
+import { IArtist } from './artist';
 import { ISong } from './song';
 import { IUser } from './user';
 

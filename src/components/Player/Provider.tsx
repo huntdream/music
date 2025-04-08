@@ -11,7 +11,7 @@ import React, {
 import { ISong } from '../../types/song';
 import fetcher from '../../utils/fetcher';
 import { uniqBy } from 'lodash-es';
-import { ITrack, IPlaylist } from '../../types/playlist';
+import { IPlaylist } from '../../types/playlist';
 import getSongUrl from '../../fetchers/getSongUrl';
 import { useLocation } from 'react-router-dom';
 import usePlayerState from '../../hooks/usePlayerState';
@@ -128,7 +128,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     return audioRef.current?.pause();
   };
 
-  const play = async (song?: ITrack) => {
+  const play = async (song?: ISong) => {
     if (song && song.id === playingSong?.id && isPlaying) {
       return pause();
     }

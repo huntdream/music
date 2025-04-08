@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
 import usePlaylist from '../../fetchers/usePlaylist';
 import { msToHours } from '../../utils/msConvert';
-import { ITrack } from '../../types/playlist';
 import { Button } from '@/components/ui/button';
 import Image from '../Image';
 import Loading from '../Loading';
@@ -19,6 +18,7 @@ import List from './List';
 import { Input } from '../ui/input';
 import { Play, Plus } from 'lucide-react';
 import AI from '../AI';
+import { ISong } from '@/types/song';
 
 interface Props {}
 
@@ -57,7 +57,7 @@ const Playlist: React.FC<Props> = () => {
   }, [id]);
 
   const handlePlay = useCallback(
-    (track: ITrack) => {
+    (track: ISong) => {
       if (playingSong?.id === track.id && isPlaying) {
         pause();
       } else {
@@ -88,7 +88,7 @@ const Playlist: React.FC<Props> = () => {
   }
 
   return (
-    <div className='py-4 px-2 pb-36' ref={ref}>
+    <div className='py-4 px-2' ref={ref}>
       <div className='flex flex-wrap pb-4 border-b px-2'>
         <Image
           className='w-60 h-60 rounded-md mr-6'
