@@ -19,7 +19,7 @@ const Event: React.FC<Props> = ({ event }) => {
   return (
     <div className='mb-8'>
       <div>
-        <User user={event.user} signature size='large' />
+        <User user={event.user} signature />
       </div>
       {event.json.msg && (
         <div className='whitespace-pre-line my-4 max-w-[720px]'>

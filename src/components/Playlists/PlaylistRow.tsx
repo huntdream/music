@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PlaylistRow: React.FC<Props> = ({ data, cover = true }) => {
-  const { id, name, coverImgUrl, trackCount, creator } = data;
+  const { id, name, coverImgUrl, trackCount, playCount } = data;
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -31,6 +31,9 @@ const PlaylistRow: React.FC<Props> = ({ data, cover = true }) => {
       <div className='flex flex-1 justify-between'>
         <div className='text-base text-ellipsis' title={name}>
           {name}
+        </div>
+        <div className='flex items-center text-secondary-foreground'>
+          <div className='text-sm'>{trackCount}首</div>
         </div>
       </div>
     </div>

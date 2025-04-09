@@ -2,25 +2,33 @@ import React from 'react';
 import clsx from 'clsx';
 import { IUser } from '../../types/user';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   user: IUser;
   avatar?: boolean;
-  size?: 'small' | 'normal' | 'large';
   signature?: boolean;
   className?: string;
 }
 
-const User: React.FC<Props> = ({
-  user,
-  signature,
-  size = 'normal',
-  avatar,
-  className,
-}) => {
+const User: React.FC<Props> = ({ user, signature, avatar, className }) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    if (user?.userId) {
+      navigate(`/user/${user.userId}`);
+    }
+  };
+
   return (
     <div>
-      <div className={clsx('flex items-center', className)}>
+      <div
+        className={clsx(
+          'inline-flex items-center cursor-pointer hover:text-blue-400',
+          className
+        )}
+        onClick={handleNavigate}
+      >
         <Avatar>
           <AvatarImage src={`${user?.avatarUrl}?param=150y150`} />
           <AvatarFallback delayMs={600}>

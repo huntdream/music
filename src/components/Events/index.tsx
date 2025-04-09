@@ -4,7 +4,7 @@ import Event from '../Event';
 import Loading from '../Loading';
 
 interface Props {
-  id?: number;
+  id?: string | number;
 }
 
 const Events: React.FC<Props> = ({ id }) => {

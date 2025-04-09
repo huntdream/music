@@ -6,7 +6,7 @@ interface Params {
   lasttime?: number;
   pagesize?: number;
   limit?: number;
-  id?: number;
+  id?: string | number;
 }
 
 const useEvents = ({ id, ...params }: Params) => {

@@ -1,6 +1,5 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Main from '../Main';
-import Library from '../Library';
 import Playlist from '../../components/Playlist';
 import Lyric from '../Lyric';
 import Moment from '../Moments';
@@ -15,6 +14,7 @@ import Personal from '../Personal';
 import Playing from '../Playing';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Home from '../Home';
+import User from '../User';
 
 function App() {
   useAccount();
@@ -48,7 +48,7 @@ function App() {
       <Routes location={state?.backgroundLocation || location}>
         <Route path='' element={<Main />}>
           <Route index path='/' element={<Home />} />
-          <Route path='me' element={<Library />} />
+          <Route path='me' element={<User />} />
           <Route path='playlist/:id' element={<Playlist />} />
           <Route path='moments' element={<Moment />} />
           <Route path='search' element={<Search />} />
@@ -58,6 +58,7 @@ function App() {
           <Route path='personal' element={<Personal />} />
           <Route path='comments/:id' element={<Comments />} />
           <Route path='playing/:id' element={<Playing />} />
+          <Route path='user/:uid' element={<User />} />
           <Route
             path='*'
             element={

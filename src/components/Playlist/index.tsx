@@ -19,6 +19,7 @@ import { Input } from '../ui/input';
 import { Play, Plus } from 'lucide-react';
 import AI from '../AI';
 import { ISong } from '@/types/song';
+import User from '../User';
 
 interface Props {}
 
@@ -88,36 +89,41 @@ const Playlist: React.FC<Props> = () => {
   }
 
   return (
-    <div className='py-4 px-2' ref={ref}>
-      <div className='flex flex-wrap pb-4 border-b px-2'>
+    <div className='p-4' ref={ref}>
+      <div className='flex flex-wrap pb-4'>
         <Image
           className='w-60 h-60 rounded-md mr-6'
           src={playlist.coverImgUrl}
           alt=''
         />
+
         <div className='flex flex-col'>
-          <h2 className='text-lg mb-2'>{playlist.name}</h2>
-          <div className='text-sm text-secondary-foreground mb-2'>
+          <h2 className='text-3xl mb-2 font-bold'>{playlist.name}</h2>
+          <User user={playlist.creator} />
+          <div className='text-secondary-foreground mt-auto'>
             {playlist.trackCount}首歌曲<span className='mx-1'>•</span>时长
             {totalTime}
-          </div>
-          <div className='mt-auto text-secondary-foreground mb-8'>
-            {playlist.description}
-          </div>
-          <div className='self-end'>
-            <div className='space-x-4'>
-              <Button onClick={handlePlayList}>
-                <Play />
-                播放
-              </Button>
-              <Button onClick={handleAppendQueue} variant='secondary'>
-                <Plus />
-                加入播放列表
-              </Button>
-              {songsInfo && <AI content={songsInfo} />}
-            </div>
+            <span className='mx-1'>•</span>
+            {playlist.playCount}次播放
           </div>
         </div>
+      </div>
+
+      {playlist.description && (
+        <div className='text-secondary-foreground my-8'>
+          {playlist.description}
+        </div>
+      )}
+      <div className='space-x-4'>
+        <Button onClick={handlePlayList}>
+          <Play />
+          播放
+        </Button>
+        <Button onClick={handleAppendQueue} variant='secondary'>
+          <Plus />
+          加入播放列表
+        </Button>
+        {songsInfo && <AI content={songsInfo} />}
       </div>
       <div className='my-2'>
         <Input
