@@ -32,7 +32,7 @@ const Event: React.FC<Props> = ({ event }) => {
       {event.json.song && (
         <Song className='my-4 max-w-96' song={event.json.song} standalone />
       )}
-      <Pictures pics={event.pics} />
+      <Pictures images={event.pics} />
       <div className='flex border-b mt-4'>
         <Button variant='ghost'>
           <Heart

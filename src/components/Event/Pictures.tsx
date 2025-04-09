@@ -1,39 +1,25 @@
 import React from 'react';
-import clsx from 'clsx';
 import { IPic } from '../../types/event';
 import Image from '../Image';
 
 interface Props {
-  pics: IPic[];
+  images: IPic[];
 }
 
-const Pictures: React.FC<Props> = ({ pics }) => {
-  const picsCount = pics.length;
-  const isSingle = picsCount === 1;
-  const rows = Math.ceil(picsCount / 3);
-  const cols = Math.min(picsCount, 3);
-
-  const height = ['h-32', 'h-64', 'h96'][rows - 1];
-
+const Pictures: React.FC<Props> = ({ images }) => {
   return (
-    pics?.length > 0 && (
-      <div
-        className={clsx(
-          'grid overflow-hidden max-w-96 max-h-96',
-          `grid-cols-${cols} grid-rows-${rows}`,
-          isSingle ? '' : height
-        )}
-      >
-        {pics.map((pic) => (
-          <div className='overflow-hidden col-auto' key={pic.originUrl}>
+    images?.length > 0 && (
+      <div className='grid grid-cols-3 gap-2 max-w-md'>
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className='w-full aspect-square overflow-hidden rounded-lg'
+          >
             <Image
-              src={pic.originUrl}
-              key={pic.originUrl}
-              className={clsx(
-                'object-contain',
-                isSingle ? 'max-w-full max-h-full' : 'w-full'
-              )}
-              alt=''
+              src={image.originUrl}
+              key={image.originUrl}
+              alt={`Image ${index + 1}`}
+              className='w-full h-full object-cover'
             />
           </div>
         ))}
