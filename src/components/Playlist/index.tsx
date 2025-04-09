@@ -110,7 +110,7 @@ const Playlist: React.FC<Props> = () => {
       </div>
 
       {playlist.description && (
-        <div className='text-secondary-foreground my-8'>
+        <div className='text-secondary-foreground my-4'>
           {playlist.description}
         </div>
       )}
