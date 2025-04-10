@@ -44,8 +44,6 @@ const Song: React.FC<Props> = ({
   const isLiked = useMemo(() => likeList.includes(id), []);
 
   const handlePlay = (song: ISong) => {
-    if (!canPlay) return toast.info('歌曲无版权');
-
     if (isSongPlaying) {
       pause();
       return;

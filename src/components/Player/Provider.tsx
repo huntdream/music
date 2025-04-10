@@ -115,13 +115,15 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
   }, [audioRef.current, setIsPlaying, queue, playingSong]);
 
   const handlePlayingSongChange = async (song: ISong) => {
-    setPlayingSong(song);
-
     const src = await getSongUrl(song.id);
 
     if (src && audioRef.current) {
+      setPlayingSong(song);
+
       audioRef.current.src = src;
     }
+
+    return src;
   };
 
   const pause = () => {
@@ -136,7 +138,11 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     let songToPlay = song || queue[0];
 
     if (songToPlay?.id !== playingSong?.id || !audioRef.current?.src) {
-      await handlePlayingSongChange(songToPlay);
+      const src = await handlePlayingSongChange(songToPlay);
+
+      if (!src) {
+        return;
+      }
     }
 
     return audioRef.current?.play();

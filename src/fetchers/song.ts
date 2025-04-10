@@ -1,6 +1,7 @@
 import useUserAgent from '@/hooks/useUserAgent';
 import { ISong } from '@/types/song';
 import fetcher from '@/utils/fetcher';
+import { toast } from 'sonner';
 import useSWR from 'swr';
 
 export const checkMusic = async (id: number) => {
@@ -10,10 +11,17 @@ export const checkMusic = async (id: number) => {
   if (res.success) {
     return true;
   }
+
   return res.message;
 };
 
 export const getSongUrl = async (id: number, level?: string) => {
+  const check = await checkMusic(id);
+  if (check !== true) {
+    toast.info(check);
+    return false;
+  }
+
   const { isSafari } = useUserAgent();
   const lv: string = isSafari ? 'exhigh' : level || 'lossless';
 
