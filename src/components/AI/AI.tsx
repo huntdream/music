@@ -1,5 +1,5 @@
 'use client';
-import { AtomIcon } from 'lucide-react';
+import { AtomIcon, Settings, Undo2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import OpenAI from 'openai';
 import {
@@ -14,10 +14,12 @@ import { Skeleton } from '../ui/skeleton';
 import Config from './Config';
 import useAIConfig from '@/hooks/useAIConfig';
 import Copy from '../Copy';
+import { toast } from 'sonner';
 
 export default function AI({ content }: { content: string }) {
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const {
     config: { baseURL, model, apiKey },
   } = useAIConfig();
@@ -31,20 +33,29 @@ export default function AI({ content }: { content: string }) {
       dangerouslyAllowBrowser: true,
     });
 
-    const stream = await openai.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content:
-            '以下是我在网易云音乐收藏的歌曲,请根据歌曲的名称与演唱艺人信息，专业、深刻地评价下我的听歌品味，并解析下我的内心世界',
-        },
-        { role: 'user', content },
-      ],
-      model,
-      stream: true,
-    });
+    const stream = await openai.chat.completions
+      .create({
+        messages: [
+          {
+            role: 'system',
+            content:
+              '以下是我在网易云音乐收藏的歌曲,请根据歌曲的名称与演唱艺人信息，专业、深刻地评价下我的听歌品味，并解析下我的内心世界',
+          },
+          { role: 'user', content },
+        ],
+        model,
+        stream: true,
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
 
-    setLoading(false);
+    if (!stream) {
+      return;
+    }
 
     for await (const chunk of stream) {
       const content = chunk.choices[0]?.delta?.content || '';
@@ -61,13 +72,24 @@ export default function AI({ content }: { content: string }) {
           </Button>
         </PopoverTrigger>
         <PopoverContent className='w-96 p-0'>
-          {baseURL && model && apiKey ? (
+          <div className='flex items-center justify-between p-2 border-b'>
+            <h2 className='text-lg'>歌单分析</h2>
+            <div className='flex items-center gap-2'>
+              {text && <Copy content={text} />}
+              <Button
+                variant='ghost'
+                size='icon'
+                onClick={() => setShowSettings(!showSettings)}
+              >
+                {showSettings ? <Undo2 /> : <Settings />}
+              </Button>
+            </div>
+          </div>
+          {showSettings ? (
+            <Config onSave={() => setShowSettings(false)} />
+          ) : (
             <>
               <div>
-                <div className='flex items-center justify-between p-2 border-b'>
-                  <h2 className='text-lg'>歌单分析</h2>
-                  {text && <Copy content={text} />}
-                </div>
                 <div className='p-2'>
                   {!text && (
                     <Button
@@ -94,8 +116,6 @@ export default function AI({ content }: { content: string }) {
                 )}
               </div>
             </>
-          ) : (
-            <Config />
           )}
         </PopoverContent>
       </Popover>

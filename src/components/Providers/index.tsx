@@ -3,6 +3,7 @@ import { SWRConfig } from 'swr';
 import { BrowserRouter } from 'react-router-dom';
 import AppProvider from '../../context/App';
 import PlayerProvider from '../Player/Provider';
+import AIProvider from '../AI/Provider';
 
 import fetcher from '../../utils/fetcher';
 
@@ -20,7 +21,9 @@ const Providers: React.FC<Props> = ({ children }) => {
         }}
       >
         <AppProvider>
-          <PlayerProvider>{children}</PlayerProvider>
+          <AIProvider>
+            <PlayerProvider>{children}</PlayerProvider>
+          </AIProvider>
         </AppProvider>
       </SWRConfig>
     </BrowserRouter>

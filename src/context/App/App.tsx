@@ -24,7 +24,6 @@ interface Props {
 
 const AppProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<IUser>();
-  const [likeList, setLikelist] = useState([]);
   const isDesktop = useMediaQuery('(min-width:768px)');
   const likes = useLikeList(user?.userId);
 

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { AIConfigContext } from '@/components/AI/Provider';
+import { useContext } from 'react';
 
 export interface AIConfig {
   baseURL: string;
@@ -7,27 +8,12 @@ export interface AIConfig {
 }
 
 const useAIConfig = () => {
-  const [config, setConfig] = useState<AIConfig>({
-    baseURL: '',
-    model: '',
-    apiKey: '',
-  });
+  const context = useContext(AIConfigContext);
 
-  useEffect(() => {
-    const storedConfig = JSON.parse(localStorage.getItem('aiConfig') || '{}');
-    setConfig({
-      baseURL: storedConfig.baseURL || '',
-      model: storedConfig.model || '',
-      apiKey: storedConfig.apiKey || '',
-    });
-  }, []);
-
-  const saveConfig = () => {
-    localStorage.setItem('aiConfig', JSON.stringify(config));
-    setConfig({ ...config });
-  };
-
-  return { config, setConfig, saveConfig };
+  if (!context) {
+    throw new Error('useAIConfig must be used within an AIProvider');
+  }
+  return context;
 };
 
 export default useAIConfig;
