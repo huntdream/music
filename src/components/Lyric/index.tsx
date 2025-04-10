@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import useLyric from '../../fetchers/useLyric';
+import { useLyric } from '../../fetchers/lyric';
 import { parseLyric } from '../../utils/parseLyric';
 import Line, { HlKey, LyricLine } from './Line';
 import usePlayer from '../Player/usePlayer';

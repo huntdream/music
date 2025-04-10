@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { useParams } from 'react-router-dom';
 import { sumBy } from 'lodash-es';
-import usePlaylist from '../../fetchers/usePlaylist';
+import { usePlaylist } from '../../fetchers/playlist';
 import { msToHours } from '../../utils/msConvert';
 import { Button } from '@/components/ui/button';
 import Image from '../Image';

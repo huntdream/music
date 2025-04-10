@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import { IUser } from '../../types/user';
 import useMediaQuery from '../../hooks/useMatchMedia';
-import useLikeList from '../../fetchers/useLikeList';
+import { useLikeList } from '../../fetchers/user';
 
 interface IAppContext {
   user?: IUser;

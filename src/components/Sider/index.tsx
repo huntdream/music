@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
-import usePlaylists from '../../fetchers/usePlaylists';
+import { usePlaylists } from '../../fetchers/playlist';
 import { AppContext } from '../../context/App/App';
 import {
   Sidebar,

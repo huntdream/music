@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import Artist from '../Artist';
 import Daily from '../Daily';
 import Comments from '../Comments';
-import useAccount from '../../fetchers/useAccount';
+import { useAccount } from '../../fetchers/user';
 import Personal from '../Personal';
 import Playing from '../Playing';
 import { ThemeProvider } from '@/components/ThemeProvider';

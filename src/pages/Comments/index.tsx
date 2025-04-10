@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import useSongDetail from '../../fetchers/useSongDetail';
+import { useSongDetail } from '../../fetchers/song';
 import Comment from '../../components/Comment';
 import Image from '../../components/Image';
 import Artists from '../../components/Artist/Artists';

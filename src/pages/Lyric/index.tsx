@@ -3,7 +3,7 @@ import useNavigateLyric from '../../components/Lyric/useNavigateLyric';
 import usePlayer from '../../components/Player/usePlayer';
 import { useParams } from 'react-router-dom';
 import LyricComp from '../../components/Lyric';
-import useSongDetail from '../../fetchers/useSongDetail';
+import { useSongDetail } from '../../fetchers/song';
 import { Button } from '@/components/ui/button';
 import { ArrowDownFromLine } from 'lucide-react';
 

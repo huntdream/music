@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import { ILyric } from '../types/song';
 import fetcher from '../utils/fetcher';
 
-const useLyric = (id?: number | string) => {
+export const useLyric = (id?: number | string) => {
   const { data } = useSWR(
     id ? `/lyric/new?id=${id}` : null,
     (url) => fetcher<any, ILyric>(url),
@@ -14,5 +14,3 @@ const useLyric = (id?: number | string) => {
 
   return [data];
 };
-
-export default useLyric;

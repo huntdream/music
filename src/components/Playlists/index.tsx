@@ -1,7 +1,6 @@
 import React from 'react';
-import { IPlaylistsItem } from '../../types/playlist';
 import PlaylistRow from './PlaylistRow';
-import usePlaylists from '@/fetchers/usePlaylists';
+import { usePlaylists } from '@/fetchers/playlist';
 
 interface Props {
   id?: string | number;

@@ -12,7 +12,7 @@ import { ISong } from '../../types/song';
 import fetcher from '../../utils/fetcher';
 import { uniqBy } from 'lodash-es';
 import { IPlaylist } from '../../types/playlist';
-import getSongUrl from '../../fetchers/getSongUrl';
+import { getSongUrl } from '../../fetchers/song';
 import { useLocation } from 'react-router-dom';
 import usePlayerState from '../../hooks/usePlayerState';
 

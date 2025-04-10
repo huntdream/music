@@ -9,7 +9,7 @@ interface Params {
   id?: string | number;
 }
 
-const useEvents = ({ id, ...params }: Params) => {
+export const useEvents = ({ id, ...params }: Params) => {
   const { data, error } = useSWR(
     id ? `/user/event?uid=${id}` : '/event',
     (url: string) =>
@@ -43,5 +43,3 @@ const useEvents = ({ id, ...params }: Params) => {
 
   return { data, error };
 };
-
-export default useEvents;

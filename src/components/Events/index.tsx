@@ -1,5 +1,5 @@
 import React from 'react';
-import useEvents from '../../fetchers/useEvents';
+import { useEvents } from '../../fetchers/event';
 import Event from '../Event';
 import Loading from '../Loading';
 
