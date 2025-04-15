@@ -156,7 +156,7 @@ const Playlist: React.FC<Props> = () => {
             content={songsInfo}
             action={(content, loaded) => (
               <Tooltip>
-                <TooltipTrigger tabIndex={-1}>
+                <TooltipTrigger tabIndex={-1} asChild>
                   <Button
                     variant='ghost'
                     size='icon'

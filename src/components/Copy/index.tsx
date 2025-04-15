@@ -35,12 +35,13 @@ const Copy: React.FC<CopyProps> = ({ content }) => {
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild tabIndex={-1}>
+      <TooltipTrigger asChild>
         <Button
           variant='ghost'
           disabled={!content}
           size='icon'
           onClick={handleCopy}
+          tabIndex={-1}
         >
           {copied ? <Check /> : <CopyIcon />}
         </Button>
