@@ -26,8 +26,6 @@ const Playlist: React.FC<Props> = ({ title, list = [] }) => {
   const { id = '' } = useParams();
   const playlistId = pathname.startsWith('/playlist') ? parseInt(id, 10) : 0;
 
-  const isActive = (path: string) => pathname === path;
-
   return (
     <Collapsible defaultOpen className='group/collapsible'>
       <SidebarGroup>
