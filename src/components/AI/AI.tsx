@@ -8,7 +8,6 @@ import {
 } from '@/components/ui/popover';
 import { FC, ReactNode, Suspense, useState } from 'react';
 import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { Skeleton } from '../ui/skeleton';
 import Config from './Config';
 import useAIConfig from '@/hooks/useAIConfig';
@@ -46,7 +45,7 @@ const AI: FC<Props> = ({ content, action }) => {
           {
             role: 'system',
             content:
-              '以下是我在网易云音乐收藏的歌曲,请根据歌曲的名称与演唱艺人信息，专业、深刻地评价下我的听歌品味，分析整体风格倾向，并解析下我的内心世界',
+              '以下是我在网易云音乐收藏的歌曲,请根据歌曲的名称与演唱艺人信息，专业、深刻地评价下我的听歌品味，分析整体风格倾向，并解析下我的内心世界。使用Markdown格式输出',
           },
           { role: 'user', content },
         ],
@@ -130,8 +129,8 @@ const AI: FC<Props> = ({ content, action }) => {
                   )}
                 </div>
                 {text && (
-                  <div className='h-96 overflow-auto whitespace-pre-line markdown-body p-2'>
-                    <Markdown remarkPlugins={[remarkGfm]}>{text}</Markdown>
+                  <div className='h-96 overflow-auto prose p-2'>
+                    <Markdown>{text}</Markdown>
                   </div>
                 )}
               </div>
