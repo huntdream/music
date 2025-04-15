@@ -15,3 +15,9 @@ export const ResourceTypes = {
 };
 
 export type IResourceType = keyof typeof ResourceTypes;
+
+export interface IResponse<T = undefined> {
+  code: number;
+  message: string;
+  data: T;
+}

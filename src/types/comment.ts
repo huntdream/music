@@ -1,4 +1,4 @@
-import { IPLocation } from '.';
+import { IPLocation, IResourceType } from '.';
 import { IUser } from './user';
 
 export interface IComment {
@@ -21,4 +21,12 @@ export interface IComments {
   hasMore: boolean;
   totalCount: number;
   comments: IComment[];
+}
+
+export interface ICommentPayload {
+  id: number | string;
+  content: string;
+  commentId?: number;
+  t: 1 | 2;
+  type: IResourceType;
 }

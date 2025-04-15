@@ -16,10 +16,14 @@ import Loading from '../Loading';
 import usePlayer from '../Player/usePlayer';
 import List from './List';
 import { Input } from '../ui/input';
-import { Play, Plus } from 'lucide-react';
+import { Play, Plus, Save } from 'lucide-react';
 import AI from '../AI';
 import { ISong } from '@/types/song';
 import User from '../User';
+import { toast } from 'sonner';
+import { sendComment } from '@/fetchers/comment';
+import { ICommentPayload } from '@/types/comment';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 interface Props {}
 
@@ -80,6 +84,30 @@ const Playlist: React.FC<Props> = () => {
     setKeyword(e.target.value);
   };
 
+  const handleSave = async (content: string) => {
+    if (!id) return;
+
+    if (!content) {
+      toast.error('内容为空，请先获取分析');
+      return;
+    }
+
+    const payload: ICommentPayload = {
+      t: 1,
+      type: 'playlist',
+      content,
+      id,
+    };
+
+    const res = await sendComment(payload);
+
+    if (res.code === 200) {
+      toast.success('评论成功');
+    } else {
+      toast.info(res.message);
+    }
+  };
+
   if (error) {
     return <div>Something went wrong</div>;
   }
@@ -123,7 +151,29 @@ const Playlist: React.FC<Props> = () => {
           <Plus />
           加入播放列表
         </Button>
-        {songsInfo && <AI content={songsInfo} />}
+        {songsInfo && (
+          <AI
+            content={songsInfo}
+            action={(content, loaded) => (
+              <Tooltip>
+                <TooltipTrigger tabIndex={-1}>
+                  <Button
+                    variant='ghost'
+                    size='icon'
+                    tabIndex={-1}
+                    disabled={!loaded || !content}
+                    onClick={() => handleSave(content)}
+                  >
+                    <Save />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {loaded && content ? '保存至歌单评论' : '请先获取分析'}
+                </TooltipContent>
+              </Tooltip>
+            )}
+          />
+        )}
       </div>
       <div className='my-2'>
         <Input

@@ -88,7 +88,7 @@ const Comment: FC<Props> = ({ type, id, infinite }) => {
             {block.comments.map((comment) => (
               <div className='p-3 border-b' key={comment.commentId}>
                 <div className='flex items-center'>
-                  <User user={comment.user} size='normal' />
+                  <User user={comment.user} />
                   <div className='text-secondary-foreground text-sm ml-auto'>
                     {comment.timeStr}
                   </div>

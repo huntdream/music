@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../ui/button';
 import { Check, Copy as CopyIcon } from 'lucide-react';
 import { toast } from 'sonner';
-import { clear } from 'console';
+import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip';
 
 interface CopyProps {
   content: string;
@@ -34,9 +34,19 @@ const Copy: React.FC<CopyProps> = ({ content }) => {
   };
 
   return (
-    <Button variant='ghost' size='icon' onClick={handleCopy}>
-      {copied ? <Check /> : <CopyIcon />}
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild tabIndex={-1}>
+        <Button
+          variant='ghost'
+          disabled={!content}
+          size='icon'
+          onClick={handleCopy}
+        >
+          {copied ? <Check /> : <CopyIcon />}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>{copied ? '已复制' : '复制到剪贴板'}</TooltipContent>
+    </Tooltip>
   );
 };
 

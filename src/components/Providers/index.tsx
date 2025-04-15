@@ -6,6 +6,7 @@ import PlayerProvider from '../Player/Provider';
 import AIProvider from '../AI/Provider';
 
 import fetcher from '../../utils/fetcher';
+import { TooltipProvider } from '../ui/tooltip';
 
 interface Props {
   children: ReactNode;
@@ -21,9 +22,11 @@ const Providers: React.FC<Props> = ({ children }) => {
         }}
       >
         <AppProvider>
-          <AIProvider>
-            <PlayerProvider>{children}</PlayerProvider>
-          </AIProvider>
+          <TooltipProvider delayDuration={200}>
+            <AIProvider>
+              <PlayerProvider>{children}</PlayerProvider>
+            </AIProvider>
+          </TooltipProvider>
         </AppProvider>
       </SWRConfig>
     </BrowserRouter>
