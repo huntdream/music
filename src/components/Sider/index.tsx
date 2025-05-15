@@ -13,12 +13,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '../ui/sidebar';
-import { House, Radius, Rss } from 'lucide-react';
+import { House, Radius, Rss, Scroll } from 'lucide-react';
 
 import clsx from 'clsx';
 import usePlayer from '../Player/usePlayer';
 import Playlist from './Playlist';
 import Footer from './Footer';
+import { ScrollArea } from '../ui/scroll-area';
 
 interface Props {}
 
@@ -74,9 +75,15 @@ const Sider: React.FC<Props> = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarHeader>
-      <SidebarContent className='px-2'>
-        <Playlist title='我的音乐' list={mylist} />
-        <Playlist title='我的收藏' list={subscribed} />
+      <SidebarContent className='px-2 overflow-hidden'>
+        <ScrollArea className='h-full'>
+          <div className='flex'>
+            <div className='truncate w-0 grow'>
+              <Playlist title='我的音乐' list={mylist} />
+              <Playlist title='我的收藏' list={subscribed} />
+            </div>
+          </div>
+        </ScrollArea>
       </SidebarContent>
       <Footer />
     </Sidebar>
