@@ -29,6 +29,7 @@ interface IPlayerContext {
   play: (song?: ISong) => void;
   pause: () => void;
   isShow: boolean;
+  clearQueue: () => void;
   replaceQueue: (newQueue: ISong[] | string | number) => void;
   appendQueue: (song: ISong | ISong[]) => void;
 }
@@ -196,6 +197,15 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
+  const clearQueue = () => {
+    setQueue([]);
+    setPlayingSong(undefined);
+    if (audioRef.current) {
+      audioRef.current.src = '';
+    }
+    setIsPlaying(false);
+  };
+
   const appendQueue = (song: ISong | ISong[]) => {
     const newSongs = Array.isArray(song) ? song : [song];
     let newQueue = queue.concat(filterQueue(newSongs));
@@ -216,6 +226,7 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
     prev,
     play,
     pause,
+    clearQueue,
     replaceQueue,
     appendQueue,
   };

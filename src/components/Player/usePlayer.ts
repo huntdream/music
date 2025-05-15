@@ -11,6 +11,7 @@ const usePlayer = () => {
     prev,
     pause,
     play,
+    clearQueue,
     replaceQueue,
     appendQueue,
     setPlayingSong,
@@ -28,6 +29,7 @@ const usePlayer = () => {
     pause,
     play,
     isShow,
+    clearQueue,
     replaceQueue,
     appendQueue,
   };

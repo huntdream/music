@@ -11,7 +11,7 @@ const usePlayerState = () => {
     }
   });
 
-  const [playingSong, setPlayingSong] = useState<ISong>(() => {
+  const [playingSong, setPlayingSong] = useState<ISong | undefined>(() => {
     const savedSong = localStorage.getItem('playingSong');
     try {
       return savedSong ? JSON.parse(savedSong) : undefined;

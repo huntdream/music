@@ -5,14 +5,19 @@ import Song from '../Song';
 import usePlayer from './usePlayer';
 import { ListMusic } from 'lucide-react';
 import IconButton from '../IconButton';
+import { Button } from '../ui/button';
 
 const List = FixedSizeList as ComponentType<FixedSizeListProps>;
 
 interface Props {}
 
 const Queue: React.FC<Props> = ({}) => {
-  const { queue } = usePlayer();
+  const { queue, clearQueue } = usePlayer();
   const [open, setOpen] = useState(false);
+
+  const handleClearQueue = () => {
+    clearQueue();
+  };
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
@@ -31,8 +36,15 @@ const Queue: React.FC<Props> = ({}) => {
           className='player-popover mx-4 bg-background z-50 rounded-md shadow-around outline-hidden'
         >
           <div className=''>
-            <div className='px-4 py-2 border-b'>
+            <div className='px-4 py-2 border-b flex items-center justify-between'>
               <h2 className='text-primary font-bold text-lg'>播放列表</h2>
+              <Button
+                variant={'ghost'}
+                className='outline-hidden'
+                onClick={handleClearQueue}
+              >
+                清空
+              </Button>
             </div>
             <div className='py-2'>
               <List
