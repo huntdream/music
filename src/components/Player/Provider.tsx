@@ -7,6 +7,7 @@ import React, {
   useEffect,
   useRef,
   useState,
+  useCallback,
 } from 'react';
 import { ISong } from '../../types/song';
 import fetcher from '../../utils/fetcher';
@@ -46,39 +47,66 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const { pathname } = useLocation();
 
-  useEffect(() => {
-    if ('mediaSession' in navigator) {
-      if (playingSong) {
-        const metadata = new MediaMetadata({
-          title: playingSong?.name,
-          artist: playingSong?.ar.map((it) => it.name).join('/'),
-          album: playingSong?.al.name,
-          artwork: [
-            {
-              src: playingSong?.al.picUrl || '',
-            },
-          ],
-        });
+  const handlePlayingSongChange = async (song: ISong) => {
+    const src = await getSongUrl(song.id);
 
-        navigator.mediaSession.metadata = metadata;
+    if (src && audioRef.current) {
+      setPlayingSong(song);
 
-        navigator.mediaSession.setActionHandler('play', () => {
-          play();
-        });
-
-        navigator.mediaSession.setActionHandler('pause', () => {
-          pause();
-        });
-
-        navigator.mediaSession.setActionHandler('previoustrack', () => {
-          prev();
-        });
-        navigator.mediaSession.setActionHandler('nexttrack', () => {
-          next();
-        });
-      }
+      audioRef.current.src = src;
     }
-  }, [playingSong]);
+
+    return src;
+  };
+
+  const pause = useCallback(() => {
+    return audioRef.current?.pause();
+  }, []);
+
+  const play = useCallback(
+    async (song?: ISong) => {
+      if (song && song.id === playingSong?.id && isPlaying) {
+        return pause();
+      }
+
+      let songToPlay = song || queue[0];
+
+      if (songToPlay?.id !== playingSong?.id || !audioRef.current?.src) {
+        const src = await handlePlayingSongChange(songToPlay);
+
+        if (!src) {
+          return;
+        }
+      }
+
+      return audioRef.current?.play();
+    },
+    [playingSong, isPlaying, queue]
+  );
+
+  const next = useCallback(() => {
+    const index = queue.findIndex((item) => item.id === playingSong?.id);
+
+    let nextIndex = index + 1;
+
+    if (index >= queue.length - 1) {
+      nextIndex = 0;
+    }
+
+    play(queue[nextIndex]);
+  }, [queue, playingSong, play]);
+
+  const prev = useCallback(() => {
+    const index = queue.findIndex((item) => item.id === playingSong?.id);
+
+    let prevIndex = index - 1;
+
+    if (index === 0) {
+      prevIndex = queue.length - 1;
+    }
+
+    play(queue[prevIndex]);
+  }, [queue, playingSong, play]);
 
   useEffect(() => {
     const handlePlay = () => {
@@ -101,76 +129,56 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
       next();
     };
 
-    audioRef.current?.addEventListener('play', handlePlay);
-    audioRef.current?.addEventListener('pause', handlePause);
-    audioRef.current?.addEventListener('error', handleError);
-    audioRef.current?.addEventListener('ended', handleEnded);
+    const audioEl = audioRef.current;
+
+    if (audioEl) {
+      audioEl.addEventListener('play', handlePlay);
+      audioEl.addEventListener('pause', handlePause);
+      audioEl.addEventListener('error', handleError);
+      audioEl.addEventListener('ended', handleEnded);
+    }
 
     return () => {
-      audioRef.current?.removeEventListener('play', handlePlay);
-      audioRef.current?.removeEventListener('pause', handlePause);
-      audioRef.current?.removeEventListener('error', handleError);
-      audioRef.current?.removeEventListener('ended', handleEnded);
-    };
-  }, [audioRef.current, setIsPlaying, queue, playingSong]);
-
-  const handlePlayingSongChange = async (song: ISong) => {
-    const src = await getSongUrl(song.id);
-
-    if (src && audioRef.current) {
-      setPlayingSong(song);
-
-      audioRef.current.src = src;
-    }
-
-    return src;
-  };
-
-  const pause = () => {
-    return audioRef.current?.pause();
-  };
-
-  const play = async (song?: ISong) => {
-    if (song && song.id === playingSong?.id && isPlaying) {
-      return pause();
-    }
-
-    let songToPlay = song || queue[0];
-
-    if (songToPlay?.id !== playingSong?.id || !audioRef.current?.src) {
-      const src = await handlePlayingSongChange(songToPlay);
-
-      if (!src) {
-        return;
+      if (audioEl) {
+        audioEl.removeEventListener('play', handlePlay);
+        audioEl.removeEventListener('pause', handlePause);
+        audioEl.removeEventListener('error', handleError);
+        audioEl.removeEventListener('ended', handleEnded);
       }
+    };
+  }, [audioRef, next]);
+
+  useEffect(() => {
+    if ('mediaSession' in navigator && playingSong) {
+      const metadata = new MediaMetadata({
+        title: playingSong?.name,
+        artist: playingSong?.ar.map((it) => it.name).join('/'),
+        album: playingSong?.al.name,
+        artwork: [
+          {
+            src: playingSong?.al.picUrl || '',
+          },
+        ],
+      });
+
+      navigator.mediaSession.metadata = metadata;
+
+      navigator.mediaSession.setActionHandler('play', () => {
+        play();
+      });
+
+      navigator.mediaSession.setActionHandler('pause', () => {
+        pause();
+      });
+
+      navigator.mediaSession.setActionHandler('previoustrack', () => {
+        prev();
+      });
+      navigator.mediaSession.setActionHandler('nexttrack', () => {
+        next();
+      });
     }
-
-    return audioRef.current?.play();
-  };
-
-  const next = () => {
-    const index = queue.findIndex((item) => item.id === playingSong?.id);
-
-    let nextIndex = index + 1;
-
-    if (index >= queue.length - 1) {
-      nextIndex = 0;
-    }
-
-    play(queue[nextIndex]);
-  };
-
-  const prev = () => {
-    const index = queue.findIndex((item) => item.id === playingSong?.id);
-
-    let prevIndex = index - 1;
-
-    if (index === 0) {
-      prevIndex = queue.length - 1;
-    }
-
-    play(queue[prevIndex]);
-  };
+  }, [playingSong, play, pause, next, prev]);
 
   const filterQueue = (newQueue: ISong[]) =>
     newQueue.filter((s) => !s.noCopyrightRcmd);
@@ -189,8 +197,8 @@ const PlayerProvider: React.FC<Props> = ({ children }) => {
   };
 
   const appendQueue = (song: ISong | ISong[]) => {
-    let newQueue = queue.concat(filterQueue(Array.prototype.concat(song)));
-
+    const newSongs = Array.isArray(song) ? song : [song];
+    let newQueue = queue.concat(filterQueue(newSongs));
     setQueue(uniqBy(newQueue, 'id'));
   };
 
