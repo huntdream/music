@@ -43,6 +43,14 @@ function App() {
     query.addEventListener('change', setupThemeColor);
   }, []);
 
+  useEffect(() => {
+    if (location.state?.backgroundLocation) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [location.state]);
+
   return (
     <ThemeProvider>
       <Routes location={state?.backgroundLocation || location}>
