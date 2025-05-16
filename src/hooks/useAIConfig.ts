@@ -1,5 +1,5 @@
 import { AIConfigContext } from '@/components/AI/Provider';
-import { useContext } from 'react';
+import { use } from 'react';
 
 export interface AIConfig {
   baseURL: string;
@@ -8,7 +8,7 @@ export interface AIConfig {
 }
 
 const useAIConfig = () => {
-  const context = useContext(AIConfigContext);
+  const context = use(AIConfigContext);
 
   if (!context) {
     throw new Error('useAIConfig must be used within an AIProvider');

@@ -1,4 +1,4 @@
-import { FC, useContext, MouseEvent } from 'react';
+import { FC, use, MouseEvent } from 'react';
 import { LyricIcon } from '../../icons/Audio';
 import usePlayer from './usePlayer';
 import { AppContext } from '../../context/App/App';
@@ -13,7 +13,7 @@ interface Props {}
 
 const Actions: FC<Props> = () => {
   const { playingSong } = usePlayer();
-  const { isDesktop } = useContext(AppContext);
+  const { isDesktop } = use(AppContext);
   const navigateLyric = useNavigateLyric();
   const navigate = useNavigate();
   const { pathname } = useLocation();

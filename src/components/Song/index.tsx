@@ -1,4 +1,4 @@
-import React, { CSSProperties, useContext, useMemo } from 'react';
+import React, { CSSProperties, use, useMemo } from 'react';
 import clsx from 'clsx';
 import { toast } from 'sonner';
 import { ISong } from '../../types/song';
@@ -35,7 +35,7 @@ const Song: React.FC<Props> = ({
   onPlay,
 }) => {
   const { play, pause, appendQueue, playingSong, isPlaying } = usePlayer();
-  const { isDesktop, likeList } = useContext(AppContext);
+  const { isDesktop, likeList } = use(AppContext);
   const { name, ar, al, dt, id, noCopyrightRcmd } = song;
   const isCurrentSong = playingSong?.id === song.id;
   const isSongPlaying = isPlaying && isCurrentSong;

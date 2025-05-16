@@ -1,4 +1,4 @@
-import React, { MouseEvent, useContext } from 'react';
+import React, { MouseEvent, use } from 'react';
 import clsx from 'clsx';
 import Image from '../Image';
 import { AppContext } from '../../context/App/App';
@@ -13,8 +13,8 @@ import useNavigatePlaying from '@/hooks/useNavigatePlaying';
 interface Props {}
 
 const Player: React.FC<Props> = () => {
-  const { playingSong, isShow, audioRef } = useContext(PlayerContext);
-  const { isDesktop } = useContext(AppContext);
+  const { playingSong, isShow, audioRef } = use(PlayerContext);
+  const { isDesktop } = use(AppContext);
   const navigateLyric = useNavigateLyric();
   const navigatePlaying = useNavigatePlaying();
 

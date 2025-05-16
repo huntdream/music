@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { use } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { usePlaylists } from '../../fetchers/playlist';
 import { AppContext } from '../../context/App/App';
@@ -24,7 +24,7 @@ import { ScrollArea } from '../ui/scroll-area';
 interface Props {}
 
 const Sider: React.FC<Props> = () => {
-  const { user } = useContext(AppContext);
+  const { user } = use(AppContext);
   const { pathname } = useLocation();
   const [mylist = [], subscribed = []] = usePlaylists(user?.userId);
   const { isShow } = usePlayer();

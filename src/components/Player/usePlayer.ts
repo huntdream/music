@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { use } from 'react';
 import { PlayerContext } from './Provider';
 
 const usePlayer = () => {
@@ -16,7 +16,7 @@ const usePlayer = () => {
     appendQueue,
     setPlayingSong,
     isShow,
-  } = useContext(PlayerContext);
+  } = use(PlayerContext);
 
   return {
     queue,

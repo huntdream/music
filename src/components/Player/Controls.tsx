@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useContext } from 'react';
+import { FC, MouseEvent, use } from 'react';
 import clsx from 'clsx';
 import usePlayer from './usePlayer';
 import { AppContext } from '../../context/App/App';
@@ -11,7 +11,7 @@ interface Props {
 
 const Controls: FC<Props> = ({ isMini }) => {
   const { prev, next, pause, play, isPlaying, playingSong } = usePlayer();
-  const { isDesktop } = useContext(AppContext);
+  const { isDesktop } = use(AppContext);
 
   const handlePlay = (e: MouseEvent) => {
     e.stopPropagation();

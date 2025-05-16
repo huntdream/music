@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { use } from 'react';
 import { Outlet } from 'react-router-dom';
 import Player from '../../components/Player';
 import NavBar from '../../components/NavBar';
@@ -12,7 +12,7 @@ import clsx from 'clsx';
 interface Props {}
 
 const Main: React.FC<Props> = () => {
-  const { isDesktop } = useContext(AppContext);
+  const { isDesktop } = use(AppContext);
   const { isShow } = usePlayer();
 
   return (

@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { AppContext } from '@/context/App/App';
 import { ISong } from '@/types/song';
 import { ArrowDownFromLine } from 'lucide-react';
-import React, { useContext } from 'react';
+import React, { use } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {}
@@ -17,7 +17,7 @@ interface Props {}
 const Playing: React.FC<Props> = () => {
   const navigate = useNavigate();
   const { playingSong } = usePlayer();
-  const { isDesktop } = useContext(AppContext);
+  const { isDesktop } = use(AppContext);
   if (!playingSong) return null;
 
   const { name, al } = playingSong;
