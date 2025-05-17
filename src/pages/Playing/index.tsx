@@ -37,7 +37,7 @@ const Playing: React.FC<Props> = () => {
         <ArrowDownFromLine />
       </Button>
       <div className='flex h-full'>
-        <div className='h-full flex-1 flex flex-col items-center pt-16 mx-auto'>
+        <div className='h-full flex-1 flex flex-col items-center justify-center pt-16 mx-auto'>
           <div className='w-72 h-72 overflow-hidden flex items-center justify-center'>
             <Image
               src={`${al.picUrl}?param=400y400`}
