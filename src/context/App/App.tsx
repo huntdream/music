@@ -28,18 +28,22 @@ const AppProvider: React.FC<Props> = ({ children }) => {
   const likes = useLikeList(user?.userId);
 
   useLayoutEffect(() => {
-    const userString = localStorage.getItem('user');
+    try {
+      const userString = localStorage.getItem('user');
 
-    if (userString) {
-      const userData = JSON.parse(userString);
+      if (userString) {
+        const userData = JSON.parse(userString);
 
-      setUser(userData);
+        setUser(userData);
+      }
+    } catch (error) {
+      console.error('Error parsing user data from localStorage:', error);
     }
   }, []);
 
   const handleSetUser = (user?: IUser) => {
     setUser(user);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user || ''));
   };
 
   const context: IAppContext = {
