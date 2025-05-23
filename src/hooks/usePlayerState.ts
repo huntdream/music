@@ -25,7 +25,11 @@ const usePlayerState = () => {
   }, [queue]);
 
   useEffect(() => {
-    localStorage.setItem('playingSong', JSON.stringify(playingSong));
+    if (playingSong) {
+      localStorage.setItem('playingSong', JSON.stringify(playingSong));
+    } else {
+      localStorage.removeItem('playingSong');
+    }
   }, [playingSong]);
 
   return { queue, setQueue, playingSong, setPlayingSong };
