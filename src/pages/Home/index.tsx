@@ -1,37 +1,28 @@
-import React, { useContext } from 'react';
-import { Outlet } from 'react-router-dom';
-import Player from '../../components/Player';
-import NavBar from '../../components/NavBar';
-import { AppContext } from '../../context/App/App';
-import Sider from '../../components/Sider';
-import Title from '../../components/Title';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import Header from '../../components/Header';
+import React from 'react';
+import DailySongs from './DailySongs';
+import { useUser } from '../../context/App';
+import Auth from '@/components/Auth';
+import DailyList from './DailyList';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
-interface HomeProps {
-  className?: string;
-}
+interface Props {}
 
-const Home: React.FC<HomeProps> = ({ className }) => {
-  const { isDesktop } = useContext(AppContext);
+const Home: React.FC<Props> = () => {
+  const [user] = useUser();
 
   return (
-    <SidebarProvider>
-      <div className='flex min-h-screen flex-col'>
-        <Title />
-        <div className='flex flex-1 overflow-hidden'>
-          {isDesktop && <Sider />}
-          <main className='flex-1 min-w-0 overflow-auto'>
-            <Header />
-            <div className='max-w-full'>
-              <Outlet />
-            </div>
-          </main>
-        </div>
-        <Player />
-        {!isDesktop && <NavBar />}
-      </div>
-    </SidebarProvider>
+    <div className='px-2 h-full'>
+      {user?.userId && (
+        <ScrollArea className='pr-1'>
+          <div className='flex w-max space-x-2 p-4'>
+            <DailySongs />
+            <DailyList />
+          </div>
+          <ScrollBar orientation='horizontal' />
+        </ScrollArea>
+      )}
+      <Auth page />
+    </div>
   );
 };
 

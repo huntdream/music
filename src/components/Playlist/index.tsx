@@ -56,8 +56,8 @@ const Playlist: React.FC<Props> = () => {
   }, [playlist]);
 
   useEffect(() => {
-    if (ref.current) {
-      ref.current.scrollIntoView({ behavior: 'instant', block: 'start' });
+    if (id) {
+      document.documentElement.scrollTop = 0;
     }
   }, [id]);
 
