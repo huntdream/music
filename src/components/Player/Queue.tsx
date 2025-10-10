@@ -59,7 +59,7 @@ const Queue: React.FC<Props> = ({}) => {
                   queue: ISong[];
                 }>) => {
                   return (
-                    <div style={style} key={queue[index].id} className='px-4'>
+                    <div style={style} key={queue[index].id}>
                       <Song song={queue[index]} />
                     </div>
                   );
