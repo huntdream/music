@@ -50,6 +50,7 @@ const Queue: React.FC<Props> = ({}) => {
                 rowCount={queue.length}
                 rowHeight={64}
                 rowProps={{ queue }}
+                style={{ overscrollBehavior: "contain" }}
                 rowComponent={({
                   index,
                   queue,
