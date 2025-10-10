@@ -45,7 +45,7 @@ const Queue: React.FC<Props> = ({}) => {
                 清空
               </Button>
             </div>
-            <div className='py-2 w-80 h-[500px]'>
+            <div className='p-2 pr-0 w-80 h-[500px]'>
               <List
                 rowCount={queue.length}
                 rowHeight={64}
